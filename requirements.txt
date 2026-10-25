@@ -1,0 +1,13 @@
+numpy>=2.2,<3
+pandas>=2.2,<3
+fastparquet>=2024.11,<2027
+matplotlib>=3.8,<4
+scipy>=1.13,<2
+scikit-learn>=1.5,<2
+lightgbm>=4.3,<5
+ortools>=9.10,<10
+Django==5.2.18
+djangorestframework==3.18.3
+djangorestframework-simplejwt==5.5.1
+PyYAML>=6,<7
+pytest>=8,<10

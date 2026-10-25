@@ -1,0 +1,59 @@
+business:
+  priorities:
+    - critical_part_availability
+    - emergency_procurement
+    - excess_and_obsolete_inventory
+    - schedule_stability
+    - supply_constraints
+    - lead_time_forecast_accuracy
+  status: assumed_pending_business_confirmation
+
+forecast:
+  asymmetric_bias:
+    under_weight: 2.0
+    status: configurable_assumption
+  gates:
+    baseline_beating:
+      seasonal_naive_required: true
+      historical_average_required: true
+    overall_absolute_bias_max_ratio: 0.10
+    critical_underforecast_bias_min_ratio: -0.10
+    critical_p95_coverage_target: 0.95
+    critical_p95_coverage_tolerance_ratio: 0.05
+    enforce_only_baseline_beating_by_default: true
+
+scheduling:
+  service_target_source: data/02_scheduling_inputs.csv
+  costs:
+    emergency_procurement:
+      unit_cost_multiplier: 1.5
+      sensitivity_range: [1.25, 2.0]
+      basis: proxy
+      status: provisional_editable
+    stockout_penalty:
+      criticality_multipliers:
+        High: 10.0
+        Medium: 5.0
+        Low: 2.0
+      relative_sensitivity: 0.50
+      basis: proxy
+      status: provisional_editable
+    carrying_cost:
+      source_column: carrying_cost_rate
+      basis: dataset_rate_when_present
+      annual_fallback_rate: 0.25
+      fallback_condition: only_when_source_rate_is_absent
+      status: provisional_editable
+    downtime:
+      basis: not_measurable
+  sensitivity:
+    report_winner_change_across_cost_ranges: true
+
+assistant:
+  languages:
+    - English
+    - Hindi
+    - Hinglish
+    - Marathi
+  optional_languages:
+    - Tamil

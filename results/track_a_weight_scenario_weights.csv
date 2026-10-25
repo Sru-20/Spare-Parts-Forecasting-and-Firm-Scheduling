@@ -1,0 +1,9 @@
+component,frozen_baseline_weight_pct,proposed_weight_pct,change_percentage_points
+wape,35.0,20.0,-15.0
+absolute_bias,15.0,15.0,0.0
+a_class_critical_parts,15.0,20.0,5.0
+intermittent_lumpy,10.0,20.0,10.0
+calibration,10.0,8.0,-2.0
+stability_across_origins,5.0,7.0,2.0
+runtime,5.0,3.0,-2.0
+explainability,5.0,7.0,2.0

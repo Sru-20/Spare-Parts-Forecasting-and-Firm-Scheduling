@@ -1,0 +1,43 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+.Python
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+htmlcov/
+.coverage
+
+# Secrets and local config (never commit)
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+secrets/
+
+# Django
+db.sqlite3
+*.sqlite3
+staticfiles/
+media/
+*.log
+
+# Frontend
+node_modules/
+frontend/dist/
+frontend/build/
+
+# Regenerable data artifacts (large; rebuilt by the phase commands)
+artifacts/*.parquet
+artifacts/models/
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini

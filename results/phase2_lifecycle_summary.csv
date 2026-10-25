@@ -1,0 +1,5 @@
+lifecycle_status,demand_units,mean_weekly_demand,part_count
+Active,1125710,21.77430898083135,117
+New,1122,2.921875,11
+Obsolete,3898,4.204962243797195,2
+Phase-out,165507,12.411473565804274,29

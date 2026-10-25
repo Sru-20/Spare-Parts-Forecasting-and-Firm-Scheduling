@@ -1,0 +1,62 @@
+feature,formula,availability,leakage_control
+abc_class,optional covariate passed by caller,conditional; not passed by default,caller must affirm origin-time availability; no automatic source passthrough
+avg_vehicle_age_years,optional covariate passed by caller,conditional; not passed by default,caller must affirm origin-time availability; no automatic source passthrough
+campaign_flag,calendar/planned value for target week,known in advance only if published at forecast origin,unknown market events and post-origin revisions are excluded
+campaign_intensity,calendar/planned value for target week,known in advance only if published at forecast origin,unknown market events and post-origin revisions are excluded
+component,verified static source/catalogue value or origin-fitted segment,static/origin-derived; conditional attributes require explicit origin approval,generator answer keys are not accepted
+criticality,verified static source/catalogue value or origin-fitted segment,static/origin-derived; conditional attributes require explicit origin approval,generator answer keys are not accepted
+dealer_order_cycle_flag,calendar/planned value for target week,known in advance only if published at forecast origin,unknown market events and post-origin revisions are excluded
+demand_lag_1,demand_qty(t-1),prior observed/forecast demand only,grouped shift; values strictly precede target week
+demand_lag_13,demand_qty(t-13),prior observed/forecast demand only,grouped shift; values strictly precede target week
+demand_lag_4,demand_qty(t-4),prior observed/forecast demand only,grouped shift; values strictly precede target week
+demand_lag_52,demand_qty(t-52),prior observed/forecast demand only,grouped shift; values strictly precede target week
+demand_month_cos,cos(2π × month(t) / 12),past labels or target-date calendar,current target is not used
+demand_month_sin,sin(2π × month(t) / 12),past labels or target-date calendar,current target is not used
+demand_rolling_13_mean,"mean of prior 13 rows, shifted one week; partial windows allowed",prior observed/forecast demand only,rolling calculation runs on demand shifted by one
+demand_rolling_13_median,"median of prior 13 rows, shifted one week; partial windows allowed",prior observed/forecast demand only,rolling calculation runs on demand shifted by one
+demand_rolling_13_std,"std of prior 13 rows, shifted one week; partial windows allowed",prior observed/forecast demand only,rolling calculation runs on demand shifted by one
+demand_rolling_4_mean,"mean of prior 4 rows, shifted one week; partial windows allowed",prior observed/forecast demand only,rolling calculation runs on demand shifted by one
+demand_rolling_4_median,"median of prior 4 rows, shifted one week; partial windows allowed",prior observed/forecast demand only,rolling calculation runs on demand shifted by one
+demand_rolling_4_std,"std of prior 4 rows, shifted one week; partial windows allowed",prior observed/forecast demand only,rolling calculation runs on demand shifted by one
+demand_rolling_52_mean,"mean of prior 52 rows, shifted one week; partial windows allowed",prior observed/forecast demand only,rolling calculation runs on demand shifted by one
+demand_rolling_52_median,"median of prior 52 rows, shifted one week; partial windows allowed",prior observed/forecast demand only,rolling calculation runs on demand shifted by one
+demand_rolling_52_std,"std of prior 52 rows, shifted one week; partial windows allowed",prior observed/forecast demand only,rolling calculation runs on demand shifted by one
+demand_same_period_last_year,demand_qty(t-52),prior observed/forecast demand only,same as 52-week lag
+demand_zero_run_length,consecutive observed zero-demand weeks before t,past labels or target-date calendar,current target is not used
+festival_flag,calendar/planned value for target week,known in advance only if published at forecast origin,unknown market events and post-origin revisions are excluded
+festival_intensity,calendar/planned value for target week,known in advance only if published at forecast origin,unknown market events and post-origin revisions are excluded
+festival_name,calendar/planned value for target week,known in advance only if published at forecast origin,unknown market events and post-origin revisions are excluded
+fiscal_year,calendar/planned value for target week,known in advance only if published at forecast origin,unknown market events and post-origin revisions are excluded
+fiscal_year_end_flag,calendar/planned value for target week,known in advance only if published at forecast origin,unknown market events and post-origin revisions are excluded
+fulfilment_mode,verified static source/catalogue value or origin-fitted segment,static/origin-derived; conditional attributes require explicit origin approval,generator answer keys are not accepted
+is_imported,verified static source/catalogue value or origin-fitted segment,static/origin-derived; conditional attributes require explicit origin approval,generator answer keys are not accepted
+lifecycle_status,optional covariate passed by caller,conditional; not passed by default,caller must affirm origin-time availability; no automatic source passthrough
+make_or_buy,verified static source/catalogue value or origin-fitted segment,static/origin-derived; conditional attributes require explicit origin approval,generator answer keys are not accepted
+market_condition_index,optional covariate passed by caller,conditional; not passed by default,caller must affirm origin-time availability; no automatic source passthrough
+market_event_flag,optional covariate passed by caller,conditional; not passed by default,caller must affirm origin-time availability; no automatic source passthrough
+monsoon_flag,calendar/planned value for target week,known in advance only if published at forecast origin,unknown market events and post-origin revisions are excluded
+month,calendar/planned value for target week,known in advance only if published at forecast origin,unknown market events and post-origin revisions are excluded
+part_category,verified static source/catalogue value or origin-fitted segment,static/origin-derived; conditional attributes require explicit origin approval,generator answer keys are not accepted
+part_id,verified static source/catalogue value or origin-fitted segment,static/origin-derived; conditional attributes require explicit origin approval,generator answer keys are not accepted
+plant_shutdown_flag,optional covariate passed by caller,conditional; not passed by default,caller must affirm origin-time availability; no automatic source passthrough
+plant_working_days,optional covariate passed by caller,conditional; not passed by default,caller must affirm origin-time availability; no automatic source passthrough
+promotion_flag,calendar/planned value for target week,known in advance only if published at forecast origin,unknown market events and post-origin revisions are excluded
+promotion_intensity,calendar/planned value for target week,known in advance only if published at forecast origin,unknown market events and post-origin revisions are excluded
+public_holiday_flag,calendar/planned value for target week,known in advance only if published at forecast origin,unknown market events and post-origin revisions are excluded
+quarter_fy,calendar/planned value for target week,known in advance only if published at forecast origin,unknown market events and post-origin revisions are excluded
+region,verified static source/catalogue value or origin-fitted segment,static/origin-derived; conditional attributes require explicit origin approval,generator answer keys are not accepted
+substitution_group,optional covariate passed by caller,conditional; not passed by default,caller must affirm origin-time availability; no automatic source passthrough
+summer_peak_flag,calendar/planned value for target week,known in advance only if published at forecast origin,unknown market events and post-origin revisions are excluded
+unit_cost,verified static source/catalogue value or origin-fitted segment,static/origin-derived; conditional attributes require explicit origin approval,generator answer keys are not accepted
+vehicle_model,verified static source/catalogue value or origin-fitted segment,static/origin-derived; conditional attributes require explicit origin approval,generator answer keys are not accepted
+vehicle_parc,optional covariate passed by caller,conditional; not passed by default,caller must affirm origin-time availability; no automatic source passthrough
+vehicle_system,verified static source/catalogue value or origin-fitted segment,static/origin-derived; conditional attributes require explicit origin approval,generator answer keys are not accepted
+vehicle_type,verified static source/catalogue value or origin-fitted segment,static/origin-derived; conditional attributes require explicit origin approval,generator answer keys are not accepted
+week_of_month,calendar/planned value for target week,known in advance only if published at forecast origin,unknown market events and post-origin revisions are excluded
+week_of_year,calendar/planned value for target week,known in advance only if published at forecast origin,unknown market events and post-origin revisions are excluded
+weeks_since_last_demand,elapsed weeks since last observed positive demand before t,past labels or target-date calendar,current target is not used
+weeks_since_last_festival,calendar/planned value for target week,known in advance only if published at forecast origin,unknown market events and post-origin revisions are excluded
+weeks_since_last_shutdown,optional covariate passed by caller,conditional; not passed by default,caller must affirm origin-time availability; no automatic source passthrough
+weeks_to_next_festival,calendar/planned value for target week,known in advance only if published at forecast origin,unknown market events and post-origin revisions are excluded
+xyz_class,optional covariate passed by caller,conditional; not passed by default,caller must affirm origin-time availability; no automatic source passthrough
+year,calendar/planned value for target week,known in advance only if published at forecast origin,unknown market events and post-origin revisions are excluded

@@ -1,0 +1,302 @@
+project:
+  name: spare-parts-demand-scheduling
+  data_kind: synthetic
+  random_seed: 42
+  claim_scope: method validated on simulated data
+
+paths:
+  demand_csv: data/01_demand_forecasting.csv
+  scheduling_csv: data/02_scheduling_inputs.csv
+  catalogue_csv: data/03_spare_parts_catalogue.csv
+  artifacts_dir: artifacts
+  results_dir: results
+  reports_dir: reports
+
+application:
+  frontend: react_typescript
+  backend: django_drf
+  database: sqlite_development
+  backend_count: 1
+  ml_execution: imported_python_packages_in_process
+  ml_package_root: src
+  separate_ml_http_service: false
+  background_jobs: django_management_commands
+  task_queue: false
+  api_authentication: jwt
+  authorization: django_groups_and_drf_permissions
+
+forecast:
+  horizon_weeks: 14
+  training_target_column: demand_qty
+  training_target_decision_phase: 1
+  scoring_target_column: demand_qty
+  exclude_missing_week_from_fit_and_score: true
+  genuine_zero_demand_is_observed: true
+  future_rows_are_prediction_only: true
+  series_keys:
+    - part_id
+    - region
+  analog_group_keys:
+    - part_category
+    - vehicle_type
+  split_dates:
+    warmup_end: "2024-01-01"
+    train_validation_end: "2026-03-23"
+    final_test_start: "2026-03-30"
+    final_test_end: "2026-09-21"
+    future_start: "2026-09-28"
+    future_end: "2026-12-28"
+  final_test_open_phase: 7
+  forbidden_feature_columns:
+    - out_consumption_qty
+    - out_backorder_qty
+    - out_lost_sales_qty
+    - out_stockout_flag
+    - out_spike_flag
+    - out_unusual_demand_flag
+    - intended_sbc_class
+    - demand_driver_tags
+  leakage_sensitive_feature_columns:
+    - lifecycle_pattern
+    - demand_class_trainval
+    - adi_trainval
+    - cv2_trainval
+    - abc_class
+    - part_type
+    - demand_lag52
+  segmentation:
+    minimum_observed_weeks: 26
+    minimum_positive_weeks_for_cv2: 3
+    adi_threshold: 1.32
+    cv2_threshold: 0.49
+    sparse_series_cv2_convention: 1.0
+    sparse_series_classification: generator_compatible_smooth_or_lumpy
+    abc_method: cumulative_annualized_usage_value
+    abc_thresholds:
+      A_cumulative_value_share: 0.80
+      B_cumulative_value_share: 0.95
+    xyz_method: coefficient_of_variation_on_part_weekly_demand_aggregated_across_regions
+    xyz_thresholds:
+      X_max_cv: 0.50
+      Y_max_cv: 1.00
+  feature_engineering:
+    target_lags_weeks: [1, 4, 13, 52]
+    rolling_windows_weeks: [4, 13, 52]
+    rolling_statistics: [mean, median, std]
+    rolling_uses_prior_only: true
+    multi_step_strategy: recursive_one_step
+    optional_covariates_require_origin_confirmation: true
+    known_in_advance:
+      - festival_calendar
+      - plant_calendar
+      - plant_shutdowns
+      - published_promotions
+      - published_campaigns
+    unavailable_without_origin_evidence:
+      - unplanned_market_events
+      - realized_future_market_index
+      - vehicle_parc
+      - average_vehicle_age
+      - substitution_groups
+  backtest:
+    horizon_weeks: 14
+    seed: 42
+    origins:
+      - "2024-07-01"
+      - "2024-10-07"
+      - "2025-01-13"
+      - "2025-04-21"
+      - "2025-07-28"
+      - "2025-11-03"
+    tuning_origin_count: 2
+    non_overlapping_horizons: true
+    training_labels: train_val_only
+    warmup_use: lag_and_history_initialization_only
+    lead_time_mapping: sob_weighted_mean_supplier_lead_time_days
+    lead_time_rounding: ceil_to_weeks_minimum_one
+    over_horizon_lead_time_extension: last_period_average
+    over_horizon_extension_label_required: true
+    over_horizon_extension_period_weeks: 4
+    unavailable_future_covariates:
+      - unplanned_market_events
+      - market_condition_index
+      - vehicle_parc
+      - average_vehicle_age
+      - substitution_groups
+    sbc_router:
+      Smooth: lightgbm_tweedie
+      Erratic: lightgbm_tweedie
+      Intermittent: sba
+      Lumpy: sba
+      Unclassified: analogue_category_vehicle_fallback
+    lightgbm_search:
+      configurations_per_objective: 3
+      num_leaves: [15, 31, 63]
+      learning_rate: [0.03, 0.05, 0.1]
+      n_estimators: [100, 200, 300]
+      min_child_samples: [20, 50]
+      feature_fraction: [0.8, 1.0]
+    quantiles: [0.50, 0.90, 0.95, 0.99]
+
+service_level_targets:
+  High: 0.99
+  Medium: 0.95
+  Low: 0.90
+  source: scheduling_snapshot
+  validation_threshold_absolute_difference: 0
+
+scoring:
+  normalization: average_rank_within_eligible_candidates
+  missing_metric_score: 0
+  tie_break_order:
+    - simplicity
+    - explainability
+    - runtime
+  weight_sensitivity_points: 10
+  tracks:
+    forecasting:
+      lead_time_wape_share: 0.70
+      weekly_wape_share: 0.30
+      lead_time_calibration_share: 0.70
+      weekly_calibration_share: 0.30
+      weight_total: 1.0
+      weights:
+        overall_error: 0.20
+        critical_a_class_error: 0.20
+        intermittent_lumpy: 0.15
+        asymmetric_absolute_bias: 0.15
+        calibration: 0.15
+        stability_across_origins: 0.10
+        runtime_and_explainability: 0.05
+      component_scoring:
+        critical_error: lead_time_wape_plus_asymmetric_bias
+        intermittent_lumpy:
+          lead_time_wape_share: 0.50
+          mase_share: 0.50
+        asymmetric_bias:
+          overall_levels:
+            lead_time_share: 0.70
+            weekly_share: 0.30
+          critical_underforecast_cutoff: -0.10
+        runtime_and_explainability:
+          runtime_share: 0.50
+          explainability_share: 0.50
+      gates:
+        enforce:
+          baseline_beating: true
+          overall_bias: false
+          critical_underforecast_bias: false
+          critical_p95_coverage: false
+        baseline_candidates:
+          - seasonal_naive_52::baseline_default
+          - historical_average::origin_mean
+        overall_absolute_bias_max: 0.10
+        critical_underforecast_bias_min: -0.10
+        critical_p95_coverage_target: 0.95
+        critical_p95_coverage_tolerance: 0.05
+        bootstrap_replicates: 2000
+        bootstrap_confidence_level: 0.95
+        bootstrap_unit: part_region_and_origin
+        random_seed: 42
+      sensitivity:
+        perturbation_points: 10
+        champion_minimum_win_share: 0.75
+        composite_minimum_origin_wins: 3
+        report_bias_overlap_removed_scenario: true
+    scheduling:
+      weights:
+        critical_part_availability: 0.25
+        overall_fill_rate_and_stockout: 0.15
+        emergency_procurement: 0.15
+        excess_inventory_and_carrying_cost: 0.20
+        schedule_adherence_and_stability: 0.15
+        inventory_turnover: 0.10
+      weight_total: 1.0
+      hard_constraint_violations_allowed: 0
+    assistant:
+      weights:
+        intent_accuracy: 0.25
+        entity_accuracy: 0.25
+        rule_validation_correctness: 0.20
+        multilingual_consistency: 0.15
+        audit_completeness: 0.10
+        latency_cost: 0.05
+
+phase4:
+  finalist_count: 5
+  calibration_quantiles: [0.90, 0.95, 0.99]
+  statistical_comparisons:
+    confidence_level: 0.95
+    bootstrap_replicates: 2000
+    bootstrap_unit: part_region
+    dm_loss: weekly_wape_by_target_week
+    dm_horizon_weeks: 14
+    dm_hac_max_lag_weeks: 13
+    random_seed: 42
+  tier2_random_forest:
+    trigger: phase3_intermittent_lumpy_gap
+    tuning_origins:
+    - "2024-07-01"
+    - "2024-10-07"
+    held_validation_origins:
+    - "2025-01-13"
+    - "2025-04-21"
+    - "2025-07-28"
+    - "2025-11-03"
+    configurations:
+    - {n_estimators: 60, max_depth: 12, min_samples_leaf: 5, max_features: 0.8}
+    - {n_estimators: 80, max_depth: 16, min_samples_leaf: 5, max_features: 0.8}
+    - {n_estimators: 100, max_depth: 20, min_samples_leaf: 10, max_features: 0.7}
+  explainability_tier:
+    formula_baseline: 3
+    intermittent_baseline: 3
+    global_tree_model: 2
+    ensemble_or_router: 1
+
+assistant:
+  languages:
+    - en
+    - hi
+    - hinglish
+    - mr
+  proposal_latency_budget_seconds: 5
+  latency_budget_is_project_assumption: true
+  explicit_confirmation_required: true
+  llm_may_compute_schedule_quantities: false
+
+scheduling:
+  simulator_assumptions:
+    status: provisional_design_assumption_freeze_in_phase_5
+    currency: INR
+    currency_source: unit_cost_dataset
+    carrying_cost:
+      use_part_carrying_cost_rate_when_present: true
+      fallback_annual_rate: 0.25
+      fallback_is_proxy: true
+    stockout_cost:
+      basis: unit_cost_times_criticality_multiplier
+      criticality_multiplier:
+        High: 2.0
+        Medium: 1.0
+        Low: 0.5
+      proxy_only: true
+    emergency_procurement:
+      total_unit_cost_multiplier: 2.0
+      definition: emergency_order_unit_cost_times_multiplier
+      proxy_only: true
+    service_level_violation:
+      threshold: per_part_service_level_target
+      count_as_hard_constraint_violation: false
+  feasibility_thresholds:
+    hard_constraint_violations_allowed: 0
+    quantity_tolerance: 0
+    supplier_capacity_exceedance_allowed: 0
+    sob_target_deviation:
+      hard_constraint: false
+      report_absolute_percentage_point_deviation: true
+
+phase_gates:
+  run_pytest_at_each_gate: true
+  tier_1_required: true
+  tier_2_requires_measured_tier_1_gap: true
+  tier_3_deferred_unless_requested: true

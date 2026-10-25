@@ -1,0 +1,153 @@
+dataset,column,pandas_dtype,rows,missing_count,missing_pct,example_nonmissing,description
+demand,week_start_date,datetime64[ns],120861,0,0.0,2023-01-02 00:00:00,Monday start date for the part-region weekly observation.
+demand,part_id,string,120861,0,0.0,P0001,Stable spare-part identifier and join key.
+demand,region,string,120861,0,0.0,North,Demand region.
+demand,split_role,string,120861,0,0.0,warmup,Generator-defined temporal split; future rows have no demand label.
+demand,demand_qty,Int64,120861,8584,7.1024,79,Raw non-negative integer demand; primary training and scoring target.
+demand,demand_qty_capped,Int64,120861,8584,7.1024,79,Demand capped at a generator threshold estimated over warm-up and train-validation; not safe as-is for rolling-origin fitting.
+demand,is_missing_week,Int64,120861,0,0.0,0,1 identifies a missing historical target; exclude from fitting/scoring.
+demand,year,Int64,120861,0,0.0,2023,Source field `year`; see source CSV and README.
+demand,month,Int64,120861,0,0.0,1,Source field `month`; see source CSV and README.
+demand,quarter_fy,string,120861,0,0.0,Q4,Source field `quarter_fy`; see source CSV and README.
+demand,fiscal_year,string,120861,0,0.0,FY2022-23,Source field `fiscal_year`; see source CSV and README.
+demand,week_of_year,Int64,120861,0,0.0,1,Source field `week_of_year`; see source CSV and README.
+demand,week_of_month,Int64,120861,0,0.0,1,Source field `week_of_month`; see source CSV and README.
+demand,festival_flag,Int64,120861,0,0.0,0,Source field `festival_flag`; see source CSV and README.
+demand,festival_name,string,120861,94236,77.9706,Pongal,Source field `festival_name`; see source CSV and README.
+demand,festival_intensity,string,120861,94236,77.9706,Medium,Source field `festival_intensity`; see source CSV and README.
+demand,weeks_to_next_festival,Float64,120861,608,0.5031,1.0,Source field `weeks_to_next_festival`; see source CSV and README.
+demand,weeks_since_last_festival,Float64,120861,569,0.4708,0.0,Source field `weeks_since_last_festival`; see source CSV and README.
+demand,public_holiday_flag,Int64,120861,0,0.0,0,Source field `public_holiday_flag`; see source CSV and README.
+demand,plant_shutdown_flag,Int64,120861,0,0.0,0,Source field `plant_shutdown_flag`; see source CSV and README.
+demand,plant_working_days,Int64,120861,0,0.0,6,Source field `plant_working_days`; see source CSV and README.
+demand,weeks_since_last_shutdown,Float64,120861,25605,21.1855,0.0,Source field `weeks_since_last_shutdown`; see source CSV and README.
+demand,monsoon_flag,Int64,120861,0,0.0,0,Source field `monsoon_flag`; see source CSV and README.
+demand,summer_peak_flag,Int64,120861,0,0.0,0,Source field `summer_peak_flag`; see source CSV and README.
+demand,fiscal_year_end_flag,Int64,120861,0,0.0,0,Source field `fiscal_year_end_flag`; see source CSV and README.
+demand,dealer_order_cycle_flag,Int64,120861,0,0.0,1,Source field `dealer_order_cycle_flag`; see source CSV and README.
+demand,promotion_flag,Int64,120861,0,0.0,0,Source field `promotion_flag`; see source CSV and README.
+demand,promotion_intensity,Float64,120861,0,0.0,0.0,Source field `promotion_intensity`; see source CSV and README.
+demand,campaign_flag,Int64,120861,0,0.0,0,Source field `campaign_flag`; see source CSV and README.
+demand,campaign_intensity,Float64,120861,0,0.0,0.0,Source field `campaign_intensity`; see source CSV and README.
+demand,market_event_flag,Float64,120861,8512,7.0428,0.0,Historical synthetic market-event indicator; future events are unknown.
+demand,market_condition_index,Float64,120861,0,0.0,1.0,Synthetic market driver; future values are not presumed known at an origin.
+demand,vehicle_parc,Float64,120861,0,0.0,538831.0,Source field `vehicle_parc`; see source CSV and README.
+demand,avg_vehicle_age_years,Float64,120861,0,0.0,5.73,Source field `avg_vehicle_age_years`; see source CSV and README.
+demand,demand_lag52,Float64,120861,31830,26.336,79.0,Generator-materialized 52-week lag; recompute from origin-available history before use.
+demand,part_name,string,120861,0,0.0,Oil filter cartridge - Model_A 4W SUV,Source field `part_name`; see source CSV and README.
+demand,component,string,120861,0,0.0,Oil filter cartridge,Source field `component`; see source CSV and README.
+demand,vehicle_system,string,120861,0,0.0,Engine,Source field `vehicle_system`; see source CSV and README.
+demand,part_category,string,120861,0,0.0,Mechanical,Source field `part_category`; see source CSV and README.
+demand,vehicle_model,string,120861,0,0.0,Model_A,Source field `vehicle_model`; see source CSV and README.
+demand,vehicle_type,string,120861,0,0.0,4W SUV,Source field `vehicle_type`; see source CSV and README.
+demand,criticality,string,120861,0,0.0,Medium,Source field `criticality`; see source CSV and README.
+demand,abc_class,string,120861,0,0.0,B,Source field `abc_class`; see source CSV and README.
+demand,part_type,string,120861,0,0.0,Fast Moving,Source field `part_type`; see source CSV and README.
+demand,lifecycle_status,string,120861,0,0.0,Active,Part lifecycle state; historical availability depends on whether state was known at the origin.
+demand,make_or_buy,string,120861,0,0.0,Buy,Source field `make_or_buy`; see source CSV and README.
+demand,is_imported,Int64,120861,0,0.0,0,Source field `is_imported`; see source CSV and README.
+demand,unit_cost,Float64,120861,0,0.0,211.49,Synthetic unit cost in the source dataset's currency basis.
+demand,fulfilment_mode,string,120861,0,0.0,MTS,Source field `fulfilment_mode`; see source CSV and README.
+demand,demand_driver_tags,string,120861,0,0.0,mts|cannibalized,Generator-injected demand pattern answer keys; exclude from default features.
+demand,lifecycle_pattern,string,120861,0,0.0,maturity,Generator-injected lifecycle pattern answer key; exclude unless separately proven known at origin.
+demand,substitution_group,string,120861,112501,93.083,SUB01,Generator-assigned synthetic substitution group; treat as conditional pending origin-availability review.
+demand,intended_sbc_class,string,120861,0,0.0,Smooth,Generator answer key; exclude from default features.
+demand,demand_class_trainval,string,120861,2260,1.8699,Smooth,SBC class computed from train-validation labels; not an origin-safe default feature.
+demand,adi_trainval,Float64,120861,2260,1.8699,1.056,ADI derived from train-validation labels; not an origin-safe default feature.
+demand,cv2_trainval,Float64,120861,2260,1.8699,0.188,CV-squared derived from train-validation labels; not an origin-safe default feature.
+demand,out_consumption_qty,Int64,120861,8584,7.1024,79,Synthetic outcome label; never a predictor.
+demand,out_backorder_qty,Int64,120861,8584,7.1024,0,Synthetic outcome label; never a predictor.
+demand,out_lost_sales_qty,Int64,120861,8584,7.1024,0,Synthetic outcome label; never a predictor.
+demand,out_stockout_flag,Int64,120861,8584,7.1024,0,Synthetic outcome label; never a predictor.
+demand,out_spike_flag,Int64,120861,8584,7.1024,0,Synthetic outcome label; never a predictor.
+demand,out_unusual_demand_flag,Int64,120861,8584,7.1024,0,Synthetic outcome label; never a predictor.
+scheduling,as_of_date,datetime64[ns],158,0,0.0,2026-09-26 00:00:00,Source field `as_of_date`; see source CSV and README.
+scheduling,part_id,string,158,0,0.0,P0001,Stable spare-part identifier and join key.
+scheduling,supply_mode,string,158,0,0.0,Procurement,Source field `supply_mode`; see source CSV and README.
+scheduling,lifecycle_status,string,158,0,0.0,Active,Part lifecycle state; historical availability depends on whether state was known at the origin.
+scheduling,criticality,string,158,0,0.0,Medium,Source field `criticality`; see source CSV and README.
+scheduling,service_level_target,Float64,158,0,0.0,0.95,Part service target associated with criticality.
+scheduling,planning_priority,string,158,0,0.0,Medium,Source field `planning_priority`; see source CSV and README.
+scheduling,unit_cost,Float64,158,0,0.0,211.49,Synthetic unit cost in the source dataset's currency basis.
+scheduling,carrying_cost_rate,Float64,158,0,0.0,0.242,Part annual inventory carrying-cost rate from the scheduling snapshot.
+scheduling,on_hand_qty,Int64,158,0,0.0,50,Source field `on_hand_qty`; see source CSV and README.
+scheduling,reserved_qty,Int64,158,0,0.0,3,Source field `reserved_qty`; see source CSV and README.
+scheduling,blocked_qty,Int64,158,0,0.0,1,Source field `blocked_qty`; see source CSV and README.
+scheduling,available_qty,Int64,158,0,0.0,46,"Available quantity, validated as on-hand minus reserved minus blocked."
+scheduling,backorder_qty,Int64,158,0,0.0,0,Snapshot backorder quantity; potential input to pending-requirement derivation.
+scheduling,in_transit_qty,Int64,158,0,0.0,0,Source field `in_transit_qty`; see source CSV and README.
+scheduling,open_po_qty,Int64,158,0,0.0,171,Open purchase order quantity; equals due-this-month plus due-later quantity.
+scheduling,open_po_due_this_month_qty,Int64,158,0,0.0,166,Source field `open_po_due_this_month_qty`; see source CSV and README.
+scheduling,open_po_due_later_qty,Int64,158,0,0.0,5,Source field `open_po_due_later_qty`; see source CSV and README.
+scheduling,earliest_open_po_eta,datetime64[ns],158,67,42.4051,2026-11-03 00:00:00,Source field `earliest_open_po_eta`; see source CSV and README.
+scheduling,emergency_po_open_flag,Int64,158,0,0.0,0,Source field `emergency_po_open_flag`; see source CSV and README.
+scheduling,current_safety_stock_qty,Int64,158,0,0.0,226,Source field `current_safety_stock_qty`; see source CSV and README.
+scheduling,current_reorder_point_qty,Int64,158,0,0.0,389,Source field `current_reorder_point_qty`; see source CSV and README.
+scheduling,sup1_id,string,158,0,0.0,S005,Source field `sup1_id`; see source CSV and README.
+scheduling,sup1_type,string,158,0,0.0,Domestic,Source field `sup1_type`; see source CSV and README.
+scheduling,sup1_country,string,158,0,0.0,India,Source field `sup1_country`; see source CSV and README.
+scheduling,sup1_sob_pct,Float64,158,0,0.0,50.0,Source field `sup1_sob_pct`; see source CSV and README.
+scheduling,sup1_lead_time_days,Float64,158,0,0.0,25.0,Source field `sup1_lead_time_days`; see source CSV and README.
+scheduling,sup1_moq,Float64,158,0,0.0,50.0,Source field `sup1_moq`; see source CSV and README.
+scheduling,sup1_order_multiple,Float64,158,0,0.0,1.0,Source field `sup1_order_multiple`; see source CSV and README.
+scheduling,sup1_monthly_capacity,Float64,158,0,0.0,6956.0,Source field `sup1_monthly_capacity`; see source CSV and README.
+scheduling,sup1_capacity_committed_pct,Float64,158,0,0.0,80.0,Source field `sup1_capacity_committed_pct`; see source CSV and README.
+scheduling,sup1_otd_pct,Float64,158,0,0.0,79.1,Source field `sup1_otd_pct`; see source CSV and README.
+scheduling,sup1_avg_delay_days,Float64,158,0,0.0,8.9,Source field `sup1_avg_delay_days`; see source CSV and README.
+scheduling,sup1_reject_pct,Float64,158,0,0.0,6.01,Source field `sup1_reject_pct`; see source CSV and README.
+scheduling,sup1_reliability_pct,Float64,158,0,0.0,69.3,Source field `sup1_reliability_pct`; see source CSV and README.
+scheduling,sup2_id,string,158,55,34.8101,S013,Source field `sup2_id`; see source CSV and README.
+scheduling,sup2_type,string,158,55,34.8101,Domestic,Source field `sup2_type`; see source CSV and README.
+scheduling,sup2_country,string,158,55,34.8101,India,Source field `sup2_country`; see source CSV and README.
+scheduling,sup2_sob_pct,Float64,158,55,34.8101,30.0,Source field `sup2_sob_pct`; see source CSV and README.
+scheduling,sup2_lead_time_days,Float64,158,55,34.8101,24.0,Source field `sup2_lead_time_days`; see source CSV and README.
+scheduling,sup2_moq,Float64,158,55,34.8101,100.0,Source field `sup2_moq`; see source CSV and README.
+scheduling,sup2_order_multiple,Float64,158,55,34.8101,1.0,Source field `sup2_order_multiple`; see source CSV and README.
+scheduling,sup2_monthly_capacity,Float64,158,55,34.8101,7484.0,Source field `sup2_monthly_capacity`; see source CSV and README.
+scheduling,sup2_capacity_committed_pct,Float64,158,55,34.8101,58.5,Source field `sup2_capacity_committed_pct`; see source CSV and README.
+scheduling,sup2_otd_pct,Float64,158,55,34.8101,95.3,Source field `sup2_otd_pct`; see source CSV and README.
+scheduling,sup2_avg_delay_days,Float64,158,55,34.8101,1.6,Source field `sup2_avg_delay_days`; see source CSV and README.
+scheduling,sup2_reject_pct,Float64,158,55,34.8101,3.78,Source field `sup2_reject_pct`; see source CSV and README.
+scheduling,sup2_reliability_pct,Float64,158,55,34.8101,90.7,Source field `sup2_reliability_pct`; see source CSV and README.
+scheduling,sup3_id,string,158,121,76.5823,S003,Source field `sup3_id`; see source CSV and README.
+scheduling,sup3_type,string,158,121,76.5823,Domestic,Source field `sup3_type`; see source CSV and README.
+scheduling,sup3_country,string,158,121,76.5823,India,Source field `sup3_country`; see source CSV and README.
+scheduling,sup3_sob_pct,Float64,158,121,76.5823,20.0,Source field `sup3_sob_pct`; see source CSV and README.
+scheduling,sup3_lead_time_days,Float64,158,121,76.5823,7.0,Source field `sup3_lead_time_days`; see source CSV and README.
+scheduling,sup3_moq,Float64,158,121,76.5823,5.0,Source field `sup3_moq`; see source CSV and README.
+scheduling,sup3_order_multiple,Float64,158,121,76.5823,1.0,Source field `sup3_order_multiple`; see source CSV and README.
+scheduling,sup3_monthly_capacity,Float64,158,121,76.5823,8277.0,Source field `sup3_monthly_capacity`; see source CSV and README.
+scheduling,sup3_capacity_committed_pct,Float64,158,121,76.5823,67.6,Source field `sup3_capacity_committed_pct`; see source CSV and README.
+scheduling,sup3_otd_pct,Float64,158,121,76.5823,87.5,Source field `sup3_otd_pct`; see source CSV and README.
+scheduling,sup3_avg_delay_days,Float64,158,121,76.5823,4.6,Source field `sup3_avg_delay_days`; see source CSV and README.
+scheduling,sup3_reject_pct,Float64,158,121,76.5823,2.99,Source field `sup3_reject_pct`; see source CSV and README.
+scheduling,sup3_reliability_pct,Float64,158,121,76.5823,82.8,Source field `sup3_reliability_pct`; see source CSV and README.
+catalogue,part_id,string,160,0,0.0,P0001,Stable spare-part identifier and join key.
+catalogue,part_number,string,160,0,0.0,SP-ENG-0001,Source field `part_number`; see source CSV and README.
+catalogue,part_name,string,160,0,0.0,Oil filter cartridge - Model_A 4W SUV,Source field `part_name`; see source CSV and README.
+catalogue,component,string,160,0,0.0,Oil filter cartridge,Source field `component`; see source CSV and README.
+catalogue,variant,string,160,0,0.0,V1,Source field `variant`; see source CSV and README.
+catalogue,part_description,string,160,0,0.0,"Oil filter cartridge for Model_A (4W SUV); engine system, mechanical part, Mild Steel; sourced from suppliers.",Source field `part_description`; see source CSV and README.
+catalogue,vehicle_system,string,160,0,0.0,Engine,Source field `vehicle_system`; see source CSV and README.
+catalogue,part_category,string,160,0,0.0,Mechanical,Source field `part_category`; see source CSV and README.
+catalogue,material,string,160,0,0.0,Mild Steel,Source field `material`; see source CSV and README.
+catalogue,part_type,string,160,0,0.0,Fast Moving,Source field `part_type`; see source CSV and README.
+catalogue,vehicle_model,string,160,0,0.0,Model_A,Source field `vehicle_model`; see source CSV and README.
+catalogue,vehicle_type,string,160,0,0.0,4W SUV,Source field `vehicle_type`; see source CSV and README.
+catalogue,criticality,string,160,0,0.0,Medium,Source field `criticality`; see source CSV and README.
+catalogue,service_level_target,Float64,160,0,0.0,0.95,Part service target associated with criticality.
+catalogue,planning_priority,string,160,0,0.0,Medium,Source field `planning_priority`; see source CSV and README.
+catalogue,abc_class,string,160,0,0.0,B,Source field `abc_class`; see source CSV and README.
+catalogue,make_or_buy,string,160,0,0.0,Buy,Source field `make_or_buy`; see source CSV and README.
+catalogue,is_imported,Int64,160,0,0.0,0,Source field `is_imported`; see source CSV and README.
+catalogue,country_of_origin,string,160,0,0.0,India,Source field `country_of_origin`; see source CSV and README.
+catalogue,lifecycle_status,string,160,0,0.0,Active,Part lifecycle state; historical availability depends on whether state was known at the origin.
+catalogue,launch_week,datetime64[ns],160,148,92.5,2026-03-09 00:00:00,Catalogue launch week; use only when the launch was known at forecast origin.
+catalogue,unit_cost,Float64,160,0,0.0,211.49,Synthetic unit cost in the source dataset's currency basis.
+catalogue,unit_of_measure,string,160,0,0.0,EA,Source field `unit_of_measure`; see source CSV and README.
+catalogue,standard_pack_qty,Int64,160,0,0.0,20,Source field `standard_pack_qty`; see source CSV and README.
+catalogue,shelf_life_days,Float64,160,129,80.625,1095.0,Source field `shelf_life_days`; see source CSV and README.
+catalogue,fulfilment_mode,string,160,0,0.0,MTS,Source field `fulfilment_mode`; see source CSV and README.
+catalogue,demand_driver_tags,string,160,0,0.0,mts|cannibalized,Generator-injected demand pattern answer keys; exclude from default features.
+catalogue,lifecycle_pattern,string,160,0,0.0,maturity,Generator-injected lifecycle pattern answer key; exclude unless separately proven known at origin.
+catalogue,substitution_group,string,160,150,93.75,SUB01,Generator-assigned synthetic substitution group; treat as conditional pending origin-availability review.

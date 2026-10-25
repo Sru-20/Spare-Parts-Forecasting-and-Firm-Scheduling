@@ -1,0 +1,17 @@
+column,q1,q3,iqr_lower_fence,iqr_upper_fence,iqr_outlier_rows
+out_lost_sales_qty,0.0,0.0,0.0,0.0,16978
+out_backorder_qty,0.0,0.0,0.0,0.0,16529
+adi_trainval,1.063,4.447,-4.013000000000001,9.523,15466
+out_consumption_qty,0.0,13.0,-19.5,32.5,15023
+promotion_intensity,0.0,0.0,0.0,0.0,13850
+demand_qty,0.0,18.0,-27.0,45.0,13293
+demand_qty_capped,0.0,18.0,-27.0,45.0,13194
+vehicle_parc,326981.0,495281.0,74531.0,747731.0,11340
+demand_lag52,0.0,19.0,-28.5,47.5,10001
+unit_cost,477.47,4801.53,-6008.619999999999,11287.619999999999,7065
+cv2_trainval,0.213,1.896,-2.3114999999999997,4.4205,4976
+weeks_since_last_festival,1.0,7.0,-8.0,16.0,4139
+weeks_to_next_festival,1.0,7.0,-8.0,16.0,4139
+weeks_since_last_shutdown,5.0,19.0,-16.0,40.0,0
+market_condition_index,0.9747,1.0723,0.8283,1.2187000000000001,0
+avg_vehicle_age_years,4.58,5.93,2.5550000000000006,7.954999999999999,0

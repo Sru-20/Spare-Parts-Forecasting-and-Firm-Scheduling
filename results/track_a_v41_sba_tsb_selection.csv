@@ -1,0 +1,3 @@
+model,tuning_origins,lead_time_wape_ratio,status,selected,selection_basis
+tsb,2,0.4447775698443639,success,True,pooled lead-time WAPE on two tuning origins only
+sba,2,0.4738176401626547,success,False,pooled lead-time WAPE on two tuning origins only

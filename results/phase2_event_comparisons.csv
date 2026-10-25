@@ -1,0 +1,9 @@
+comparison,event_rows,baseline_rows,event_mean_demand,baseline_mean_demand,relative_change_pct,interpretation_limit
+festival,14315,52030,21.360530911631155,19.036344416682685,12.209205948762136,descriptive synthetic association; not causal
+public_holiday,4000,62345,20.618,19.468521934397305,5.90429036922302,descriptive synthetic association; not causal
+plant_shutdown,2275,64070,14.27076923076923,19.724847822693928,-27.650801876654498,descriptive synthetic association; not causal
+promotion,7996,58349,22.100550275137568,19.186635589298874,15.187210244738768,descriptive synthetic association; not causal
+campaign,11465,54880,25.876580898386393,18.21359329446064,42.072903902253735,descriptive synthetic association; not causal
+market_event,2872,63473,21.965877437325904,19.427961495439007,13.063212743564012,descriptive synthetic association; not causal
+post_promotion_week_promo_sensitive,1282,9253,11.033541341653667,20.142656435750567,-45.22300781504379,generator tag used for descriptive audit only; excluded from features
+generator_spike_label_prevalence,665,66345,246.87819548872181,19.537825005652273,,"out_spike_flag is a historical label only, never a feature"

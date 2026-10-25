@@ -1,0 +1,13 @@
+model,config_id,wape_pct_phase3,wape_pct_corrected,n_scored_phase3,n_scored_corrected,reason
+naive,baseline_default,60.01395346110326,60.01231238273921,2200,2196,Phase 3 lead-time aggregation treated missing forecasts as zero for series with observed actuals; Phase 4 excludes incomplete lead windows.
+seasonal_naive_52,baseline_default,54.54396219667345,54.542096622889304,2200,2196,Phase 3 lead-time aggregation treated missing forecasts as zero for series with observed actuals; Phase 4 excludes incomplete lead windows.
+moving_average_13,baseline_default,44.951788251342094,44.949529002501556,2200,2196,Phase 3 lead-time aggregation treated missing forecasts as zero for series with observed actuals; Phase 4 excludes incomplete lead windows.
+same_period_last_year,baseline_default,54.54396219667345,54.542096622889304,2200,2196,Phase 3 lead-time aggregation treated missing forecasts as zero for series with observed actuals; Phase 4 excludes incomplete lead windows.
+croston,baseline_default,41.86028940836152,41.857903280464356,2200,2196,Phase 3 lead-time aggregation treated missing forecasts as zero for series with observed actuals; Phase 4 excludes incomplete lead windows.
+sba,baseline_default,40.64502945112304,40.6425934474068,2200,2196,Phase 3 lead-time aggregation treated missing forecasts as zero for series with observed actuals; Phase 4 excludes incomplete lead windows.
+tsb,baseline_default,40.96175775838394,40.95933475360151,2200,2196,Phase 3 lead-time aggregation treated missing forecasts as zero for series with observed actuals; Phase 4 excludes incomplete lead windows.
+lightgbm_point,random_3,45.104552168086165,45.104552168086165,2200,2200,Phase 3 lead-time aggregation treated missing forecasts as zero for series with observed actuals; Phase 4 excludes incomplete lead windows.
+lightgbm_tweedie,random_1,34.30639398086577,34.30639398086577,2200,2200,Phase 3 lead-time aggregation treated missing forecasts as zero for series with observed actuals; Phase 4 excludes incomplete lead windows.
+lightgbm_quantile,random_1,36.20180285709219,36.20180285709219,2200,2200,Phase 3 lead-time aggregation treated missing forecasts as zero for series with observed actuals; Phase 4 excludes incomplete lead windows.
+simple_average_ensemble,equal_weight_nine_model_mean,37.90404832271336,37.90404832271336,2200,2200,Phase 3 lead-time aggregation treated missing forecasts as zero for series with observed actuals; Phase 4 excludes incomplete lead windows.
+sbc_segment_router,fixed_sbc_model_map,38.79817118365367,38.798171183653665,2200,2200,Phase 3 lead-time aggregation treated missing forecasts as zero for series with observed actuals; Phase 4 excludes incomplete lead windows.

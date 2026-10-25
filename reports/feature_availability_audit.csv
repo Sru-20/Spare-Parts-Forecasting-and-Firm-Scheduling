@@ -1,0 +1,153 @@
+dataset,column,available_at_forecast_origin,default_forecast_feature,rationale,description
+demand,week_start_date,No,No,"Target, split, missingness metadata, or date key; use only as label/filter/index.",Monday start date for the part-region weekly observation.
+demand,part_id,Yes,Yes,Static part/region attribute; verify it was effective and known at the origin.,Stable spare-part identifier and join key.
+demand,region,Yes,Yes,Static part/region attribute; verify it was effective and known at the origin.,Demand region.
+demand,split_role,No,No,"Target, split, missingness metadata, or date key; use only as label/filter/index.",Generator-defined temporal split; future rows have no demand label.
+demand,demand_qty,No,No,"Target, split, missingness metadata, or date key; use only as label/filter/index.",Raw non-negative integer demand; primary training and scoring target.
+demand,demand_qty_capped,No,No,"Target, split, missingness metadata, or date key; use only as label/filter/index.",Demand capped at a generator threshold estimated over warm-up and train-validation; not safe as-is for rolling-origin fitting.
+demand,is_missing_week,No,No,"Target, split, missingness metadata, or date key; use only as label/filter/index.",1 identifies a missing historical target; exclude from fitting/scoring.
+demand,year,Yes,Yes,Calendar/planned driver is usable only when its value was published by the forecast origin.,Source field `year`; see source CSV and README.
+demand,month,Yes,Yes,Calendar/planned driver is usable only when its value was published by the forecast origin.,Source field `month`; see source CSV and README.
+demand,quarter_fy,Yes,Yes,Calendar/planned driver is usable only when its value was published by the forecast origin.,Source field `quarter_fy`; see source CSV and README.
+demand,fiscal_year,Yes,Yes,Calendar/planned driver is usable only when its value was published by the forecast origin.,Source field `fiscal_year`; see source CSV and README.
+demand,week_of_year,Yes,Yes,Calendar/planned driver is usable only when its value was published by the forecast origin.,Source field `week_of_year`; see source CSV and README.
+demand,week_of_month,Yes,Yes,Calendar/planned driver is usable only when its value was published by the forecast origin.,Source field `week_of_month`; see source CSV and README.
+demand,festival_flag,Yes,Yes,Calendar/planned driver is usable only when its value was published by the forecast origin.,Source field `festival_flag`; see source CSV and README.
+demand,festival_name,Yes,Yes,Calendar/planned driver is usable only when its value was published by the forecast origin.,Source field `festival_name`; see source CSV and README.
+demand,festival_intensity,Yes,Yes,Calendar/planned driver is usable only when its value was published by the forecast origin.,Source field `festival_intensity`; see source CSV and README.
+demand,weeks_to_next_festival,Yes,Yes,Calendar/planned driver is usable only when its value was published by the forecast origin.,Source field `weeks_to_next_festival`; see source CSV and README.
+demand,weeks_since_last_festival,Yes,Yes,Calendar/planned driver is usable only when its value was published by the forecast origin.,Source field `weeks_since_last_festival`; see source CSV and README.
+demand,public_holiday_flag,Yes,Yes,Calendar/planned driver is usable only when its value was published by the forecast origin.,Source field `public_holiday_flag`; see source CSV and README.
+demand,plant_shutdown_flag,Conditional,No,Must be recomputed from origin-visible history or independently confirmed known at the origin.,Source field `plant_shutdown_flag`; see source CSV and README.
+demand,plant_working_days,Conditional,No,Must be recomputed from origin-visible history or independently confirmed known at the origin.,Source field `plant_working_days`; see source CSV and README.
+demand,weeks_since_last_shutdown,Conditional,No,Must be recomputed from origin-visible history or independently confirmed known at the origin.,Source field `weeks_since_last_shutdown`; see source CSV and README.
+demand,monsoon_flag,Yes,Yes,Calendar/planned driver is usable only when its value was published by the forecast origin.,Source field `monsoon_flag`; see source CSV and README.
+demand,summer_peak_flag,Yes,Yes,Calendar/planned driver is usable only when its value was published by the forecast origin.,Source field `summer_peak_flag`; see source CSV and README.
+demand,fiscal_year_end_flag,Yes,Yes,Calendar/planned driver is usable only when its value was published by the forecast origin.,Source field `fiscal_year_end_flag`; see source CSV and README.
+demand,dealer_order_cycle_flag,Yes,Yes,Calendar/planned driver is usable only when its value was published by the forecast origin.,Source field `dealer_order_cycle_flag`; see source CSV and README.
+demand,promotion_flag,Yes,Yes,Calendar/planned driver is usable only when its value was published by the forecast origin.,Source field `promotion_flag`; see source CSV and README.
+demand,promotion_intensity,Yes,Yes,Calendar/planned driver is usable only when its value was published by the forecast origin.,Source field `promotion_intensity`; see source CSV and README.
+demand,campaign_flag,Yes,Yes,Calendar/planned driver is usable only when its value was published by the forecast origin.,Source field `campaign_flag`; see source CSV and README.
+demand,campaign_intensity,Yes,Yes,Calendar/planned driver is usable only when its value was published by the forecast origin.,Source field `campaign_intensity`; see source CSV and README.
+demand,market_event_flag,Conditional,No,Must be recomputed from origin-visible history or independently confirmed known at the origin.,Historical synthetic market-event indicator; future events are unknown.
+demand,market_condition_index,Conditional,No,Must be recomputed from origin-visible history or independently confirmed known at the origin.,Synthetic market driver; future values are not presumed known at an origin.
+demand,vehicle_parc,Conditional,No,Must be recomputed from origin-visible history or independently confirmed known at the origin.,Source field `vehicle_parc`; see source CSV and README.
+demand,avg_vehicle_age_years,Conditional,No,Must be recomputed from origin-visible history or independently confirmed known at the origin.,Source field `avg_vehicle_age_years`; see source CSV and README.
+demand,demand_lag52,Conditional,No,Must be recomputed from origin-visible history or independently confirmed known at the origin.,Generator-materialized 52-week lag; recompute from origin-available history before use.
+demand,part_name,Yes,Yes,Static part/region attribute; verify it was effective and known at the origin.,Source field `part_name`; see source CSV and README.
+demand,component,Yes,Yes,Static part/region attribute; verify it was effective and known at the origin.,Source field `component`; see source CSV and README.
+demand,vehicle_system,Yes,Yes,Static part/region attribute; verify it was effective and known at the origin.,Source field `vehicle_system`; see source CSV and README.
+demand,part_category,Yes,Yes,Static part/region attribute; verify it was effective and known at the origin.,Source field `part_category`; see source CSV and README.
+demand,vehicle_model,Yes,Yes,Static part/region attribute; verify it was effective and known at the origin.,Source field `vehicle_model`; see source CSV and README.
+demand,vehicle_type,Yes,Yes,Static part/region attribute; verify it was effective and known at the origin.,Source field `vehicle_type`; see source CSV and README.
+demand,criticality,Yes,Yes,Static part/region attribute; verify it was effective and known at the origin.,Source field `criticality`; see source CSV and README.
+demand,abc_class,No,No,"Label, generator answer key, or synthetic outcome; barred from default predictors.",Source field `abc_class`; see source CSV and README.
+demand,part_type,No,No,"Label, generator answer key, or synthetic outcome; barred from default predictors.",Source field `part_type`; see source CSV and README.
+demand,lifecycle_status,Conditional,No,Must be recomputed from origin-visible history or independently confirmed known at the origin.,Part lifecycle state; historical availability depends on whether state was known at the origin.
+demand,make_or_buy,Yes,Yes,Static part/region attribute; verify it was effective and known at the origin.,Source field `make_or_buy`; see source CSV and README.
+demand,is_imported,Yes,Yes,Static part/region attribute; verify it was effective and known at the origin.,Source field `is_imported`; see source CSV and README.
+demand,unit_cost,Yes,Yes,Static part/region attribute; verify it was effective and known at the origin.,Synthetic unit cost in the source dataset's currency basis.
+demand,fulfilment_mode,Yes,Yes,Static part/region attribute; verify it was effective and known at the origin.,Source field `fulfilment_mode`; see source CSV and README.
+demand,demand_driver_tags,No,No,"Label, generator answer key, or synthetic outcome; barred from default predictors.",Generator-injected demand pattern answer keys; exclude from default features.
+demand,lifecycle_pattern,No,No,"Label, generator answer key, or synthetic outcome; barred from default predictors.",Generator-injected lifecycle pattern answer key; exclude unless separately proven known at origin.
+demand,substitution_group,Conditional,No,Must be recomputed from origin-visible history or independently confirmed known at the origin.,Generator-assigned synthetic substitution group; treat as conditional pending origin-availability review.
+demand,intended_sbc_class,No,No,"Label, generator answer key, or synthetic outcome; barred from default predictors.",Generator answer key; exclude from default features.
+demand,demand_class_trainval,No,No,"Label, generator answer key, or synthetic outcome; barred from default predictors.",SBC class computed from train-validation labels; not an origin-safe default feature.
+demand,adi_trainval,No,No,"Label, generator answer key, or synthetic outcome; barred from default predictors.",ADI derived from train-validation labels; not an origin-safe default feature.
+demand,cv2_trainval,No,No,"Label, generator answer key, or synthetic outcome; barred from default predictors.",CV-squared derived from train-validation labels; not an origin-safe default feature.
+demand,out_consumption_qty,No,No,"Label, generator answer key, or synthetic outcome; barred from default predictors.",Synthetic outcome label; never a predictor.
+demand,out_backorder_qty,No,No,"Label, generator answer key, or synthetic outcome; barred from default predictors.",Synthetic outcome label; never a predictor.
+demand,out_lost_sales_qty,No,No,"Label, generator answer key, or synthetic outcome; barred from default predictors.",Synthetic outcome label; never a predictor.
+demand,out_stockout_flag,No,No,"Label, generator answer key, or synthetic outcome; barred from default predictors.",Synthetic outcome label; never a predictor.
+demand,out_spike_flag,No,No,"Label, generator answer key, or synthetic outcome; barred from default predictors.",Synthetic outcome label; never a predictor.
+demand,out_unusual_demand_flag,No,No,"Label, generator answer key, or synthetic outcome; barred from default predictors.",Synthetic outcome label; never a predictor.
+scheduling,as_of_date,Conditional,No,Only the 2026-09-26 snapshot is available; unavailable at earlier rolling origins and not a default demand feature.,Source field `as_of_date`; see source CSV and README.
+scheduling,part_id,Conditional,No,Only the 2026-09-26 snapshot is available; unavailable at earlier rolling origins and not a default demand feature.,Stable spare-part identifier and join key.
+scheduling,supply_mode,Conditional,No,Only the 2026-09-26 snapshot is available; unavailable at earlier rolling origins and not a default demand feature.,Source field `supply_mode`; see source CSV and README.
+scheduling,lifecycle_status,Conditional,No,Only the 2026-09-26 snapshot is available; unavailable at earlier rolling origins and not a default demand feature.,Part lifecycle state; historical availability depends on whether state was known at the origin.
+scheduling,criticality,Conditional,No,Only the 2026-09-26 snapshot is available; unavailable at earlier rolling origins and not a default demand feature.,Source field `criticality`; see source CSV and README.
+scheduling,service_level_target,Conditional,No,Only the 2026-09-26 snapshot is available; unavailable at earlier rolling origins and not a default demand feature.,Part service target associated with criticality.
+scheduling,planning_priority,Conditional,No,Only the 2026-09-26 snapshot is available; unavailable at earlier rolling origins and not a default demand feature.,Source field `planning_priority`; see source CSV and README.
+scheduling,unit_cost,Conditional,No,Only the 2026-09-26 snapshot is available; unavailable at earlier rolling origins and not a default demand feature.,Synthetic unit cost in the source dataset's currency basis.
+scheduling,carrying_cost_rate,Conditional,No,Only the 2026-09-26 snapshot is available; unavailable at earlier rolling origins and not a default demand feature.,Part annual inventory carrying-cost rate from the scheduling snapshot.
+scheduling,on_hand_qty,Conditional,No,Only the 2026-09-26 snapshot is available; unavailable at earlier rolling origins and not a default demand feature.,Source field `on_hand_qty`; see source CSV and README.
+scheduling,reserved_qty,Conditional,No,Only the 2026-09-26 snapshot is available; unavailable at earlier rolling origins and not a default demand feature.,Source field `reserved_qty`; see source CSV and README.
+scheduling,blocked_qty,Conditional,No,Only the 2026-09-26 snapshot is available; unavailable at earlier rolling origins and not a default demand feature.,Source field `blocked_qty`; see source CSV and README.
+scheduling,available_qty,Conditional,No,Only the 2026-09-26 snapshot is available; unavailable at earlier rolling origins and not a default demand feature.,"Available quantity, validated as on-hand minus reserved minus blocked."
+scheduling,backorder_qty,Conditional,No,Only the 2026-09-26 snapshot is available; unavailable at earlier rolling origins and not a default demand feature.,Snapshot backorder quantity; potential input to pending-requirement derivation.
+scheduling,in_transit_qty,Conditional,No,Only the 2026-09-26 snapshot is available; unavailable at earlier rolling origins and not a default demand feature.,Source field `in_transit_qty`; see source CSV and README.
+scheduling,open_po_qty,Conditional,No,Only the 2026-09-26 snapshot is available; unavailable at earlier rolling origins and not a default demand feature.,Open purchase order quantity; equals due-this-month plus due-later quantity.
+scheduling,open_po_due_this_month_qty,Conditional,No,Only the 2026-09-26 snapshot is available; unavailable at earlier rolling origins and not a default demand feature.,Source field `open_po_due_this_month_qty`; see source CSV and README.
+scheduling,open_po_due_later_qty,Conditional,No,Only the 2026-09-26 snapshot is available; unavailable at earlier rolling origins and not a default demand feature.,Source field `open_po_due_later_qty`; see source CSV and README.
+scheduling,earliest_open_po_eta,Conditional,No,Only the 2026-09-26 snapshot is available; unavailable at earlier rolling origins and not a default demand feature.,Source field `earliest_open_po_eta`; see source CSV and README.
+scheduling,emergency_po_open_flag,Conditional,No,Only the 2026-09-26 snapshot is available; unavailable at earlier rolling origins and not a default demand feature.,Source field `emergency_po_open_flag`; see source CSV and README.
+scheduling,current_safety_stock_qty,Conditional,No,Only the 2026-09-26 snapshot is available; unavailable at earlier rolling origins and not a default demand feature.,Source field `current_safety_stock_qty`; see source CSV and README.
+scheduling,current_reorder_point_qty,Conditional,No,Only the 2026-09-26 snapshot is available; unavailable at earlier rolling origins and not a default demand feature.,Source field `current_reorder_point_qty`; see source CSV and README.
+scheduling,sup1_id,Conditional,No,Only the 2026-09-26 snapshot is available; unavailable at earlier rolling origins and not a default demand feature.,Source field `sup1_id`; see source CSV and README.
+scheduling,sup1_type,Conditional,No,Only the 2026-09-26 snapshot is available; unavailable at earlier rolling origins and not a default demand feature.,Source field `sup1_type`; see source CSV and README.
+scheduling,sup1_country,Conditional,No,Only the 2026-09-26 snapshot is available; unavailable at earlier rolling origins and not a default demand feature.,Source field `sup1_country`; see source CSV and README.
+scheduling,sup1_sob_pct,Conditional,No,Only the 2026-09-26 snapshot is available; unavailable at earlier rolling origins and not a default demand feature.,Source field `sup1_sob_pct`; see source CSV and README.
+scheduling,sup1_lead_time_days,Conditional,No,Only the 2026-09-26 snapshot is available; unavailable at earlier rolling origins and not a default demand feature.,Source field `sup1_lead_time_days`; see source CSV and README.
+scheduling,sup1_moq,Conditional,No,Only the 2026-09-26 snapshot is available; unavailable at earlier rolling origins and not a default demand feature.,Source field `sup1_moq`; see source CSV and README.
+scheduling,sup1_order_multiple,Conditional,No,Only the 2026-09-26 snapshot is available; unavailable at earlier rolling origins and not a default demand feature.,Source field `sup1_order_multiple`; see source CSV and README.
+scheduling,sup1_monthly_capacity,Conditional,No,Only the 2026-09-26 snapshot is available; unavailable at earlier rolling origins and not a default demand feature.,Source field `sup1_monthly_capacity`; see source CSV and README.
+scheduling,sup1_capacity_committed_pct,Conditional,No,Only the 2026-09-26 snapshot is available; unavailable at earlier rolling origins and not a default demand feature.,Source field `sup1_capacity_committed_pct`; see source CSV and README.
+scheduling,sup1_otd_pct,Conditional,No,Only the 2026-09-26 snapshot is available; unavailable at earlier rolling origins and not a default demand feature.,Source field `sup1_otd_pct`; see source CSV and README.
+scheduling,sup1_avg_delay_days,Conditional,No,Only the 2026-09-26 snapshot is available; unavailable at earlier rolling origins and not a default demand feature.,Source field `sup1_avg_delay_days`; see source CSV and README.
+scheduling,sup1_reject_pct,Conditional,No,Only the 2026-09-26 snapshot is available; unavailable at earlier rolling origins and not a default demand feature.,Source field `sup1_reject_pct`; see source CSV and README.
+scheduling,sup1_reliability_pct,Conditional,No,Only the 2026-09-26 snapshot is available; unavailable at earlier rolling origins and not a default demand feature.,Source field `sup1_reliability_pct`; see source CSV and README.
+scheduling,sup2_id,Conditional,No,Only the 2026-09-26 snapshot is available; unavailable at earlier rolling origins and not a default demand feature.,Source field `sup2_id`; see source CSV and README.
+scheduling,sup2_type,Conditional,No,Only the 2026-09-26 snapshot is available; unavailable at earlier rolling origins and not a default demand feature.,Source field `sup2_type`; see source CSV and README.
+scheduling,sup2_country,Conditional,No,Only the 2026-09-26 snapshot is available; unavailable at earlier rolling origins and not a default demand feature.,Source field `sup2_country`; see source CSV and README.
+scheduling,sup2_sob_pct,Conditional,No,Only the 2026-09-26 snapshot is available; unavailable at earlier rolling origins and not a default demand feature.,Source field `sup2_sob_pct`; see source CSV and README.
+scheduling,sup2_lead_time_days,Conditional,No,Only the 2026-09-26 snapshot is available; unavailable at earlier rolling origins and not a default demand feature.,Source field `sup2_lead_time_days`; see source CSV and README.
+scheduling,sup2_moq,Conditional,No,Only the 2026-09-26 snapshot is available; unavailable at earlier rolling origins and not a default demand feature.,Source field `sup2_moq`; see source CSV and README.
+scheduling,sup2_order_multiple,Conditional,No,Only the 2026-09-26 snapshot is available; unavailable at earlier rolling origins and not a default demand feature.,Source field `sup2_order_multiple`; see source CSV and README.
+scheduling,sup2_monthly_capacity,Conditional,No,Only the 2026-09-26 snapshot is available; unavailable at earlier rolling origins and not a default demand feature.,Source field `sup2_monthly_capacity`; see source CSV and README.
+scheduling,sup2_capacity_committed_pct,Conditional,No,Only the 2026-09-26 snapshot is available; unavailable at earlier rolling origins and not a default demand feature.,Source field `sup2_capacity_committed_pct`; see source CSV and README.
+scheduling,sup2_otd_pct,Conditional,No,Only the 2026-09-26 snapshot is available; unavailable at earlier rolling origins and not a default demand feature.,Source field `sup2_otd_pct`; see source CSV and README.
+scheduling,sup2_avg_delay_days,Conditional,No,Only the 2026-09-26 snapshot is available; unavailable at earlier rolling origins and not a default demand feature.,Source field `sup2_avg_delay_days`; see source CSV and README.
+scheduling,sup2_reject_pct,Conditional,No,Only the 2026-09-26 snapshot is available; unavailable at earlier rolling origins and not a default demand feature.,Source field `sup2_reject_pct`; see source CSV and README.
+scheduling,sup2_reliability_pct,Conditional,No,Only the 2026-09-26 snapshot is available; unavailable at earlier rolling origins and not a default demand feature.,Source field `sup2_reliability_pct`; see source CSV and README.
+scheduling,sup3_id,Conditional,No,Only the 2026-09-26 snapshot is available; unavailable at earlier rolling origins and not a default demand feature.,Source field `sup3_id`; see source CSV and README.
+scheduling,sup3_type,Conditional,No,Only the 2026-09-26 snapshot is available; unavailable at earlier rolling origins and not a default demand feature.,Source field `sup3_type`; see source CSV and README.
+scheduling,sup3_country,Conditional,No,Only the 2026-09-26 snapshot is available; unavailable at earlier rolling origins and not a default demand feature.,Source field `sup3_country`; see source CSV and README.
+scheduling,sup3_sob_pct,Conditional,No,Only the 2026-09-26 snapshot is available; unavailable at earlier rolling origins and not a default demand feature.,Source field `sup3_sob_pct`; see source CSV and README.
+scheduling,sup3_lead_time_days,Conditional,No,Only the 2026-09-26 snapshot is available; unavailable at earlier rolling origins and not a default demand feature.,Source field `sup3_lead_time_days`; see source CSV and README.
+scheduling,sup3_moq,Conditional,No,Only the 2026-09-26 snapshot is available; unavailable at earlier rolling origins and not a default demand feature.,Source field `sup3_moq`; see source CSV and README.
+scheduling,sup3_order_multiple,Conditional,No,Only the 2026-09-26 snapshot is available; unavailable at earlier rolling origins and not a default demand feature.,Source field `sup3_order_multiple`; see source CSV and README.
+scheduling,sup3_monthly_capacity,Conditional,No,Only the 2026-09-26 snapshot is available; unavailable at earlier rolling origins and not a default demand feature.,Source field `sup3_monthly_capacity`; see source CSV and README.
+scheduling,sup3_capacity_committed_pct,Conditional,No,Only the 2026-09-26 snapshot is available; unavailable at earlier rolling origins and not a default demand feature.,Source field `sup3_capacity_committed_pct`; see source CSV and README.
+scheduling,sup3_otd_pct,Conditional,No,Only the 2026-09-26 snapshot is available; unavailable at earlier rolling origins and not a default demand feature.,Source field `sup3_otd_pct`; see source CSV and README.
+scheduling,sup3_avg_delay_days,Conditional,No,Only the 2026-09-26 snapshot is available; unavailable at earlier rolling origins and not a default demand feature.,Source field `sup3_avg_delay_days`; see source CSV and README.
+scheduling,sup3_reject_pct,Conditional,No,Only the 2026-09-26 snapshot is available; unavailable at earlier rolling origins and not a default demand feature.,Source field `sup3_reject_pct`; see source CSV and README.
+scheduling,sup3_reliability_pct,Conditional,No,Only the 2026-09-26 snapshot is available; unavailable at earlier rolling origins and not a default demand feature.,Source field `sup3_reliability_pct`; see source CSV and README.
+catalogue,part_id,Yes,Yes,Static part/region attribute; verify it was effective and known at the origin.,Stable spare-part identifier and join key.
+catalogue,part_number,Yes,No,Static part/region attribute; verify it was effective and known at the origin.,Source field `part_number`; see source CSV and README.
+catalogue,part_name,Yes,Yes,Static part/region attribute; verify it was effective and known at the origin.,Source field `part_name`; see source CSV and README.
+catalogue,component,Yes,Yes,Static part/region attribute; verify it was effective and known at the origin.,Source field `component`; see source CSV and README.
+catalogue,variant,Yes,Yes,Static part/region attribute; verify it was effective and known at the origin.,Source field `variant`; see source CSV and README.
+catalogue,part_description,Yes,No,Static part/region attribute; verify it was effective and known at the origin.,Source field `part_description`; see source CSV and README.
+catalogue,vehicle_system,Yes,Yes,Static part/region attribute; verify it was effective and known at the origin.,Source field `vehicle_system`; see source CSV and README.
+catalogue,part_category,Yes,Yes,Static part/region attribute; verify it was effective and known at the origin.,Source field `part_category`; see source CSV and README.
+catalogue,material,Yes,Yes,Static part/region attribute; verify it was effective and known at the origin.,Source field `material`; see source CSV and README.
+catalogue,part_type,No,No,"Label, generator answer key, or synthetic outcome; barred from default predictors.",Source field `part_type`; see source CSV and README.
+catalogue,vehicle_model,Yes,Yes,Static part/region attribute; verify it was effective and known at the origin.,Source field `vehicle_model`; see source CSV and README.
+catalogue,vehicle_type,Yes,Yes,Static part/region attribute; verify it was effective and known at the origin.,Source field `vehicle_type`; see source CSV and README.
+catalogue,criticality,Yes,Yes,Static part/region attribute; verify it was effective and known at the origin.,Source field `criticality`; see source CSV and README.
+catalogue,service_level_target,Yes,Yes,Static part/region attribute; verify it was effective and known at the origin.,Part service target associated with criticality.
+catalogue,planning_priority,No,No,Not approved until an origin-availability rule is documented.,Source field `planning_priority`; see source CSV and README.
+catalogue,abc_class,No,No,"Label, generator answer key, or synthetic outcome; barred from default predictors.",Source field `abc_class`; see source CSV and README.
+catalogue,make_or_buy,Yes,Yes,Static part/region attribute; verify it was effective and known at the origin.,Source field `make_or_buy`; see source CSV and README.
+catalogue,is_imported,Yes,Yes,Static part/region attribute; verify it was effective and known at the origin.,Source field `is_imported`; see source CSV and README.
+catalogue,country_of_origin,Yes,Yes,Static part/region attribute; verify it was effective and known at the origin.,Source field `country_of_origin`; see source CSV and README.
+catalogue,lifecycle_status,Conditional,No,Must be recomputed from origin-visible history or independently confirmed known at the origin.,Part lifecycle state; historical availability depends on whether state was known at the origin.
+catalogue,launch_week,Conditional,No,Must be recomputed from origin-visible history or independently confirmed known at the origin.,Catalogue launch week; use only when the launch was known at forecast origin.
+catalogue,unit_cost,Yes,Yes,Static part/region attribute; verify it was effective and known at the origin.,Synthetic unit cost in the source dataset's currency basis.
+catalogue,unit_of_measure,Yes,Yes,Static part/region attribute; verify it was effective and known at the origin.,Source field `unit_of_measure`; see source CSV and README.
+catalogue,standard_pack_qty,Yes,Yes,Static part/region attribute; verify it was effective and known at the origin.,Source field `standard_pack_qty`; see source CSV and README.
+catalogue,shelf_life_days,Yes,Yes,Static part/region attribute; verify it was effective and known at the origin.,Source field `shelf_life_days`; see source CSV and README.
+catalogue,fulfilment_mode,Yes,Yes,Static part/region attribute; verify it was effective and known at the origin.,Source field `fulfilment_mode`; see source CSV and README.
+catalogue,demand_driver_tags,No,No,"Label, generator answer key, or synthetic outcome; barred from default predictors.",Generator-injected demand pattern answer keys; exclude from default features.
+catalogue,lifecycle_pattern,No,No,"Label, generator answer key, or synthetic outcome; barred from default predictors.",Generator-injected lifecycle pattern answer key; exclude unless separately proven known at origin.
+catalogue,substitution_group,Conditional,No,Must be recomputed from origin-visible history or independently confirmed known at the origin.,Generator-assigned synthetic substitution group; treat as conditional pending origin-availability review.

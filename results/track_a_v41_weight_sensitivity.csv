@@ -1,0 +1,15 @@
+case,perturbed_component,perturbation_points,winner,winner_score
+overall_error_-10pp,overall_error,-10,lightgbm_tweedie::random_1,61.527777777777764
+overall_error_+10pp,overall_error,10,lightgbm_tweedie::random_1,65.79545454545455
+critical_a_class_error_-10pp,critical_a_class_error,-10,lightgbm_tweedie::random_1,62.63888888888888
+critical_a_class_error_+10pp,critical_a_class_error,10,lightgbm_tweedie::random_1,64.88636363636364
+intermittent_lumpy_-10pp,intermittent_lumpy,-10,lightgbm_tweedie::random_1,62.63888888888889
+intermittent_lumpy_+10pp,intermittent_lumpy,10,lightgbm_tweedie::random_1,64.88636363636364
+asymmetric_absolute_bias_-10pp,asymmetric_absolute_bias,-10,lightgbm_tweedie::random_1,65.41666666666667
+asymmetric_absolute_bias_+10pp,asymmetric_absolute_bias,10,lightgbm_tweedie::random_1,62.613636363636374
+calibration_-10pp,calibration,-10,lightgbm_tweedie::random_1,70.97222222222223
+calibration_+10pp,calibration,10,lightgbm_tweedie::random_1,58.06818181818183
+stability_across_origins_-10pp,stability_across_origins,-10,lightgbm_tweedie::random_1,59.86111111111111
+stability_across_origins_+10pp,stability_across_origins,10,lightgbm_tweedie::random_1,67.15909090909092
+runtime_and_explainability_-10pp,runtime_and_explainability,-10,lightgbm_tweedie::random_1,63.94736842105263
+runtime_and_explainability_+10pp,runtime_and_explainability,10,lightgbm_tweedie::random_1,63.75000000000001
