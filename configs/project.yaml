@@ -4,6 +4,22 @@ project:
   random_seed: 42
   claim_scope: method validated on simulated data
 
+specification:
+  version: "4.2"
+  document: docs/SPEC.md
+  document_status: final_supersedes_earlier_versions
+  supersedes: v4.1 and the MVP alignment amendment
+  change_control: v4.2 consolidation logged in STATE.md; later changes need a logged reason
+
+classification:
+  target_column: part_category
+  material_group_target_status: not_available_in_catalogue
+  confidence_threshold: 0.60
+  confidence_threshold_status: provisional_editable
+  cv_folds: 5
+  group_holdout_test_fraction: 0.25
+  seed: 42
+
 paths:
   demand_csv: data/01_demand_forecasting.csv
   scheduling_csv: data/02_scheduling_inputs.csv
@@ -266,7 +282,82 @@ assistant:
 
 scheduling:
   simulator_assumptions:
-    status: provisional_design_assumption_freeze_in_phase_5
+    status: phase5_frozen
+    version: phase5-assumptions-v2
+    seed: 42
+    schedule_granularity:
+      level: part
+      region_plant_label: ALL
+      regional_allocation_modelled: false
+    initial_inventory:
+      source: data/02_scheduling_inputs.csv
+      rule: use_available_qty_after_exact_on_hand_reserved_blocked_reconciliation
+      temporal_treatment: synthetic_initialization_rebased_to_each_validation_origin
+      same_for_every_policy: true
+      warmup: no_historical_roll_forward_from_snapshot
+      initial_stock_multiplier: 1.0
+    inbound_receipts:
+      due_this_month: week_1
+      due_later: week_4
+      in_transit: week_1
+      due_later_week: 4
+      earliest_open_po_eta: not_rebased_because_snapshot_postdates_validation
+      open_po_due_split_is_counted_once: true
+      limitations: d2_has_no_order_ids_or_individual_receipt_dates
+    pending_requirement:
+      source_column: backorder_qty
+      status: labelled_assumption
+      apply_as_initial_backlog_only_for_high_criticality: true
+    backlog_and_lost_sales:
+      High: backorder
+      Medium: lost_sales
+      Low: lost_sales
+    lead_time:
+      arrival_week_rule: release_week_plus_max_one_ceil_days_div_7
+      above_horizon: extend_planning_demand_by_mean_of_last_four_forecast_weeks
+      beyond_horizon_orders: retain_and_flag_not_received_inside_horizon
+    supplier_uncertainty:
+      late_probability_source: supN_otd_pct
+      late_delay_source: supN_avg_delay_days
+      rejection_probability_source: supN_reject_pct
+      rejection_semantics: whole_lot_probability_no_per_unit_evidence_in_generator
+      default_rejection_variant: whole_lot
+      alternative_rejection_variant: per_unit_binomial
+      seed: 42
+      reliability_pct: record_only_not_applied_because_it_overlaps_otd_and_rejection
+    capacity:
+      quantity_unit: same_unit_as_order_qty_per_calendar_month
+      available_capacity_rule: monthly_capacity_times_one_minus_committed_percent
+      capacity_overrun: partial_allocation_only_and_unresolved
+      pull_ahead:
+        enabled: true
+        passes: 1
+        use_earlier_calendar_month_capacity: true
+        earliest_release_week: 1
+        arrival_rule_unchanged: true
+        unresolved_shortfall_remains_unresolved: true
+    safety_stock:
+      quantile_selection: smallest_available_quantile_at_or_above_service_target
+      maximum_quantile: 0.99
+      region_aggregation: sum_regional_point_and_quantile_forecasts_by_week
+      time_aggregation: sum_weekly_values_over_lead_time_window
+      aggregation_label: conservative_sum_of_marginal_quantiles
+      calibration_multiplier:
+        enabled: false
+        fitting_data: tuning_origin_quantile_forecasts_only
+    emergency_procurement:
+      trigger: critical_backlog_remaining_at_week_close
+      quantity: exact_remaining_critical_backlog
+      arrival: start_of_next_week
+      unit_cost_multiplier: 1.5
+      sensitivity_range: [1.25, 2.0]
+      status: provisional_proxy
+      definition: emergency_order_unit_cost_times_multiplier
+      proxy_only: true
+    plant_calendar:
+      demand_treatment: use_validation_weekly_demand_as_observed
+      capacity_treatment: preserve_monthly_supplier_capacity_without_weekday_adjustment
+      status: no_verified_plant_specific_capacity_calendar
     currency: INR
     currency_source: unit_cost_dataset
     carrying_cost:
@@ -276,17 +367,36 @@ scheduling:
     stockout_cost:
       basis: unit_cost_times_criticality_multiplier
       criticality_multiplier:
-        High: 2.0
-        Medium: 1.0
-        Low: 0.5
-      proxy_only: true
-    emergency_procurement:
-      total_unit_cost_multiplier: 2.0
-      definition: emergency_order_unit_cost_times_multiplier
+        High: 10.0
+        Medium: 5.0
+        Low: 2.0
+      relative_sensitivity: 0.50
       proxy_only: true
     service_level_violation:
       threshold: per_part_service_level_target
       count_as_hard_constraint_violation: false
+    stockout_measurement:
+      timing: close_of_week_before_emergency_receipt
+      critical_parts: remaining_backlog_at_week_close
+      other_parts: lost_sales_at_week_close
+      emergency_orders_excluded_from_schedule_checker: true
+      emergency_orders_reported_separately: true
+    sensitivity_scenarios:
+      initial_stock_multiplier: 0.5
+      due_later_weeks: [3, 6]
+      rejection_variant: per_unit_binomial
+  supplier_risk:
+    risk_score_definition: one_minus_supN_reliability_pct_over_100
+    risk_level_method: population_tertiles_of_part_sob_weighted_risk_score
+    high_share_warning_pct: 50
+    high_share_warning_status: provisional_editable
+    planning_lead_time_adjustment: lead_time_days_plus_one_minus_otd_pct_times_avg_delay_days
+    planning_rejection_gross_up: required_quantity_over_one_minus_reject_pct
+    display_only: true
+  reorder_point:
+    definition: lead_time_point_demand_plus_safety_stock
+    trigger_rule: first_week_projected_inventory_at_or_below_reorder_point
+    comparison_source: data/02_scheduling_inputs.csv.current_reorder_point_qty
   feasibility_thresholds:
     hard_constraint_violations_allowed: 0
     quantity_tolerance: 0
@@ -294,6 +404,7 @@ scheduling:
     sob_target_deviation:
       hard_constraint: false
       report_absolute_percentage_point_deviation: true
+    sob_interpretation: target_allocation_not_binding_contract
 
 phase_gates:
   run_pytest_at_each_gate: true

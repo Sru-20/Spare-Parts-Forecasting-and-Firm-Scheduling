@@ -5,6 +5,7 @@ matplotlib>=3.8,<4
 scipy>=1.13,<2
 scikit-learn>=1.5,<2
 lightgbm>=4.3,<5
+xgboost>=2.0,<4
 ortools>=9.10,<10
 Django==5.2.18
 djangorestframework==3.18.3

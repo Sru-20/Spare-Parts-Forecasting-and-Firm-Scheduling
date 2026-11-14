@@ -77,6 +77,63 @@ def _categorical_columns(frame: pd.DataFrame) -> list[str]:
     ]
 
 
+def _ratio_where_positive(
+    numerator: pd.Series, denominator: pd.Series
+) -> pd.Series:
+    ratio = (numerator / denominator.where(denominator > 0)).replace(
+        [np.inf, -np.inf], np.nan
+    )
+    return ratio.clip(lower=0.0, upper=10.0)
+
+
+def _observed_mean(values: np.ndarray) -> float:
+    observed = values[np.isfinite(values)]
+    return float(np.mean(observed)) if len(observed) else float("nan")
+
+
+def _add_series_trend_features(frame: pd.DataFrame) -> pd.DataFrame:
+    """Add origin-safe trend and intermittency features within each series."""
+    output = frame.copy()
+    keys = ["part_id", "region"]
+    output["demand_trend_4_13"] = _ratio_where_positive(
+        output["demand_rolling_4_mean"], output["demand_rolling_13_mean"]
+    )
+    output["demand_trend_13_52"] = _ratio_where_positive(
+        output["demand_rolling_13_mean"], output["demand_rolling_52_mean"]
+    )
+    output["demand_cv_13"] = _ratio_where_positive(
+        output["demand_rolling_13_std"], output["demand_rolling_13_mean"]
+    )
+    grouped = output.groupby(keys, sort=False, observed=True)
+    prior_four = grouped["demand_rolling_4_mean"].shift(4)
+    output["demand_growth_4"] = _ratio_where_positive(
+        output["demand_rolling_4_mean"], prior_four
+    )
+
+    audit = output.loc[:, [*keys, "demand_qty"]].copy()
+    audit["observed"] = audit["demand_qty"].notna().astype(float)
+    audit["zero_flag"] = (
+        audit["demand_qty"].eq(0).astype(float).where(audit["demand_qty"].notna())
+    )
+    audit_grouped = audit.groupby(keys, sort=False, observed=True)
+    audit["prior_zero"] = audit_grouped["zero_flag"].shift(1)
+    audit["prior_observed"] = audit_grouped["observed"].shift(1)
+    rolling_grouped = audit.groupby(keys, sort=False, observed=True)
+    audit["demand_zero_rate_13"] = rolling_grouped["prior_zero"].transform(
+        lambda values: values.rolling(13, min_periods=1).mean()
+    )
+    audit["demand_history_weeks"] = rolling_grouped["prior_observed"].transform(
+        lambda values: values.cumsum()
+    )
+    output["demand_zero_rate_13"] = audit["demand_zero_rate_13"].reindex(
+        output.index
+    )
+    output["demand_history_weeks"] = audit["demand_history_weeks"].reindex(
+        output.index
+    )
+    return output
+
+
 def _lightgbm_model(
     objective: str,
     parameters: Mapping[str, float | int],
@@ -115,6 +172,7 @@ def _recursive_feature_frame(
     histories: dict[tuple[str, str], list[float]],
     last_positive_dates: dict[tuple[str, str], pd.Timestamp | None],
     feature_columns: Sequence[str],
+    extra_features: bool = False,
 ) -> pd.DataFrame:
     """Build only the current week's recursive features for each series."""
     records: list[dict[str, object]] = []
@@ -168,6 +226,32 @@ def _recursive_feature_frame(
             if last_positive is not None
             else np.nan
         )
+        if extra_features:
+            def safe_ratio(numerator: float, denominator: float) -> float:
+                if (
+                    np.isfinite(numerator)
+                    and np.isfinite(denominator)
+                    and denominator > 0
+                ):
+                    return float(np.clip(numerator / denominator, 0.0, 10.0))
+                return float("nan")
+
+            mean_4 = features["demand_rolling_4_mean"]
+            mean_13 = features["demand_rolling_13_mean"]
+            mean_52 = features["demand_rolling_52_mean"]
+            features["demand_trend_4_13"] = safe_ratio(mean_4, mean_13)
+            features["demand_trend_13_52"] = safe_ratio(mean_13, mean_52)
+            prior_four = _observed_mean(past[-8:-4])
+            features["demand_growth_4"] = safe_ratio(mean_4, prior_four)
+            features["demand_cv_13"] = safe_ratio(
+                features["demand_rolling_13_std"], mean_13
+            )
+            observed_13 = past[-13:]
+            observed_13 = observed_13[np.isfinite(observed_13)]
+            features["demand_zero_rate_13"] = (
+                float(np.mean(observed_13 == 0)) if len(observed_13) else np.nan
+            )
+            features["demand_history_weeks"] = float(np.isfinite(past).sum())
         angle = 2.0 * np.pi * date.month / 12.0
         features["demand_month_sin"] = float(np.sin(angle))
         features["demand_month_cos"] = float(np.cos(angle))
@@ -181,6 +265,7 @@ def _recursive_feature_frame(
 def build_fold_training_data(
     history: pd.DataFrame,
     origin: pd.Timestamp,
+    extra_features: bool = False,
 ) -> tuple[pd.DataFrame, pd.Series]:
     """Build the shared, origin-safe train design once per rolling fold."""
     history = history.loc[
@@ -207,6 +292,8 @@ def build_fold_training_data(
         history["demand_qty"], errors="raise"
     ).astype("Float64")
     features = build_time_features(history)
+    if extra_features:
+        features = _add_series_trend_features(features)
     target_mask = (
         history["split_role"].eq("train_val")
         & history["demand_qty"].notna()
@@ -229,13 +316,16 @@ def fit_global_models(
     dropped_groups: Sequence[str] = (),
     quantiles: Sequence[float] = (0.50, 0.90, 0.95, 0.99),
     training_design: tuple[pd.DataFrame, pd.Series] | None = None,
+    extra_features: bool = False,
 ) -> tuple[pd.DataFrame, dict[float, object], int]:
     """Fit on observed train_val targets, then recursively forecast the calendar."""
     if objective_family not in {
         "lightgbm_point",
         "lightgbm_tweedie",
+        "lightgbm_poisson",
         "lightgbm_quantile",
         "random_forest",
+        "xgboost",
     }:
         raise ValueError(f"Unsupported global model family: {objective_family}")
     history = history.loc[
@@ -262,7 +352,9 @@ def fit_global_models(
         history["demand_qty"], errors="raise"
     ).astype("Float64")
     if training_design is None:
-        train_features, train_target = build_fold_training_data(history, origin)
+        train_features, train_target = build_fold_training_data(
+            history, origin, extra_features=extra_features
+        )
     else:
         train_features, train_target = training_design
 
@@ -286,7 +378,7 @@ def fit_global_models(
     categorical = _categorical_columns(train_x_reference)
     categories_by_column: dict[str, list[str]] = {}
     prepared_train = train_x_reference.copy()
-    if objective_family == "random_forest":
+    if objective_family in {"random_forest", "xgboost"}:
         transformers = []
         if categorical:
             for column in categorical:
@@ -347,12 +439,32 @@ def fit_global_models(
                     ),
                 ]
             )
+        elif objective_family == "xgboost":
+            from xgboost import XGBRegressor
+
+            model = Pipeline(
+                [
+                    ("preprocessor", preprocessor),
+                    (
+                        "regressor",
+                        XGBRegressor(
+                            **parameters,
+                            objective="reg:squarederror",
+                            tree_method="hist",
+                            n_jobs=1,
+                            random_state=seed,
+                        ),
+                    ),
+                ]
+            )
         else:
             objective = (
                 "regression"
                 if objective_family == "lightgbm_point"
                 else "tweedie"
                 if objective_family == "lightgbm_tweedie"
+                else "poisson"
+                if objective_family == "lightgbm_poisson"
                 else "quantile"
             )
             model = _lightgbm_model(objective, parameters, seed, quantile)
@@ -361,7 +473,7 @@ def fit_global_models(
             train_target.to_numpy(dtype=float),
             **(
                 {}
-                if objective_family == "random_forest"
+                if objective_family in {"random_forest", "xgboost"}
                 else {"categorical_feature": categorical}
             ),
         )
@@ -391,11 +503,15 @@ def fit_global_models(
             future_calendar["week_start_date"].eq(target_date)
         ].sort_values(["part_id", "region"], kind="stable").reset_index(drop=True)
         future_features = _recursive_feature_frame(
-            current_calendar, histories, last_positive_dates, feature_columns
+            current_calendar,
+            histories,
+            last_positive_dates,
+            feature_columns,
+            extra_features=extra_features,
         )
         predict_x = future_features.loc[:, feature_columns].copy()
         for column in feature_columns:
-            if objective_family == "random_forest" and column in categorical:
+            if objective_family in {"random_forest", "xgboost"} and column in categorical:
                 predict_x[column] = (
                     predict_x[column].astype("string").fillna("__MISSING__")
                 )

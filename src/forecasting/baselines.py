@@ -5,6 +5,7 @@ from collections.abc import Sequence
 
 import numpy as np
 import pandas as pd
+from scipy.optimize import minimize_scalar
 
 
 BASELINE_MODELS = (
@@ -15,6 +16,7 @@ BASELINE_MODELS = (
     "croston",
     "sba",
     "tsb",
+    "exponential_smoothing",
 )
 
 
@@ -41,6 +43,32 @@ def _croston(values: np.ndarray, alpha: float, bias_corrected: bool) -> float:
         previous = int(index)
     forecast = demand_estimate / interval_estimate
     return forecast * (1.0 - alpha / 2.0) if bias_corrected else forecast
+
+
+def _ses(values: np.ndarray) -> float:
+    """ETS(A,N,N): simple exponential smoothing with fit-time alpha."""
+    observed = values[np.isfinite(values)]
+    if not len(observed):
+        return np.nan
+    if len(observed) < 2:
+        return float(observed[-1])
+
+    def one_step_sse(alpha: float) -> float:
+        level = float(observed[0])
+        total = 0.0
+        for value in observed[1:]:
+            total += (float(value) - level) ** 2
+            level = alpha * float(value) + (1.0 - alpha) * level
+        return total
+
+    result = minimize_scalar(
+        one_step_sse, bounds=(0.01, 0.99), method="bounded"
+    )
+    alpha = float(result.x)
+    level = float(observed[0])
+    for value in observed[1:]:
+        level = alpha * float(value) + (1.0 - alpha) * level
+    return max(0.0, level)
 
 
 def _tsb(values: np.ndarray, alpha: float, beta: float) -> float:
@@ -107,6 +135,8 @@ def forecast_baseline(
         estimate = _croston(calendar_values, croston_alpha, bias_corrected=False)
     elif model == "sba":
         estimate = _croston(calendar_values, croston_alpha, bias_corrected=True)
+    elif model == "exponential_smoothing":
+        estimate = _ses(calendar_values)
     else:
         estimate = _tsb(calendar_values, tsb_alpha, tsb_beta)
     return np.full(len(dates), max(0.0, estimate), dtype=float)

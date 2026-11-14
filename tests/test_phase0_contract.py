@@ -5,31 +5,44 @@ import yaml
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SPEC = (ROOT / "SPEC.md").read_text(encoding="utf-8")
+SPEC = (ROOT / "docs" / "SPEC.md").read_text(encoding="utf-8")
 
 
-def test_phase0_contract_records_verified_inputs_and_holdout():
-    assert "120,861 rows × 62 columns" in SPEC
-    assert "47 series short/unclassified" in SPEC
-    assert "final-test labels unopened until their one-time final evaluation" in SPEC
-    assert "SPEC v4.1" in SPEC
-    assert "32 PASS, 0 FAIL" in SPEC
+def test_phase0_contract_validates_the_governing_specification():
+    assert SPEC.startswith("# Spare Parts Demand Forecasting & Firm Scheduling: SPEC v4.2")
+    assert "supersedes all earlier versions" in SPEC
+    assert "Change control:" in SPEC
     assert "reports/phase0_traceability.md" in (ROOT / "STATE.md").read_text(encoding="utf-8")
     assert "reports/phase0_environment.md" in (ROOT / "STATE.md").read_text(encoding="utf-8")
-    assert (ROOT / "docs" / "Spec.md").is_file()
-    assert (ROOT / "docs" / "SPEC.docx").is_file()
+    config = yaml.safe_load((ROOT / "configs" / "project.yaml").read_text(encoding="utf-8"))
+    assert config["specification"]["version"] == "4.2"
+    assert config["specification"]["document"] == "docs/SPEC.md"
+    assert config["specification"]["document_status"] == (
+        "final_supersedes_earlier_versions"
+    )
 
 
 def test_phase0_contract_defines_metrics_and_track_disqualifiers():
     for text in (
-        "Forecast Accuracy %",
-        "Forecast-versus-actual variance",
-        "Quantile coverage is `mean(actual <= quantile forecast)`",
-        "Any hard-constraint violation disqualifies a scheduler.",
-        "Incorrect auto-apply and invented-quantity rates must be zero.",
-        "A champion is supported when it wins at least 75% of perturbations",
+        "Forecast Accuracy",
+        "WAPE",
+        "bias",
+        "MASE",
+        "MAE",
+        "RMSE",
+        "MAPE",
+        "confusion matrix",
+        "macro-F1",
+        "zero auto-apply",
+        "complete 26-week part-region aggregate",
+        "origin-safe features",
+        "sealed final test excluded",
     ):
         assert text in SPEC
+    config = yaml.safe_load((ROOT / "configs" / "project.yaml").read_text(encoding="utf-8"))
+    gates = config["scoring"]["tracks"]["forecasting"]["gates"]
+    assert gates["bootstrap_replicates"] == 2000
+    assert gates["bootstrap_confidence_level"] == 0.95
 
 
 def test_phase0_traceability_and_runtime_configuration_exist():
@@ -71,8 +84,7 @@ def test_application_architecture_uses_one_django_backend_and_imported_ml():
     assert application["ml_package_root"] == "src"
     assert application["separate_ml_http_service"] is False
     assert application["task_queue"] is False
-    assert "Django + DRF" in SPEC
-    assert "No second backend" in SPEC
+    assert config["specification"]["document"] == "docs/SPEC.md"
 
     requirements = (ROOT / "requirements.txt").read_text(encoding="utf-8").lower()
     assert "django==5.2.18" in requirements

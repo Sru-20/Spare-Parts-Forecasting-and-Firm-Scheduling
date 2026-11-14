@@ -36,6 +36,7 @@ def forecast_metrics(
             "smape_pct", "mase", "tracking_signal",
             "forecast_vs_actual_variance",
             "forecast_mean", "actual_mean", "pinball_loss",
+            "mape_pct", "mape_nonzero_n", "mape_zero_excluded",
         ):
             result[name] = np.nan
         for quantile in QUANTILES:
@@ -59,6 +60,8 @@ def forecast_metrics(
         out=np.zeros_like(denominator),
         where=denominator != 0,
     )
+    nonzero = actual_values != 0
+    mape_terms = np.abs(errors[nonzero]) / np.abs(actual_values[nonzero])
     result.update(
         {
             "wape_pct": wape,
@@ -66,6 +69,11 @@ def forecast_metrics(
             "bias_pct": bias,
             "mae": mae,
             "rmse": float(np.sqrt(np.mean(np.square(errors)))),
+            "mape_pct": float(100.0 * np.mean(mape_terms))
+            if len(mape_terms)
+            else np.nan,
+            "mape_nonzero_n": int(nonzero.sum()),
+            "mape_zero_excluded": int(count - nonzero.sum()),
             "smape_pct": float(np.mean(smape_terms)),
             "tracking_signal": (
                 float(np.sum(errors) / mae)
