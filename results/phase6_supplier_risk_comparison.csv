@@ -1,0 +1,3 @@
+variant,part_origins,firm_part_origins,unresolved_part_origins,order_lines,order_qty,expected_rejected_qty,mean_safety_stock,mean_reorder_point,parts_with_reorder_trigger,weekly_below_reorder_point,projected_unmet_units,high_risk_large_share_warnings
+traditional_baseline,563,442,121,6718,766550,23022,776.5681933964348,929.6721977065582,559,6890,225978.0,1582
+risk_adjusted,563,433,130,6342,788666,23825,801.8237105240863,962.9611958298135,560,6584,243181.0,1258

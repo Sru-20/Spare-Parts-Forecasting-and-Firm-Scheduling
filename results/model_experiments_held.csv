@@ -1,0 +1,3 @@
+candidate,stage,weekly_wape,weekly_bias,lead_time_wape,lead_time_bias,p95_coverage,lead_rows,tuning_gate_passed,gate_passed,admissible,gate_reasons,paired_delta_vs_champion,paired_delta_ci_low,paired_delta_ci_high,per_origin_lead_wape
+lightgbm_tweedie::random_1 (frozen),baseline,0.6325316232019329,-0.15106772758600842,0.3490102084171014,-0.050586132199562615,,2248,True,True,True,,,,,
+blend_tweedie_quantile_p50,held,0.6125476303782625,-0.20025959053453568,0.3414516531764161,-0.09914984060901916,,2248,False,True,False,,-0.007558555240685334,-0.02094648320233646,0.0039014775760472264,"{""2025-01-13"": 0.3586339907534537, ""2025-04-21"": 0.3724149111996185, ""2025-07-28"": 0.31546723544686317, ""2025-11-03"": 0.31874882031307517}"

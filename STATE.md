@@ -2,14 +2,24 @@
 
 ## Current status
 
-- **Phase 0: COMPLETE.** Final guide `docs/Spec.pdf` has been read and reconciled; deliverables and exit evidence are recorded below.
-- **Phase 1: COMPLETE.** Dataset validation, schema-checked consolidation, quality and leakage audits, derived Parquet tables, and Phase 1 tests are complete. No forecasting or final-test evaluation has been started.
-- **Phase 2: COMPLETE.** Train-validation EDA, development-window segmentation, origin-safe features, leakage tests, and derived artifacts passed the gate. Final test remains unopened.
-- **Phase 3: COMPLETE.** Track A rolling-origin candidates, evaluation artifacts, report, and gate checks are complete. Final-test rows remain sealed.
-- **Phase 4: COMPLETE under governing SPEC v4.1.** Reverified Track A selection on held validation and identified a sensitivity-stable Tweedie champion. Generated 14-week planning projections for the top two candidates using train-validation labels only; these recursively bridge the sealed test-date gap and are not directly validated 14-week forecasts. Final-test labels remain sealed.
-- **Phase 5: COMPLETE under simulator assumptions v2.** The updated assumption evidence, sensitivity report, independent-checker results, and current gates are recorded in the Phase 5 closure addendum below and `docs/phase5_assumptions.md`. Phase 6 comparison remains deferred/out of scope for the latest request.
+- **Phases 0–4: COMPLETE** according to the phase evidence below. The frozen Track A point champion is `lightgbm_tweedie::random_1`; its saved future projection remains a provisional bridge.
+- **Phase 5: COMPLETE WITH APPROVED DATA-LIMITATION EXCEPTION** The exact same-component/same-vehicle-type rule is retained. Where no donor exists, the approved status is `UNFORECASTED_NO_DEFENSIBLE_ANALOGUE`; no forecast quantity is fabricated or replaced by zero. Exit-gate evidence recorded in `results/phase5_exit_gate_evidence_v1.json`.
+- **Phase 6: COMPLETE** against its v4.2 gate under the user's explicit sequencing deviation. The primary validation winner is `lightgbm_quantile::random_1` + `risk_adjusted_mrp`; this does not change the frozen Track A point champion.
+- **Phase 7: Runner implemented; preflight gate UNBLOCKED (Phase 5 closure evidence recorded); final-test evaluation NOT STARTED.** Do not consume the final test without separate explicit authorization.
 - Tier 1 is mandatory. Tier 2 requires a measured Tier 1 gap; Tier 3 is deferred unless requested.
-- **Architecture decision (2026-10-23; maintenance update 2026-10-25):** use React + TypeScript → one Django + Django REST Framework backend → SQLite for development; production database remains undecided. Forecasting and scheduling are imported `src/` Python packages, called in-process; do not build a Spring Boot API or separate FastAPI/ML service. Django management commands are the MVP batch entry points; no task queue or second backend service.
+- **Specification authority:** `docs/SPEC.md` v4.2 FINAL governs technical requirements; this root `STATE.md` records execution status. There is no root-level `SPEC.md` in the current repository. The v4.2 status table is a specification snapshot; the later status entries here record subsequent execution and the approved Phase 6 sequencing deviation.
+- **Final-test access note:** a prior validator invocation read `demand_qty` from sealed final-test rows for integrity checks, not prediction evaluation. Do not claim those labels were never accessed. Phase 7 evaluation has not been run.
+
+## Current repository structure
+
+- `data/` contains the three source CSVs and dataset-generation/validation scripts. Original datasets are not to be modified.
+- `src/` contains the Python implementation, organized into `assistant/`, `classification/`, `data/`, `evaluation/`, `features/`, `forecasting/`, `scheduling/`, and `simulation/`.
+- `tests/` contains focused pytest modules for the implemented Python packages and phase workflows.
+- `configs/` contains project configuration. `artifacts/`, `results/`, and `reports/` contain generated intermediate data, evaluation/scheduling outputs, and documentation, respectively.
+- `backend/` and `frontend/` currently contain only `.gitkeep` placeholders. There is no `manage.py`, Django application, frontend `package.json`, or React application scaffold. Django/DRF dependencies are declared in root `requirements.txt`, but the application architecture described in the documents is not yet implemented.
+- `docs/SPEC.md` is the current specification location; the required root `SPEC.md` mentioned by the specification's workflow section is absent. `README.md` describes MySQL persistence, while v4.2 specifies SQLite for development and MySQL or Postgres by environment. Treat v4.2 as authoritative; reconcile the README discrepancy when documentation work is authorized.
+
+- **Target architecture decision (2026-10-23; maintenance update 2026-10-25):** React + TypeScript → one Django + Django REST Framework backend → SQLite for development, MySQL or Postgres by environment. Forecasting and scheduling are imported `src/` Python packages called in-process; no Spring Boot, separate FastAPI service, queue, or second backend. This is the selected target architecture, not a claim that the currently placeholder `backend/` and `frontend/` directories are implemented.
 
 ## Phase 0 completed work
 
@@ -258,10 +268,405 @@ The following evaluation records the earlier contract and is retained as histori
 
 - **Document control reconciled.** The working tree carries `docs/SPEC.md` (33,346 bytes, SHA-256 `aa47dfedb673de304f2a5ea7338cefa3bf20c74c33acbcd0dd99a37d11947344`), titled "SPEC v4.2 (FINAL, supersedes all earlier versions)". The earlier entries above that named `docs/SPEC_v4.2_amendment.md` and `docs/SPEC.pdf` no longer describe the tree: neither file is present. `docs/SPEC_AMENDMENT.md` is a separate v4.3 amendment that names `SPEC_FINAL_v4_3.md` as its baseline; that baseline is not in the project, and the amendment is neither accepted nor implemented. `configs/project.yaml` now records `specification.version: "4.2"`, `document: docs/SPEC.md`, `document_status: final_supersedes_earlier_versions`, and a logged `change_control` line. `tests/test_phase0_contract.py` was rewritten against those strings, so the collection blocker recorded in the bias-calibration and structural-experiment sections is closed. `docs/phase5_assumptions.md` was restored from history and its config/business hashes refreshed (config SHA-256 `91cdec6d98727cc57092b89212556d0792c135b93607ac9cd39766af5b1fb9c4`) to satisfy the Phase 5 evidence test.
 - **A1 — broader model comparison (tuning only).** Implemented `src/forecasting/model_comparison.py`: `moving_average_13`, `exponential_smoothing` (ETS(A,N,N)), and `xgboost` on the frozen feature set with the same three seed-42 configurations mapped from the LightGBM budget. Tuning-origin lead-time WAPE: champion `lightgbm_tweedie::random_1` **39.29% / bias -16.93%**; tsb 44.48%; moving average 45.07%; historical average 46.08%; xgboost r1 46.12% (-4.89%); ETS 46.14%; seasonal naive 51.29%; naive 61.81%. Best new candidate is 5.78 pp worse than the champion, against the pre-declared 0.50 pp gain needed to advance. Decision `champion_retained_tuning_gate_not_met`; **no held origin was opened**, so the held-look ledger stays at three (Phase 4 selection, bias calibration, Experiment 2). MAPE is reported only on non-zero actuals with 301 excluded rows and is not scored. SARIMA/ARIMA and LSTM are deferred for cost and hardware reasons stated in the report. Outputs: `results/model_comparison_tuning.csv`, `results/model_comparison_summary.json`, `results/model_comparison_report.md`.
-- **A2 — part-category classifier.** `src/classification/part_category.py` predicts `part_category` from catalogue text with TF-IDF + logistic regression and TF-IDF + linear SVM. Stratified 5-fold macro-F1 is 1.000 for both, which is an artifact of the generator and is not evidence of generalization. Component-group hold-out (41 parts, 11 unseen components, zero overlap, 5 of 8 categories present): macro-F1 0.154 (logistic) / **0.210 (SVM)**, weighted F1 0.435 / 0.469, accuracy 48.78% / 56.10%. The classifier is reviewer-only: catalogue values are never overwritten, and `needs_review` at 0.60 flags 0 rows. `material_group` is not available in the catalogue and was not inferred.
+- **A2 — part-category classifier (historical result, superseded for Phase 8A).** The earlier row-stratified CV and candidate comparison are retained here as historical evidence only. They are not the Phase 8A gate result; see the component-grouped evaluation recorded below.
 - **A3/A4 — supplier risk and reorder points.** Risk levels High 53 / Medium 52 / Low 53. Ablation over 563 part-origin paths: risk-adjusted planning raised order quantity 2.89% (766,550 → 788,666), raised projected unmet units 17,203 (225,978 → 243,181), cut high-risk large-share warnings 324, and did not reduce expected rejection loss. Computed reorder points are several times D2 `current_reorder_point_qty` (High median 587.7 vs 54.0); whether D2 is a real current policy is **not established**. Both are reported as exposure comparisons, not savings.
 - **A5 — deferred under its own rule.** Phase 8 Ask AI does not exist, no approved <=3B instruct model is installed, and there is no GPU. No model was downloaded or run.
 - **B — interim 26-week backtest.** `src/forecasting/interim_backtest.py`, origins 2025-03-24 and 2025-09-22, windows 2025-03-31..2025-09-22 and 2025-09-29..2026-03-23. The amendment's calendar anchoring would have placed the first window at 2025-03-31..2025-09-29, but the 2025-09-29 origin would then have scored weeks later than its own fit point; the origin was moved back one week to keep every recursive feature origin-safe. That deviation is documented and does not open the final test. Pooled weekly WAPE: quantile 60.12% (bias -34.15%), **tweedie 66.15% (-14.03%)**, ensemble 71.02%, tsb 73.77%, historical average 78.06%, naive 88.71%, seasonal naive 90.88%. Complete 26-week part-region aggregate: **tweedie 33.05% (-14.20%)**, ensemble 35.86%, tsb 38.20%, quantile 41.90%, historical 42.21%, seasonal naive 44.76%, naive 72.92%. 1,116 complete series-origins and 65 incomplete; 29,950 global-model weekly rows, 22 excluded for missing actuals and 384 for missing baseline forecasts. Horizon bands 1-13 / 14-26, SBC and criticality breakdowns are in the CSV. The benchmark is **not used for champion selection** and its two windows are inside held validation, so they are not independent.
 - **Cleanup.** Moved out of the repository to `C:\Users\sruja\OneDrive\Desktop\spare-parts-archive-2026-11-14\`: `final_project_completion_plan.md`, `reports/project_report_remaining_work.md`, `reports/project_report_remaining_work.docx`, `reports/project_progress_report.md` (23 Oct 2026, superseded), `results/forecast_six_month_backtest.csv`, `results/forecast_six_month_backtest_summary.json`, and `artifacts/forecast_six_month_backtest.parquet`. Deleted generated caches (`__pycache__`, `.pytest_cache`, docx lock files). Kept data, frozen artifacts, Phase 3-5 results and evidence. Updated the two result reports that pointed at the archived `project_report_remaining_work.md`.
 - **Current report.** Wrote `reports/project_report_current.md` with measured numbers for every phase, the A1 and B tables, A2/A3/A4/A5 status, the seven open decisions, limits, and reproduction commands.
-- **Gates.** `python -m pytest -q` — **119 passed**; `python data/validate_datasets.py data` — **32 PASS, 0 FAIL**; `git diff --check` — clean. Final test remains sealed.
+- **Gates.** `python -m pytest -q` — **119 passed**; `python data/validate_datasets.py data` — **32 PASS, 0 FAIL**; `git diff --check` — clean. Subsequent integrity review established that this historical validator execution read `demand_qty` from sealed final-test rows for integrity checks, not prediction evaluation; do not describe the labels as never accessed.
+
+## Session 3 update — Phase 5 v4.2 closure verification (2026-11-15)
+
+- **Current Phase 5 status: PARTIAL.** This entry supersedes the older
+  assumptions-v2 “Phase 5 complete” status above. The governing
+  `docs/SPEC.md` v4.2 closure gate is not passed; do not begin or claim Phase 6
+  completion from this work.
+- Implemented origin-visible primary initialization in
+  `src/scheduling/phase5.py`: trailing 13 complete observed weekly totals,
+  at least 8 complete weeks, `ceil(mean) * (ceil(SOB-weighted lead days / 7) + 1)`,
+  zero opening POs/backlog. D2 is retained as `d2_snapshot_stress`. Origin SBC
+  labels used for exclusion reporting are recalculated from history available
+  before each origin, not from the later frozen segment artifact.
+- Added exact unresolved reasons for first-week lead-time infeasibility and
+  MOQ/order-multiple rounding; firm status requires the per-part independent
+  checker and shared supplier-capacity check to pass. Origin-wide failures are
+  not copied onto unrelated parts. MRP and simulator ledgers reconciled in
+  every executed path.
+- `python -m src.scheduling.phase5 --demo` completed. Authoritative evidence is
+  in `results/phase5_primary_v5_*`,
+  `results/phase5_d2_snapshot_stress_v5_*`,
+  `results/phase5_primary_sensitivity_v5.csv`,
+  `results/phase5_scenario_comparison_v5.csv`,
+  `results/phase5_repeat_run_evidence_v5.json`, and
+  `results/phase5_mvp_planner_summary_v5.md`. Superseded intermediate outputs
+  from this session were removed; pre-existing Phase 5 outputs were preserved.
+- Primary initialization: **467 firm**, **93 unresolved**, **3 not ordered**;
+  0 hard-constraint failures on firm schedules; 8 unresolved first-week
+  lead-time failures and 85 unresolved supplier-capacity/MOQ-rounding and
+  unfilled-requirement paths. There were 0 MRP and 0 simulator ledger failures.
+  D2 stress: **256 firm**, **305 unresolved**, **2 not ordered**. Initial-cover
+  medians by criticality, exclusions, monthly unresolved counts, sensitivity
+  values, and the empty unsupported analogue diagnostic are recorded in
+  `docs/phase5_assumptions.md`.
+- The required same-component/same-vehicle-type short-series analogue remains
+  **blocked**: the catalogue yields 0 eligible donors among 160 parts. The
+  required CSV exists but has no forecast rows; no fabricated forecast was
+  emitted. The v4.2 gate therefore remains partial.
+- `py -3.10 -m pytest -q tests/test_phase5_scheduling.py` — **49 passed**;
+  `py -3.13 -m pytest -q tests/test_phase5_scheduling.py` — **49 passed**.
+  `python -m py_compile src/scheduling/phase5.py src/scheduling/engine.py
+  src/scheduling/checker.py tests/test_phase5_scheduling.py`,
+  Pylance diagnostics for `phase5.py`, and `git diff --check` passed.
+- The full repository test suite and dataset validator were not run in this
+  session. The prior validator invocation read `demand_qty` values from sealed
+  final-test rows for integrity validation, not prediction scoring. No claim
+  is made that final-test labels were never accessed. This session’s scheduling
+  run used only saved held-validation forecast paths and origin-visible
+  warm-up/train-validation history; frozen forecast artifacts were not changed.
+- **Next command:** `python -m src.scheduling.phase5 --demo`. It replays the
+  validation-only simulated schedule and validates existing output bytes
+  without overwriting different content. Do not run the validator or proceed
+  to Phase 6 until the fallback and remaining v4.2 gate evidence are resolved.
+
+## Phase 6 comparison update (2026-11-15)
+
+- **Phase 5 remains PARTIAL. Phase 6 is COMPLETE against its v4.2 gate under
+  the user's explicit sequencing deviation. Phase 7 is NOT STARTED.** The
+  Phase 5 analogue fallback is still blocked; this update does not close it or
+  authorize Phase 7.
+- Compared the frozen top two point candidates
+  (`lightgbm_tweedie::random_1`, `lightgbm_quantile::random_1`) with the
+  historical-average + D2 reorder-point baseline, MRP and risk-adjusted MRP.
+  The common held-validation cohort produced 6,756 scheduler/candidate/
+  initialization rows. No final-test labels, model training, tuning,
+  champion reselection, Phase 5 rerun or dataset validator was used.
+- Primary-initialization winner: `lightgbm_quantile::random_1` +
+  `risk_adjusted_mrp`, weighted rank score **0.5125**. This does not change
+  the frozen Track A point champion. The winner changed in 3/12 one-factor
+  +/-10-point weight perturbations; paired bootstrap and 48 cost-sensitivity
+  outputs were generated.
+- The required forecast-error versus service/cost comparison is recorded in
+  the report: Tweedie + MRP had the lowest weekly WAPE (45.02%), best fill
+  rate (87.48%) and lowest emergency-cost proxy (18,100,933); Quantile + MRP
+  had the lowest carrying-cost proxy (23,296,400). The lowest-error candidate
+  therefore led on service and emergency cost, but not every cost component;
+  the weighted winner remains Quantile + risk-adjusted MRP.
+- The provisional 14-week schedule has 2,781 rows (1,961 firm, 820
+  unresolved). Its 806 firm orders pass the aggregate independent checker;
+  no firm row has failed checks. Validation comparison checker failures are
+  unresolved-only (`release_before_week_1` and/or `unfilled_requirement`);
+  ledger failures are zero. The D2 stress scenario has zero firm paths and
+  remains explicitly reported as stress evidence, not hidden.
+- KPI outputs include formula, unit, basis, denominator, traditional-baseline
+  comparison and worse-than-baseline status. Phase-out inventory is reported
+  separately. Obsolete parts P0046/P0087 lack D2 snapshots, so their stock
+  values and weeks of cover are `not_measurable`.
+- Schedule stability is unavailable from the saved one-run histories; the
+  scoring component uses simulated schedule adherence only. Supplier-risk
+  flag has no approved threshold and remains null. Synthetic results are
+  method validation, not factory savings.
+- Outputs: `results/phase6_scheduler_comparison_v1.csv`,
+  `results/phase6_kpi_comparison_v1.csv`,
+  `results/phase6_weight_sensitivity_v1.csv`,
+  `results/phase6_paired_bootstrap_v1.csv`,
+  `results/phase6_cost_sensitivity_v1.csv`,
+  `results/phase6_initialization_comparison_v1.csv`,
+  `results/phase6_exclusions_v1.csv`,
+  `results/phase6_checker_summary_v1.csv`,
+  `results/phase6_provisional_firm_schedule_v1.csv`, and
+  `reports/phase6_comparison_report.md`.
+- `py -3.10 -m pytest -q tests/test_phase5_scheduling.py tests/test_phase6_scheduling.py`
+  and the corresponding `py -3.13` command: **59 passed each**.
+  `py -3.10 -m py_compile src/scheduling/phase6.py
+  tests/test_phase6_scheduling.py` and `git diff --check` passed. The full
+  repository test suite was not run.
+- **Reproduction command:** `py -3.10 -m src.scheduling.phase6`. It refuses
+  to overwrite any existing Phase 6 output. The prior validator execution
+  historically read sealed final-test labels for integrity checks; no claim
+  is made that those labels were never accessed. Phase 6 used saved held
+  validation forecasts and origin-visible warm-up/train-validation history.
+- **Next:** do not begin Phase 7 in this checkpoint. Resolve the Phase 5
+  fallback/gate and obtain explicit authorization before opening the final
+  test or implementing Phase 7.
+
+## Phase 7 readiness audit (2026-11-15)
+
+- Phase 7 remains **NOT STARTED**. The readiness review was read-only: no Phase
+  5/6/7 runner, dataset validator, tests, training, or final-test target values
+  were accessed during that audit.
+- Phase 6 handoff verified: current `configs/project.yaml` SHA-256 matches
+  `46a6183450abad85c84ea3df41e412709e189b9314d42c8d1fb0c34a533314cc`;
+  the saved primary winner remains
+  `lightgbm_quantile::random_1` + `risk_adjusted_mrp` (score 0.5125), and the
+  nine Phase 6 v1 comparison/KPI/sensitivity/bootstrap/cost/initialization/
+  exclusion/checker/provisional-schedule outputs exist.
+- The final-test inputs exist in the source dataset, but no Phase 7 runner or
+  final-test report, final schedule, or final KPI output was found. The
+  existing `results/forecast_future_14w_v41.csv` is the provisional bridge,
+  not the final future forecast.
+- Phase 5's analogue fallback remains a blocker for full short-series
+  coverage: the diagnostic found zero eligible donors and emitted no forecast
+  rows. The final forecast identity also needs confirmation: the frozen Track A
+  point champion is Tweedie, while the Phase 6 winning pair is Quantile +
+  risk-adjusted MRP.
+- The v4.2 Phase 7 clause does not define an executable command, final-test
+  horizon/origin procedure, quantitative performance threshold, or retry
+  behavior. The prior validator's structural read of sealed `demand_qty`
+  values is documented above; it was not prediction evaluation, and no claim
+  is made that the labels were never accessed.
+- **Readiness decision: NOT READY to consume the final test.** Resolve the
+  Phase 5 sequencing/fallback issue and Phase 7 protocol/model decisions, then
+  obtain explicit authorization for the single-use evaluation. Do not reuse
+  the same final-test window if it has been consumed and a change is required;
+  establish a new evaluation window instead.
+
+## Approved Phase 5 no-donor exception (2026-11-16)
+
+- The user approved preserving the exact `component` + `vehicle_type` donor
+  rule and recording series without a donor as
+  `UNFORECASTED_NO_DEFENSIBLE_ANALOGUE`. No broadened metadata match, invented
+  quantity, or zero-demand substitution is allowed.
+- The exception covers 47 unclassified part-region series across P0007, P0009,
+  P0024, P0025, P0042, P0062, P0068, P0090, P0091, P0092, P0106, and P0122.
+  At each held origin (2025-01-13, 2025-04-21, 2025-07-28, 2025-11-03), the
+  exact-rule eligible donor count is zero. P0091 remains unforecasted because
+  it has no development observations and no validated launch/exposure scaling.
+- `docs/SPEC.md` sections 3 and 12(c) now state the approved exception.
+  Versioned detail is recorded in
+  `results/phase5_analogue_exceptions_v1.csv`,
+  `results/phase5_analogue_exceptions_v1.json`, and
+  `results/phase5_analogue_exception_summary_v1.md`. Existing v5 Phase 5/6
+  outputs and the legacy empty `analogue_fallback_forecasts.csv` are preserved.
+- The Phase 5 status remains PARTIAL until the updated implementation and
+  focused tests are reviewed and the remaining gate evidence is accepted. The
+  Phase 5 gate requires the hand cases and existing suite to pass on Python
+  3.10 and 3.13, validator 32/32, zero hard violations on firm schedules,
+  inventory reconciliation, identical repeat-run evidence, and frozen
+  assumptions. No tests or validators were run for this update. Do not run
+  the final-test validator; its prior documented invocation read sealed-test
+  targets for integrity checks.
+- Phase 6 remains COMPLETE under its previously approved sequencing deviation;
+  its configuration hash and artifacts were not changed. Phase 7 remains NOT
+  STARTED.
+
+## Phase 7 runner implementation and safe preflight (2026-11-16)
+
+- Implemented the frozen Phase 7 protocol in `configs/phase7.yaml` and the
+  fail-closed runner in `src/evaluation/phase7.py`. Operations are separated
+  into protocol validation, target-free preflight, explicitly authorized
+  single-use final-test evaluation, and separately authorized post-evaluation
+  finalization. The evaluation attempt marker is created exclusively before
+  target-bearing reads; a failed consumed attempt is not retryable.
+- Added fitting-role support to `src/forecasting/global_models.py` while
+  preserving the existing `train_val` default, and an optional horizon/run-id
+  to the Phase 6 scheduling helper while preserving its existing defaults.
+  Added synthetic safeguards in `tests/test_phase7_runner.py`.
+- Safe preflight result: **BLOCKED** because Phase 5 remains PARTIAL. The
+  metadata-only split check confirmed train-validation ends 2026-03-23,
+  final-test spans 2026-03-30–2026-09-21 (26 weeks), and future spans
+  2026-09-28–2026-12-28 (14 weeks). Output destinations were available.
+  Preflight reported `target_values_read: false`,
+  `target_columns_requested: []`, `outcome_columns_requested: []`, and
+  `evaluation_consumption_state: NOT_CONSUMED`. The D2 snapshot is
+  2026-09-26, after the test window; scheduling results must be described as
+  simulated policy comparisons, not historical operating-state evidence.
+- Verification actually run: `py -3.10 -B -m pytest -q -p no:cacheprovider
+  tests/test_phase7_runner.py` — **6 passed**; no final-test data was used by
+  these synthetic-fixture tests. In-memory Python syntax compilation passed
+  for the changed Python sources. `git diff --check` passed with a pre-existing
+  LF/CRLF working-copy warning for `docs/Spec.md`.
+- No final-test evaluation, finalization, training, Phase 5/6 execution,
+  validator, or full repository test suite was run. No Phase 7 evaluation or
+  finalization output was created. Phase 7 final-test evaluation remains
+  **NOT STARTED** and is blocked pending Phase 5 closure and separate user
+  authorization.
+
+## Phase 7 targeted safety corrections (2026-11-16)
+
+- Finalization now requires a completed marker and saved evaluation metadata
+  with explicit boolean target-consumption fields, matching run/protocol
+  identities, and matching frozen configuration and split hashes. Frozen
+  configuration and split metadata are revalidated before training data loads.
+- Authorized target reads now validate split metadata first, inspect only
+  future-role targets for the required blank-target invariant, and load
+  target-bearing rows only for warmup/train-validation through the origin and
+  the approved final-test window. `out_*` columns remain outside the read
+  allowlist. Populated targets on flagged missing weeks fail closed; training
+  also explicitly masks those rows while retaining observed zeros.
+- The Phase 5 dependency gate now requires the current top-level Phase 5 status
+  and a structured `results/phase5_exit_gate_evidence_v1.json` record covering
+  the required exit criteria. That evidence record is not present and Phase 5
+  remains **PARTIAL**; no acceptance decision or Phase 5 status was changed.
+- The report explicitly explains that lead-time metrics are a single
+  origin-anchored 26-week aggregate; weeks 15–26 remain a weekly extended
+  diagnostic. The D2 post-window limitation remains stated.
+- Focused synthetic-only verification: **19 Phase 7 tests passed** on Python
+  3.10; in-memory syntax compilation and `git diff --check` passed. No final-test
+  targets, Phase 5/6/7 runs, validators, finalization, or full test suite were
+  accessed or executed.   Phase 7 remains unevaluated and unfinalized.
+
+  ## Phase 8A — part-category classification (2026-11-16)
+
+  - **Status: COMPLETE for the specified method-validation gate, with automatic
+    filling disabled by the confidence gate.** This is validation on the
+    synthetic catalogue only, not evidence of production accuracy. At the Phase
+    8A checkpoint, Phase 8B and Phase 9 had not started.
+  - Read `docs/SPEC.md` v4.2 §10, this state file, the updated problem statement,
+    the D3 schema, loader, generator, and classifier code before implementation.
+    The original problem-statement PDF is absent; the updated PDF is present.
+  - Replaced the unsuitable row-stratified evaluation with the SPEC baseline:
+    character 2–5-gram TF-IDF and balanced Logistic Regression, seed 42. The
+    only model inputs are the documented allowlist `part_name`, `component`,
+    and `material`. `part_category`, IDs, `part_description` (which embeds
+    category text in generated data), outcome/target fields, and all other
+    attributes are excluded. D3 contains 160 labeled rows, 42 components, and
+    8 categories; no labels were missing or unknown.
+  - Evaluation: deterministic 31-development-component / 11-held-out-component
+    split (41 holdout parts, zero component overlap), then 5-fold
+    `StratifiedGroupKFold` on development components only. Every development row
+    received one OOF prediction. Grouped OOF: accuracy **27.73%**, macro-F1
+    **0.2106**, weighted-F1 **0.2648** (119 rows). Held-out components:
+    accuracy **24.39%**, macro-F1 **0.0694**, weighted-F1 **0.2168** (41 rows;
+    5 of 8 classes present). Per-fold, per-class support, confusion matrices,
+    and class/component imbalance are recorded in the versioned report/CSVs.
+  - The development-only OOF threshold search found no candidate meeting the
+    configured 80% selective-accuracy floor. Therefore threshold is 1.0 and
+    `auto_accept_enabled` is false: missing/unknown categories are predicted
+    for review but remain unresolved and require clarification; existing
+    catalogue categories remain authoritative and are never overwritten.
+    Conflicts are returned explicitly and require clarification. The supplied
+    synthetic catalogue contains no missing labels, so fill performance cannot
+    be measured.
+  - The saved serving model was loaded and exercised. The report, model,
+    preprocessing artifact, class mapping, metadata/config/data hashes, grouped
+    fold results, threshold table, held-out predictions, per-class results, and
+    confusion matrix are saved under versioned `phase8a_v1` paths:
+    `configs/part_category.yaml`,
+    `artifacts/models/part_category_phase8a_v1.joblib`,
+    `artifacts/models/part_category_preprocessor_phase8a_v1.joblib`,
+    `artifacts/models/part_category_class_mapping_phase8a_v1.json`,
+    `results/part_category_phase8a_*_v1.*`, and
+    `reports/part_category_phase8a_v1.md`. Existing legacy classification
+    results and source data were preserved. `PartCategoryPredictor` and its
+    result types are available through a lazy package-level export.
+  - Reproducibility check: reran the pipeline against copied config and D3 data
+    in an isolated temporary workspace; grouped-CV and held-out accuracy,
+    macro-F1, weighted-F1, and sample counts matched the saved outputs exactly.
+  - Verification: focused tests **11 passed on Python 3.10** and **11 passed on
+    Python 3.13**; in-memory syntax compilation passed; `git diff --check`
+    passed with LF/CRLF working-copy warnings for `docs/Spec.md` and
+    `src/classification/__init__.py`.
+    Python 3.13 emitted eight SciPy L-BFGS deprecation warnings. The grouped
+    splitter warned that the rarest class has only four rows, fewer than the
+    five folds; this limitation is documented. No full repository suite,
+    validator, Phase 8B, or Phase 9 was run.
+
+## Phase 8B — Django REST API and controlled Ask AI (2026-11-16)
+
+- **Status: COMPLETE for the Phase 8B implementation gate. Phase 9 has not
+  started.** The application remains a simulated planning system; it is not
+  connected to an ERP or purchase-order service.
+- Implemented one Django/DRF backend with SimpleJWT, SQLite development default,
+  environment-selected MySQL/PostgreSQL, and direct in-process imports of the
+  existing scheduling and simulation packages. Role enforcement is server-side
+  for viewer, planner, approver, and admin actions. Refresh rotation, blacklist
+  revocation, password validation, paginated result APIs, and environment-only
+  `DJANGO_SECRET_KEY` are configured.
+- Added relational models and migrations for users/roles, catalogue parts,
+  planning runs, versioned forecast/schedule references, warnings, KPIs,
+  conversations/messages, proposals/immutable versions, and append-only
+  hash-chained audit records. Results are path-constrained and hash-checked
+  before service reads.
+- The controlled Ask AI fallback supports English, Hindi, Hinglish, and
+  Marathi. It parses to intents and calls allowlisted services only; it has no
+  direct database/model write access and cannot auto-apply or calculate order
+  quantities. Proposal quantities use deterministic supplier MOQ/order
+  multiples and are rechecked with the existing hard-constraint checker at
+  confirmation. Confirmation/revert create new versioned schedule files and
+  recalculate affected-part inventory/KPI impacts using
+  `src.simulation.weekly.simulate_weekly`; these are explicitly simulated
+  comparisons over saved forecast paths.
+- Added 192 generated labeled paraphrase requests (128 development, 64 held
+  out). Held-out intent accuracy **1.000**, applicable entity accuracy **1.000**
+  (16 cases), blocked-intent recognition **1.000** (16 phrase fixtures),
+  cross-language consistency **1.000** (16 per language), incorrect auto-apply
+  **0.000**, invented-quantity **0.000**, median/p95 local parser latency
+  **0.021/0.032 ms**, external model calls/cost **0/0**. These are generated
+  paraphrase-fixture results, not human-validated multilingual performance.
+  No fluent-human review was performed, so claims are limited to paraphrase
+  robustness. The offline blocked-intent metric measures intent labels only;
+  authorization and hard-constraint enforcement are covered by API tests.
+  Audit completeness is not an offline metric; API tests verify audit chaining
+  and lifecycle records.
+- Focused synthetic/API verification: `py -3.10 -B backend/manage.py test
+  backend.tests.test_phase8b_api -v 1` — **15 tests passed**. Coverage includes
+  roles, authentication/revocation, proposal confirmation and duplicate/stale
+  rejection, a two-worker version compare-and-swap, hard-constraint rejection,
+  prompt injection, cancellation, revert/idempotency, audit integrity, result
+  pagination, assistant fixtures, and SQLite backup/restore. Django system
+  check passed; `makemigrations --check --dry-run` reported no changes;
+  Pylance syntax checks passed for changed Python modules; `git diff --check`
+  passed (only pre-existing LF/CRLF working-copy warnings were reported).
+  The full repository suite and dataset validators were not run.
+- Deliverables include `backend/` (Django project/apps, services, APIs,
+  migrations, and tests), updates to `requirements.txt`, development and
+  evaluation instructions in `README.md`, and versioned
+  `results/assistant_requests_phase8b_v1.csv`,
+  `results/assistant_evaluation_phase8b_v1.json`, and
+  `reports/assistant_evaluation_phase8b_v1.md`. The original problem-statement
+  PDF was not present; the updated PDF is available. Existing unrelated dirty
+  work and artifacts were preserved.
+- Regression command: `py -3.10 -B backend/manage.py test
+  backend.tests.test_phase8b_api`. At this checkpoint, Phase 9 had not yet been
+  authorized; see the Phase 9 entry below for later work.
+
+## Phase 9 — planning website, monitoring, and robustness (2026-11-16)
+
+- **Status: PARTIAL.** The React/TypeScript website is implemented and verified
+  as the primary demonstration deliverable. Phase 9 is not complete: offline
+  retraining with gated promotion, saved-champion robustness evidence, and the
+  full repository test gate remain open. Phase 5 remains PARTIAL; Phase 7
+  remains unevaluated and unfinalized.
+- Established a shared responsive design system and application shell, then
+  implemented API-backed Overview, Forecasts, Firm Schedule, Inventory & Supply,
+  KPI Analytics, Ask AI, Audit, Run History, and Settings pages. Pages display
+  saved results only; the assistant's read-only browser query returned saved
+  schedule evidence without creating a proposal. Proposal application remains
+  an explicit role-checked action.
+- Added forecast bias and tracking-signal alert presentation driven only by
+  saved KPI values. The bias alert uses the configured ±10% threshold;
+  tracking-signal ±4 is explicitly a provisional display assumption, not a
+  frozen acceptance rule. The registered run has no tracking-signal record and
+  therefore shows it as not measurable.
+- Added `tests/test_phase9_robustness.py`. Its three synthetic-only tests passed:
+  doubled point/P99 demand increased order quantity with a feasible checker
+  result; supplier OTD/delay inputs changed risk-adjusted lead time from 7 to 21
+  days with a feasible checker result; infeasible capacity remained unresolved
+  and was rejected by the checker. These test engine behavior, not champion-path
+  robustness or business performance.
+- Frontend verification: 6 Vitest tests passed; TypeScript check and Vite build
+  passed in 0.99 seconds (main JavaScript 299.08 kB, 95.05 kB gzip; chart chunk
+  365.32 kB, 105.39 kB gzip). Browser smoke review covered all nine routes.
+  At a 390 px viewport, the body had no horizontal overflow; the schedule table
+  remained scrollable within its own container. Exact evidence and saved Phase 6
+  KPI table are in     `reports/02_phase9_closeout_v1.md`; machine-readable measurements are in
+  `results/03_phase9_ui_validation_v1.json`, and the short summary is in
+  `reports/01_phase9_executive_summary_v1.md`.
+- The selected Phase 6 `origin_visible` KPI rows in
+  `results/phase6_kpi_comparison_v1.csv` show WAPE 46.35% versus 57.46% baseline,
+  forecast bias -34.60% versus -1.09%, fill rate 83.89% versus 84.77%, stock-out
+  rate 10.48% versus 9.59%, critical availability 94.56% versus 91.76%, and
+  carrying-cost proxy 25,601,949.91 versus 9,297,403.88. These are saved
+  train/validation and simulated comparisons, not final-test results or proven
+  savings.
+- The full repository `pytest` suite was not run: existing tests use
+  `load_all`/`load_demand` on D1, which would load sealed target-bearing rows.
+  Only focused frontend tests/build and synthetic Phase 9 scheduling tests were
+  executed. No Phase 5/6 pipeline, validator, or final-test evaluation was run;
+  no final-test target values were accessed in this Phase 9 work.
+- **Next executable command:** from the repository root,
+  `Push-Location .\frontend; npm run dev` starts the local UI demonstration.
+  Before closing Phase 9, implement and validate offline retraining/promotion
+  safeguards, produce champion-path robustness evidence without opening the
+  final-test window, and obtain an approved safe full-suite test strategy.

@@ -1,0 +1,197 @@
+{
+  "status": "success",
+  "assumption_version": "phase5-assumptions-v3",
+  "config_sha256": {
+    "project.yaml": "46a6183450abad85c84ea3df41e412709e189b9314d42c8d1fb0c34a533314cc",
+    "business.yaml": "ed0e3df890504ed02f2aef27ee3ba6ca4a431ef6e40d07951dc4d86b231e6540"
+  },
+  "seed": 42,
+  "initialization_scenario": "origin_visible",
+  "scenario": {
+    "initial_stock_multiplier": 1.0,
+    "due_later_week": 4,
+    "rejection_variant": "whole_lot",
+    "pull_ahead_enabled": true
+  },
+  "held_validation_origins": [
+    "2025-01-13",
+    "2025-04-21",
+    "2025-07-28",
+    "2025-11-03"
+  ],
+  "complete_part_origin_paths": 563,
+  "initialization_excluded_paths": 7,
+  "initialization_exclusion_reason_counts": {
+    "missing_scheduling_snapshot": 7
+  },
+  "actual_path_weeks": 7980,
+  "orders": 7357,
+  "mrp_plan_weeks": 7882,
+  "simulation_weeks": 7882,
+  "schedule_checks": 563,
+  "schedule_firm_runs": 467,
+  "schedule_feasible_runs": 470,
+  "schedule_unresolved_runs": 93,
+  "schedule_not_ordered_runs": 3,
+  "baseline_unresolved_before_pull_ahead": 93,
+  "pull_ahead_orders": 0,
+  "pull_ahead_quantity": 0,
+  "independent_checker_feasible_runs": 470,
+  "plan_unresolved_runs": 93,
+  "independent_checker_hard_violations": 8,
+  "firm_order_hard_constraint_violations": 0,
+  "unresolved_checker_hard_failure_runs": 8,
+  "unfilled_requirement_runs": 85,
+  "unfilled_requirement_shortfall_units": 1636196.0,
+  "mrp_inventory_ledger_failed_runs": 0,
+  "simulator_inventory_ledger_failed_runs": 0,
+  "service_fill_rate": 0.874750270540248,
+  "stockout_part_week_pct": 6.7876173560010145,
+  "emergency_order_count": 109,
+  "emergency_order_quantity": 11626,
+  "emergency_cost_proxy": 18100932.63,
+  "excess_inventory_units_proxy": 488198.0936802657,
+  "carrying_cost_proxy": 25342132.09555327,
+  "excluded_640_path_analysis": {
+    "reason_counts": {
+      "complete": 570,
+      "no_forecast_rows_for_part_origin": 42,
+      "missing_observed_regional_label": 22,
+      "incomplete_14_week_forecast_horizon": 6
+    },
+    "exclusion_rate_by_criticality": [
+      {
+        "criticality": "High",
+        "possible_paths": 236,
+        "excluded_paths": 44,
+        "exclusion_rate": 0.1864406779661017
+      },
+      {
+        "criticality": "Low",
+        "possible_paths": 140,
+        "excluded_paths": 6,
+        "exclusion_rate": 0.04285714285714286
+      },
+      {
+        "criticality": "Medium",
+        "possible_paths": 264,
+        "excluded_paths": 20,
+        "exclusion_rate": 0.07575757575757576
+      }
+    ],
+    "exclusion_rate_by_segment": [
+      {
+        "sbc_class": "Erratic",
+        "possible_paths": 97,
+        "excluded_paths": 4,
+        "exclusion_rate": 0.041237113402061855
+      },
+      {
+        "sbc_class": "Intermittent",
+        "possible_paths": 137,
+        "excluded_paths": 4,
+        "exclusion_rate": 0.029197080291970802
+      },
+      {
+        "sbc_class": "Lumpy",
+        "possible_paths": 239,
+        "excluded_paths": 7,
+        "exclusion_rate": 0.029288702928870293
+      },
+      {
+        "sbc_class": "Smooth",
+        "possible_paths": 119,
+        "excluded_paths": 7,
+        "exclusion_rate": 0.058823529411764705
+      },
+      {
+        "sbc_class": "Unknown/ShortHistory",
+        "possible_paths": 48,
+        "excluded_paths": 48,
+        "exclusion_rate": 1.0
+      }
+    ],
+    "initialization_exclusion_reason_counts": {
+      "missing_scheduling_snapshot": 7
+    },
+    "initialization_exclusions_by_criticality": [
+      {
+        "criticality": "High",
+        "initialization_exclusion_reason": "missing_scheduling_snapshot",
+        "excluded_paths": 3
+      },
+      {
+        "criticality": "Medium",
+        "initialization_exclusion_reason": "missing_scheduling_snapshot",
+        "excluded_paths": 4
+      }
+    ],
+    "initialization_exclusions_by_segment": [
+      {
+        "sbc_class": "Lumpy",
+        "initialization_exclusion_reason": "missing_scheduling_snapshot",
+        "excluded_paths": 7
+      }
+    ]
+  },
+  "initial_cover_by_criticality": {
+    "High": {
+      "part_origins": 189,
+      "zero_demand_part_origins": 6,
+      "median_weeks": 4.070671378091873,
+      "p10_weeks": 3.0236663903352303,
+      "p90_weeks": 13.053398209714276,
+      "less_than_one_week_pct": 0.0,
+      "at_least_14_weeks_pct": 10.582010582010582
+    },
+    "Low": {
+      "part_origins": 134,
+      "zero_demand_part_origins": 0,
+      "median_weeks": 4.0451923886503325,
+      "p10_weeks": 3.0083887667079763,
+      "p90_weeks": 14.653008407777195,
+      "less_than_one_week_pct": 0.0,
+      "at_least_14_weeks_pct": 16.417910447761194
+    },
+    "Medium": {
+      "part_origins": 240,
+      "zero_demand_part_origins": 2,
+      "median_weeks": 4.078431372549019,
+      "p10_weeks": 3.0218361831505636,
+      "p90_weeks": 11.70000000000002,
+      "less_than_one_week_pct": 0.0,
+      "at_least_14_weeks_pct": 8.333333333333332
+    }
+  },
+  "lead_time_coverage_by_criticality": [
+    {
+      "criticality": "High",
+      "part_origins": 189,
+      "coverage_rate": 0.9947089947089947,
+      "mean_target": 0.9899999999999999,
+      "min_target": 0.99,
+      "max_target": 0.99
+    },
+    {
+      "criticality": "Low",
+      "part_origins": 134,
+      "coverage_rate": 0.9402985074626866,
+      "mean_target": 0.9,
+      "min_target": 0.9,
+      "max_target": 0.9
+    },
+    {
+      "criticality": "Medium",
+      "part_origins": 240,
+      "coverage_rate": 1.0,
+      "mean_target": 0.95,
+      "min_target": 0.95,
+      "max_target": 0.95
+    }
+  ],
+  "service_targets_above_p99": [],
+  "tuning_quantile_forecasts_saved": false,
+  "calibration_multiplier_fit_skipped": "No saved tuning-origin quantile forecasts; multiplier remains off.",
+  "this_run_accessed_sealed_test_labels": false,
+  "forecast_artifact_modified": false
+}

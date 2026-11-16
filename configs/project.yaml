@@ -282,20 +282,25 @@ assistant:
 
 scheduling:
   simulator_assumptions:
-    status: phase5_frozen
-    version: phase5-assumptions-v2
+    status: phase5_updated_pending_gate
+    version: phase5-assumptions-v3
     seed: 42
     schedule_granularity:
       level: part
       region_plant_label: ALL
       regional_allocation_modelled: false
     initial_inventory:
-      source: data/02_scheduling_inputs.csv
-      rule: use_available_qty_after_exact_on_hand_reserved_blocked_reconciliation
-      temporal_treatment: synthetic_initialization_rebased_to_each_validation_origin
+      source: data/01_demand_forecasting.csv
+      rule: ceil_origin_visible_trailing_13_week_mean_times_ceil_sob_weighted_lead_weeks_plus_one
+      trailing_weeks: 13
+      minimum_complete_observed_weeks: 8
+      temporal_treatment: only_complete_observed_weeks_strictly_before_validation_origin
       same_for_every_policy: true
-      warmup: no_historical_roll_forward_from_snapshot
+      initial_open_pos_qty: 0
+      initial_backlog_qty: 0
+      insufficient_history: flag_and_exclude_path
       initial_stock_multiplier: 1.0
+      d2_snapshot_stress_scenario: d2_snapshot_stress
     inbound_receipts:
       due_this_month: week_1
       due_later: week_4
@@ -382,7 +387,7 @@ scheduling:
       emergency_orders_excluded_from_schedule_checker: true
       emergency_orders_reported_separately: true
     sensitivity_scenarios:
-      initial_stock_multiplier: 0.5
+      initial_stock_multipliers: [0.5, 1.5]
       due_later_weeks: [3, 6]
       rejection_variant: per_unit_binomial
   supplier_risk:

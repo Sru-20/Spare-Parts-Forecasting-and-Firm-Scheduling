@@ -1,0 +1,90 @@
+{
+  "sequence": 3,
+  "run_date": "2026-11-16",
+  "final_test_accessed": false,
+  "frontend": {
+    "test_command": "Push-Location .\\frontend; npm run test",
+    "test_files_passed": 1,
+    "tests_passed": 6,
+    "build_command": "Push-Location .\\frontend; npm run build",
+    "build_passed": true,
+    "vite_build_duration_ms": 987,
+    "vite_output": {
+      "main_javascript_kb": 299.08,
+      "main_javascript_gzip_kb": 95.05,
+      "chart_chunk_kb": 365.32,
+      "chart_chunk_gzip_kb": 105.39,
+      "css_kb": 53.84,
+      "css_gzip_kb": 11.10
+    }
+  },
+  "browser_smoke": {
+    "authenticated_role": "admin",
+    "demo_database": "backend_phase9_demo.sqlite3",
+    "route_count": 9,
+    "routes": [
+      "/",
+      "/forecasts",
+      "/schedule",
+      "/inventory",
+      "/kpis",
+      "/assistant",
+      "/audit",
+      "/runs",
+      "/settings"
+    ],
+    "visible_page_error_alerts": 0,
+    "mobile_viewport_width_px": 390,
+    "mobile_body_client_width_px": 375,
+    "mobile_body_scroll_width_px": 375,
+    "mobile_schedule_table_client_width_px": 316,
+    "mobile_schedule_table_scroll_width_px": 939,
+    "ask_ai_read_only": {
+      "request": "Explain the schedule for this run",
+      "saved_schedule_rows_reported": 2781,
+      "conversation_message_persisted": true,
+      "proposals_created": 0,
+      "automatic_write": false
+    },
+    "saved_kpi_monitoring": {
+      "forecast_bias": "-34.6%",
+      "forecast_bias_status": "Alert",
+      "tracking_signal": "Not measurable"
+    }
+  },
+  "synthetic_robustness": {
+    "command": "py -3.10 -m pytest -q tests/test_phase9_robustness.py",
+    "tests_passed": 3,
+    "test_cases": {
+      "demand_shock": {
+        "baseline_point_and_p99": [10, 12],
+        "shocked_point_and_p99": [20, 24],
+        "order_quantity_increased": true,
+        "hard_constraint_checker_passed": true
+      },
+      "supplier_delay": {
+        "base_otd_pct": 100,
+        "base_average_delay_days": 0,
+        "delayed_otd_pct": 0,
+        "delayed_average_delay_days": 14,
+        "base_risk_adjusted_lead_days": 7,
+        "delayed_risk_adjusted_lead_days": 21,
+        "hard_constraint_checker_passed": true
+      },
+      "infeasible_capacity": {
+        "supplier_monthly_capacity": 10,
+        "demand_per_week": 20,
+        "plan_status": "unresolved",
+        "supplier_capacity_failure_reported": true,
+        "checker_rejected_plan": true
+      }
+    },
+    "synthetic_inputs_only": true,
+    "champion_path_evaluation": false
+  },
+  "full_repository_pytest": {
+    "run": false,
+    "reason": "Existing tests load the original demand dataset, including sealed target-bearing rows."
+  },
+  "git_diff_check_passed": true
+}

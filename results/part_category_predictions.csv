@@ -1,0 +1,161 @@
+part_id,component,material,catalogue_category,predicted_category,confidence,needs_review,prediction_model
+P0001,Oil filter cartridge,Mild Steel,Mechanical,Mechanical,0.8711637415788154,False,tfidf_linear_svm
+P0002,Air filter element,Polypropylene,Polymer,Polymer,0.8556309566837736,False,tfidf_linear_svm
+P0003,Fuel injector assy,Brass,Mechanical,Mechanical,0.8699625336852651,False,tfidf_linear_svm
+P0004,Piston ring set,Cast Iron,Ferrous,Ferrous,0.8698074781059161,False,tfidf_linear_svm
+P0005,Cylinder head gasket,Mild Steel,Ferrous,Ferrous,0.8530920633543152,False,tfidf_linear_svm
+P0006,Turbocharger unit,Cast Iron,Mechanical,Mechanical,0.8710733173492956,False,tfidf_linear_svm
+P0007,Front brake disc RH,Cast Iron,Ferrous,Ferrous,0.8594264563914152,False,tfidf_linear_svm
+P0008,Rear brake pad set,Ceramic,Mechanical,Mechanical,0.862350868839927,False,tfidf_linear_svm
+P0009,Brake caliper LH,Cast Iron,Ferrous,Ferrous,0.8712581643647169,False,tfidf_linear_svm
+P0010,ABS wheel speed sensor rear,FR4,Electronics,Electronics,0.8448315894773061,False,tfidf_linear_svm
+P0011,Brake master cylinder,Aluminium,Mechanical,Mechanical,0.8608430767871097,False,tfidf_linear_svm
+P0012,Front shock absorber,Mild Steel,Mechanical,Mechanical,0.8681123697205245,False,tfidf_linear_svm
+P0013,Suspension coil spring,Spring Steel,Ferrous,Ferrous,0.8715898534136786,False,tfidf_linear_svm
+P0014,Control arm LH,Mild Steel,Ferrous,Ferrous,0.872691811303871,False,tfidf_linear_svm
+P0015,Stabilizer link,Mild Steel,Ferrous,Ferrous,0.868974778040855,False,tfidf_linear_svm
+P0016,Tie rod end LH,Mild Steel,Ferrous,Ferrous,0.8638088906193984,False,tfidf_linear_svm
+P0017,Steering rack assy,Mild Steel,Mechanical,Mechanical,0.8742220855168861,False,tfidf_linear_svm
+P0018,Transmission mount,NBR,Rubber,Rubber,0.845682681701477,False,tfidf_linear_svm
+P0019,CV joint boot,EPDM,Rubber,Rubber,0.8606296865693306,False,tfidf_linear_svm
+P0020,Clutch plate assy,Mild Steel,Mechanical,Mechanical,0.8725238400882903,False,tfidf_linear_svm
+P0021,Gearbox synchro ring,Brass,Non-ferrous,Non-ferrous,0.8514813369977716,False,tfidf_linear_svm
+P0022,Radiator assy,Aluminium,Non-ferrous,Non-ferrous,0.8614292892165457,False,tfidf_linear_svm
+P0023,Coolant hose upper,EPDM,Rubber,Rubber,0.8470404142840176,False,tfidf_linear_svm
+P0024,Thermostat housing,Aluminium,Non-ferrous,Non-ferrous,0.8630971020764978,False,tfidf_linear_svm
+P0025,Water pump,Cast Iron,Mechanical,Mechanical,0.8669182500623839,False,tfidf_linear_svm
+P0026,Cabin air filter,Polypropylene,Polymer,Polymer,0.8568492567785574,False,tfidf_linear_svm
+P0027,Blower motor assy,Copper,Electrical,Electrical,0.8696780021568812,False,tfidf_linear_svm
+P0028,AC compressor,Aluminium,Mechanical,Mechanical,0.8730401380097582,False,tfidf_linear_svm
+P0029,Condenser core,Aluminium,Non-ferrous,Non-ferrous,0.8599108829088128,False,tfidf_linear_svm
+P0030,Headlamp assy LH,Polycarbonate,Electrical,Electrical,0.8716288572887204,False,tfidf_linear_svm
+P0031,Tail lamp assy RH,Polycarbonate,Electrical,Electrical,0.8766852716095276,False,tfidf_linear_svm
+P0032,Fog lamp bulb,Glass,Electrical,Electrical,0.8669636899504618,False,tfidf_linear_svm
+P0033,LED indicator module,FR4,Electronics,Electronics,0.8531981612155297,False,tfidf_linear_svm
+P0034,Front bumper assy,Polypropylene,Body,Body,0.845233736804528,False,tfidf_linear_svm
+P0035,Bonnet/hood panel,Mild Steel,Body,Body,0.8382520899709164,False,tfidf_linear_svm
+P0036,Fender liner RH,Polypropylene,Polymer,Polymer,0.8342768198169385,False,tfidf_linear_svm
+P0037,Door handle outer LH,Polypropylene,Body,Body,0.8460915006248156,False,tfidf_linear_svm
+P0038,Battery 12V,Polypropylene,Electrical,Electrical,0.8524251349796726,False,tfidf_linear_svm
+P0039,Starter motor,Copper,Electrical,Electrical,0.8765485864791259,False,tfidf_linear_svm
+P0040,Alternator assy,Copper,Electrical,Electrical,0.8750731019173368,False,tfidf_linear_svm
+P0041,Wiring harness front,Copper,Electrical,Electrical,0.8707632355159219,False,tfidf_linear_svm
+P0042,Voltage regulator,FR4,Electronics,Electronics,0.8394070668161336,False,tfidf_linear_svm
+P0043,Oil filter cartridge,Mild Steel,Mechanical,Mechanical,0.8683421364194747,False,tfidf_linear_svm
+P0044,Air filter element,Polypropylene,Polymer,Polymer,0.8637865850131341,False,tfidf_linear_svm
+P0045,Fuel injector assy,Brass,Mechanical,Mechanical,0.8654748726846896,False,tfidf_linear_svm
+P0046,Piston ring set,Cast Iron,Ferrous,Ferrous,0.8700543064912581,False,tfidf_linear_svm
+P0047,Cylinder head gasket,Mild Steel,Ferrous,Ferrous,0.8580602747910446,False,tfidf_linear_svm
+P0048,Turbocharger unit,Cast Iron,Mechanical,Mechanical,0.8605838999845578,False,tfidf_linear_svm
+P0049,Front brake disc RH,Cast Iron,Ferrous,Ferrous,0.8632814937505905,False,tfidf_linear_svm
+P0050,Rear brake pad set,Ceramic,Mechanical,Mechanical,0.8628711777317634,False,tfidf_linear_svm
+P0051,Brake caliper LH,Cast Iron,Ferrous,Ferrous,0.8678837475513291,False,tfidf_linear_svm
+P0052,ABS wheel speed sensor rear,FR4,Electronics,Electronics,0.8492811782063212,False,tfidf_linear_svm
+P0053,Brake master cylinder,Aluminium,Mechanical,Mechanical,0.8636101172109408,False,tfidf_linear_svm
+P0054,Front shock absorber,Mild Steel,Mechanical,Mechanical,0.8661162023342271,False,tfidf_linear_svm
+P0055,Suspension coil spring,Spring Steel,Ferrous,Ferrous,0.8719841883649154,False,tfidf_linear_svm
+P0056,Control arm LH,Mild Steel,Ferrous,Ferrous,0.8722609897627068,False,tfidf_linear_svm
+P0057,Stabilizer link,Mild Steel,Ferrous,Ferrous,0.870353226238811,False,tfidf_linear_svm
+P0058,Tie rod end LH,Mild Steel,Ferrous,Ferrous,0.8653564930643523,False,tfidf_linear_svm
+P0059,Steering rack assy,Mild Steel,Mechanical,Mechanical,0.8702944695588659,False,tfidf_linear_svm
+P0060,Transmission mount,NBR,Rubber,Rubber,0.8496711836770516,False,tfidf_linear_svm
+P0061,CV joint boot,EPDM,Rubber,Rubber,0.8632718303351269,False,tfidf_linear_svm
+P0062,Clutch plate assy,Mild Steel,Mechanical,Mechanical,0.8704047984718555,False,tfidf_linear_svm
+P0063,Gearbox synchro ring,Brass,Non-ferrous,Non-ferrous,0.8493444688029191,False,tfidf_linear_svm
+P0064,Radiator assy,Aluminium,Non-ferrous,Non-ferrous,0.8587387113384345,False,tfidf_linear_svm
+P0065,Coolant hose upper,EPDM,Rubber,Rubber,0.8527653523066613,False,tfidf_linear_svm
+P0066,Thermostat housing,Aluminium,Non-ferrous,Non-ferrous,0.8628885411810288,False,tfidf_linear_svm
+P0067,Water pump,Cast Iron,Mechanical,Mechanical,0.863983394280492,False,tfidf_linear_svm
+P0068,Cabin air filter,Polypropylene,Polymer,Polymer,0.8654294221857276,False,tfidf_linear_svm
+P0069,Blower motor assy,Copper,Electrical,Electrical,0.868398518846346,False,tfidf_linear_svm
+P0070,AC compressor,Aluminium,Mechanical,Mechanical,0.87053507507691,False,tfidf_linear_svm
+P0071,Condenser core,Aluminium,Non-ferrous,Non-ferrous,0.8567018550531666,False,tfidf_linear_svm
+P0072,Headlamp assy LH,Polycarbonate,Electrical,Electrical,0.8759828954182124,False,tfidf_linear_svm
+P0073,Tail lamp assy RH,Polycarbonate,Electrical,Electrical,0.878913666082605,False,tfidf_linear_svm
+P0074,Fog lamp bulb,Glass,Electrical,Electrical,0.8691100414944604,False,tfidf_linear_svm
+P0075,LED indicator module,FR4,Electronics,Electronics,0.8488726531051025,False,tfidf_linear_svm
+P0076,Front bumper assy,Polypropylene,Body,Body,0.844194089342554,False,tfidf_linear_svm
+P0077,Bonnet/hood panel,Mild Steel,Body,Body,0.8452144931987317,False,tfidf_linear_svm
+P0078,Fender liner RH,Polypropylene,Polymer,Polymer,0.8320249638659538,False,tfidf_linear_svm
+P0079,Door handle outer LH,Polypropylene,Body,Body,0.8430620465608983,False,tfidf_linear_svm
+P0080,Battery 12V,Polypropylene,Electrical,Electrical,0.8552857434725637,False,tfidf_linear_svm
+P0081,Starter motor,Copper,Electrical,Electrical,0.8794952811522281,False,tfidf_linear_svm
+P0082,Alternator assy,Copper,Electrical,Electrical,0.8742552014355157,False,tfidf_linear_svm
+P0083,Wiring harness front,Copper,Electrical,Electrical,0.8686914550748742,False,tfidf_linear_svm
+P0084,Voltage regulator,FR4,Electronics,Electronics,0.8435191632849574,False,tfidf_linear_svm
+P0085,Oil filter cartridge,Mild Steel,Mechanical,Mechanical,0.8718363717173747,False,tfidf_linear_svm
+P0086,Air filter element,Polypropylene,Polymer,Polymer,0.8619167688039432,False,tfidf_linear_svm
+P0087,Fuel injector assy,Brass,Mechanical,Mechanical,0.8716826741592918,False,tfidf_linear_svm
+P0088,Piston ring set,Cast Iron,Ferrous,Ferrous,0.8686009347444404,False,tfidf_linear_svm
+P0089,Cylinder head gasket,Mild Steel,Ferrous,Ferrous,0.860317815273404,False,tfidf_linear_svm
+P0090,Turbocharger unit,Cast Iron,Mechanical,Mechanical,0.8707315119174015,False,tfidf_linear_svm
+P0091,Front brake disc RH,Cast Iron,Ferrous,Ferrous,0.859633405209789,False,tfidf_linear_svm
+P0092,Rear brake pad set,Ceramic,Mechanical,Mechanical,0.8663390930787647,False,tfidf_linear_svm
+P0093,Brake caliper LH,Cast Iron,Ferrous,Ferrous,0.8706824574106752,False,tfidf_linear_svm
+P0094,ABS wheel speed sensor rear,FR4,Electronics,Electronics,0.8494091866113469,False,tfidf_linear_svm
+P0095,Brake master cylinder,Aluminium,Mechanical,Mechanical,0.8621062544776611,False,tfidf_linear_svm
+P0096,Front shock absorber,Mild Steel,Mechanical,Mechanical,0.8649456527428843,False,tfidf_linear_svm
+P0097,Suspension coil spring,Spring Steel,Ferrous,Ferrous,0.8718343920019779,False,tfidf_linear_svm
+P0098,Control arm LH,Mild Steel,Ferrous,Ferrous,0.8744127144046527,False,tfidf_linear_svm
+P0099,Stabilizer link,Mild Steel,Ferrous,Ferrous,0.8682882536292814,False,tfidf_linear_svm
+P0100,Tie rod end LH,Mild Steel,Ferrous,Ferrous,0.8659732672832816,False,tfidf_linear_svm
+P0101,Steering rack assy,Mild Steel,Mechanical,Mechanical,0.8742468727712573,False,tfidf_linear_svm
+P0102,Transmission mount,NBR,Rubber,Rubber,0.8456857326410404,False,tfidf_linear_svm
+P0103,CV joint boot,EPDM,Rubber,Rubber,0.861737153988972,False,tfidf_linear_svm
+P0104,Clutch plate assy,Mild Steel,Mechanical,Mechanical,0.8668243178207876,False,tfidf_linear_svm
+P0105,Gearbox synchro ring,Brass,Non-ferrous,Non-ferrous,0.8515206964870732,False,tfidf_linear_svm
+P0106,Radiator assy,Aluminium,Non-ferrous,Non-ferrous,0.8577618215319762,False,tfidf_linear_svm
+P0107,Coolant hose upper,EPDM,Rubber,Rubber,0.8474979069651972,False,tfidf_linear_svm
+P0108,Thermostat housing,Aluminium,Non-ferrous,Non-ferrous,0.8658708998243902,False,tfidf_linear_svm
+P0109,Water pump,Cast Iron,Mechanical,Mechanical,0.8571357180088333,False,tfidf_linear_svm
+P0110,Cabin air filter,Polypropylene,Polymer,Polymer,0.8632338713787461,False,tfidf_linear_svm
+P0111,Blower motor assy,Copper,Electrical,Electrical,0.8693002965727853,False,tfidf_linear_svm
+P0112,AC compressor,Aluminium,Mechanical,Mechanical,0.8698223689987964,False,tfidf_linear_svm
+P0113,Condenser core,Aluminium,Non-ferrous,Non-ferrous,0.8586442078988435,False,tfidf_linear_svm
+P0114,Headlamp assy LH,Polycarbonate,Electrical,Electrical,0.8756612410518648,False,tfidf_linear_svm
+P0115,Tail lamp assy RH,Polycarbonate,Electrical,Electrical,0.8768126526150829,False,tfidf_linear_svm
+P0116,Fog lamp bulb,Glass,Electrical,Electrical,0.8663054509475305,False,tfidf_linear_svm
+P0117,LED indicator module,FR4,Electronics,Electronics,0.8501724048738778,False,tfidf_linear_svm
+P0118,Front bumper assy,Polypropylene,Body,Body,0.8438112341651905,False,tfidf_linear_svm
+P0119,Bonnet/hood panel,Mild Steel,Body,Body,0.8413969583349458,False,tfidf_linear_svm
+P0120,Fender liner RH,Polypropylene,Polymer,Polymer,0.8256719871004982,False,tfidf_linear_svm
+P0121,Door handle outer LH,Polypropylene,Body,Body,0.842864711624299,False,tfidf_linear_svm
+P0122,Battery 12V,Polypropylene,Electrical,Electrical,0.8547790061644988,False,tfidf_linear_svm
+P0123,Starter motor,Copper,Electrical,Electrical,0.8772870181066317,False,tfidf_linear_svm
+P0124,Alternator assy,Copper,Electrical,Electrical,0.8743999142883019,False,tfidf_linear_svm
+P0125,Wiring harness front,Copper,Electrical,Electrical,0.8698421469358841,False,tfidf_linear_svm
+P0126,Voltage regulator,FR4,Electronics,Electronics,0.8420970559733362,False,tfidf_linear_svm
+P0127,Oil filter cartridge,Mild Steel,Mechanical,Mechanical,0.8705086232715926,False,tfidf_linear_svm
+P0128,Air filter element,Polypropylene,Polymer,Polymer,0.8583497928968261,False,tfidf_linear_svm
+P0129,Fuel injector assy,Brass,Mechanical,Mechanical,0.8726645193192235,False,tfidf_linear_svm
+P0130,Piston ring set,Cast Iron,Ferrous,Ferrous,0.8680200133478632,False,tfidf_linear_svm
+P0131,Cylinder head gasket,Mild Steel,Ferrous,Ferrous,0.8524624086642153,False,tfidf_linear_svm
+P0132,Turbocharger unit,Cast Iron,Mechanical,Mechanical,0.8725994378465359,False,tfidf_linear_svm
+P0133,Front brake disc RH,Cast Iron,Ferrous,Ferrous,0.8651412820961486,False,tfidf_linear_svm
+P0134,Rear brake pad set,Ceramic,Mechanical,Mechanical,0.8646481809473792,False,tfidf_linear_svm
+P0135,Brake caliper LH,Cast Iron,Ferrous,Ferrous,0.8691043789600603,False,tfidf_linear_svm
+P0136,ABS wheel speed sensor rear,FR4,Electronics,Electronics,0.8453107291450984,False,tfidf_linear_svm
+P0137,Brake master cylinder,Aluminium,Mechanical,Mechanical,0.8639045335618234,False,tfidf_linear_svm
+P0138,Front shock absorber,Mild Steel,Mechanical,Mechanical,0.8654417886013679,False,tfidf_linear_svm
+P0139,Suspension coil spring,Spring Steel,Ferrous,Ferrous,0.8702072454252979,False,tfidf_linear_svm
+P0140,Control arm LH,Mild Steel,Ferrous,Ferrous,0.8762370830271533,False,tfidf_linear_svm
+P0141,Stabilizer link,Mild Steel,Ferrous,Ferrous,0.8722060978537698,False,tfidf_linear_svm
+P0142,Tie rod end LH,Mild Steel,Ferrous,Ferrous,0.8638767079985413,False,tfidf_linear_svm
+P0143,Steering rack assy,Mild Steel,Mechanical,Mechanical,0.8716375025220269,False,tfidf_linear_svm
+P0144,Transmission mount,NBR,Rubber,Rubber,0.845796535302957,False,tfidf_linear_svm
+P0145,CV joint boot,EPDM,Rubber,Rubber,0.8642576056954598,False,tfidf_linear_svm
+P0146,Clutch plate assy,Mild Steel,Mechanical,Mechanical,0.8684410697106326,False,tfidf_linear_svm
+P0147,Gearbox synchro ring,Brass,Non-ferrous,Non-ferrous,0.8490292419115578,False,tfidf_linear_svm
+P0148,Radiator assy,Aluminium,Non-ferrous,Non-ferrous,0.8626332750283762,False,tfidf_linear_svm
+P0149,Coolant hose upper,EPDM,Rubber,Rubber,0.8539648982255836,False,tfidf_linear_svm
+P0150,Thermostat housing,Aluminium,Non-ferrous,Non-ferrous,0.8649366180275541,False,tfidf_linear_svm
+P0151,Water pump,Cast Iron,Mechanical,Mechanical,0.8641863885869455,False,tfidf_linear_svm
+P0152,Cabin air filter,Polypropylene,Polymer,Polymer,0.8587753028478694,False,tfidf_linear_svm
+P0153,Blower motor assy,Copper,Electrical,Electrical,0.8723806890646914,False,tfidf_linear_svm
+P0154,AC compressor,Aluminium,Mechanical,Mechanical,0.8706011810464993,False,tfidf_linear_svm
+P0155,Condenser core,Aluminium,Non-ferrous,Non-ferrous,0.8545289812966624,False,tfidf_linear_svm
+P0156,Headlamp assy LH,Polycarbonate,Electrical,Electrical,0.8763214613928522,False,tfidf_linear_svm
+P0157,Tail lamp assy RH,Polycarbonate,Electrical,Electrical,0.8784507063785423,False,tfidf_linear_svm
+P0158,Fog lamp bulb,Glass,Electrical,Electrical,0.8687456793239852,False,tfidf_linear_svm
+P0159,LED indicator module,FR4,Electronics,Electronics,0.8502047878741097,False,tfidf_linear_svm
+P0160,Front bumper assy,Polypropylene,Body,Body,0.8419476274928863,False,tfidf_linear_svm

@@ -114,13 +114,25 @@ def check_schedule(
         multiple = float(supplier["multiple"])
         if qty > 0 and qty < moq:
             failures.add("moq")
+            failures.add("moq_multiple_rounding")
         if multiple <= 0 or (qty > 0 and not np.isclose(qty % multiple, 0)):
             failures.add("order_multiple")
+            failures.add("moq_multiple_rounding")
         release = int(order["release_week"])
         lead = float(supplier["lead"])
         expected_arrival = release + max(1, ceil(lead / 7.0))
         if release < 1 or int(order["arrival_week"]) != expected_arrival:
             failures.add("lead_time")
+        if release < 1:
+            failures.add("release_before_week_1")
+        requested_week = order.get("requested_week")
+        if (
+            requested_week is not None
+            and pd.notna(requested_week)
+            and int(requested_week) == 1
+            and bool(order.get("late", False))
+        ):
+            failures.add("release_before_week_1")
         if expected_arrival <= 0:
             failures.add("lead_time")
         if "closing_stock" in order and float(order["closing_stock"]) < 0:

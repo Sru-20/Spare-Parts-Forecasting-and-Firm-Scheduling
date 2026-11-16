@@ -1,0 +1,7 @@
+scenario,name,initial_stock_multiplier,due_later_week,rejection_variant,service_fill_rate,stockout_part_week_pct,emergency_order_count,emergency_order_quantity,excess_inventory_units_proxy,carrying_cost_proxy,unresolved_schedules,unresolved_shortfall_units,hard_constraint_violations
+baseline,baseline,1.0,4,whole_lot,0.874750270540248,6.7876173560010145,109,11626,488198.0936802657,25342132.09555327,93,1636196.0,8
+initial_stock_0_5,initial_stock_0_5,0.5,4,whole_lot,0.7973046560670385,12.636386703882263,306,29763,321469.84714601334,22268345.80808769,124,2178519.0,15
+initial_stock_1_5,initial_stock_1_5,1.5,4,whole_lot,0.8832254640805793,5.26516112661761,65,9556,910387.2661079894,29405041.967375576,69,1223867.0,7
+due_later_week_3,due_later_week_3,1.0,3,whole_lot,0.874750270540248,6.7876173560010145,109,11626,488198.0936802657,25342132.09555327,93,1636196.0,8
+due_later_week_6,due_later_week_6,1.0,6,whole_lot,0.874750270540248,6.7876173560010145,109,11626,488198.0936802657,25342132.09555327,93,1636196.0,8
+rejection_per_unit_binomial,rejection_per_unit_binomial,1.0,4,per_unit_binomial,0.8637639085435223,7.447348388733824,123,14198,446619.74874037714,24224430.586698845,93,1636196.0,8

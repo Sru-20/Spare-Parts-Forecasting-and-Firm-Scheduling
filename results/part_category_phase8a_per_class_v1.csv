@@ -1,0 +1,17 @@
+evaluation,category,precision,recall,f1,support
+grouped_5fold_oof,Body,0.0,0.0,0.0,7
+grouped_5fold_oof,Electrical,0.4117647058823529,0.28,0.3333333333333333,25
+grouped_5fold_oof,Electronics,0.0,0.0,0.0,4
+grouped_5fold_oof,Ferrous,0.0,0.0,0.0,16
+grouped_5fold_oof,Mechanical,0.25396825396825395,0.5714285714285714,0.3516483516483517,28
+grouped_5fold_oof,Non-ferrous,0.5,0.25,0.3333333333333333,16
+grouped_5fold_oof,Polymer,0.0,0.0,0.0,11
+grouped_5fold_oof,Rubber,1.0,0.5,0.6666666666666666,12
+heldout_components,Body,0.0,0.0,0.0,3
+heldout_components,Electrical,0.0,0.0,0.0,3
+heldout_components,Electronics,0.0,0.0,0.0,7
+heldout_components,Ferrous,0.5,0.625,0.5555555555555556,16
+heldout_components,Mechanical,0.0,0.0,0.0,12
+heldout_components,Non-ferrous,0.0,0.0,0.0,0
+heldout_components,Polymer,0.0,0.0,0.0,0
+heldout_components,Rubber,0.0,0.0,0.0,0

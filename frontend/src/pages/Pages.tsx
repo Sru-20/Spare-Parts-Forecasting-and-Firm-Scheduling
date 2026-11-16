@@ -1,0 +1,10 @@
+export { AuditPage } from "./AuditPage";
+export { AssistantPage } from "./AssistantPage";
+export { ForecastsPage } from "./ForecastsPage";
+export { InventoryPage } from "./InventoryPage";
+export { KpisPage } from "./KpisPage";
+export { OverviewPage } from "./OverviewPage";
+export { RunsPage } from "./RunsPage";
+export { SchedulePage } from "./SchedulePage";
+export { SettingsPage } from "./SettingsPage";
+export { NotFoundPage } from "./NotFoundPage";

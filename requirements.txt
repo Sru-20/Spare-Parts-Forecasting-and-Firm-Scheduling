@@ -10,5 +10,7 @@ ortools>=9.10,<10
 Django==5.2.18
 djangorestframework==3.18.3
 djangorestframework-simplejwt==5.5.1
+PyMySQL>=1.1,<2
+psycopg[binary]>=3.2,<4
 PyYAML>=6,<7
 pytest>=8,<10

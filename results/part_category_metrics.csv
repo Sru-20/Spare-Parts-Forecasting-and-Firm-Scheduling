@@ -1,0 +1,5 @@
+model,evaluation,macro_f1,weighted_f1,accuracy,n_train,n_test,labels_present_in_test,labels_total
+tfidf_logistic_regression,stratified_5fold_cv,1.0,,,160,160,8,8
+tfidf_logistic_regression,component_group_holdout,0.15406162464985995,0.43506182960989276,0.4878048780487805,119,41,5,8
+tfidf_linear_svm,stratified_5fold_cv,1.0,,,160,160,8,8
+tfidf_linear_svm,component_group_holdout,0.2103238866396761,0.4692011454527501,0.5609756097560976,119,41,5,8

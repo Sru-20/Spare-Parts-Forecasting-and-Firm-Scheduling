@@ -1,0 +1,8 @@
+origin_date,part_id,exclusion_reason
+2025-01-13,P0046,missing_scheduling_snapshot
+2025-04-21,P0046,missing_scheduling_snapshot
+2025-04-21,P0087,missing_scheduling_snapshot
+2025-07-28,P0046,missing_scheduling_snapshot
+2025-07-28,P0087,missing_scheduling_snapshot
+2025-11-03,P0046,missing_scheduling_snapshot
+2025-11-03,P0087,missing_scheduling_snapshot

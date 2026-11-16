@@ -1,0 +1,41 @@
+protocol_id: phase7-final-test-2026-03-23-v1
+evaluation:
+  origin: "2026-03-23"
+  split_role: final_test
+  start: "2026-03-30"
+  end: "2026-09-21"
+  horizon_weeks: 26
+  primary_horizon_weeks: 14
+  extended_horizon_start_week: 15
+models:
+  end_to_end_champion:
+    candidate_id: lightgbm_quantile::random_1
+    family: lightgbm_quantile
+    config_id: random_1
+    seed: 42
+    parameters:
+      feature_fraction: 1.0
+      learning_rate: 0.03
+      min_child_samples: 20
+      n_estimators: 300
+      num_leaves: 63
+    quantiles: [0.50, 0.90, 0.95, 0.99]
+  point_forecast_benchmark:
+    candidate_id: lightgbm_tweedie::random_1
+    family: lightgbm_tweedie
+    config_id: random_1
+    seed: 42
+    parameters:
+      feature_fraction: 1.0
+      learning_rate: 0.03
+      min_child_samples: 20
+      n_estimators: 300
+      num_leaves: 63
+scheduling:
+  winning_policy: risk_adjusted_mrp
+  traditional_baseline_policy: traditional_baseline
+  traditional_baseline_forecast: historical_average
+future:
+  start: "2026-09-28"
+  end: "2026-12-28"
+  horizon_weeks: 14

@@ -1,0 +1,13 @@
+candidate_id,scheduler_id,initialization,score,rank,firm_paths,hard_constraint_violation,total_paths,firm_path_rate
+lightgbm_quantile::random_1,mrp,d2_snapshot_stress,0.6541666666666667,3.0,0,False,563,0.0
+lightgbm_quantile::random_1,mrp,origin_visible,0.4958333333333333,2.0,115,False,563,0.20426287744227353
+lightgbm_quantile::random_1,risk_adjusted_mrp,d2_snapshot_stress,0.6958333333333333,2.0,0,False,563,0.0
+lightgbm_quantile::random_1,risk_adjusted_mrp,origin_visible,0.5125,1.0,114,False,563,0.2024866785079929
+lightgbm_quantile::random_1,traditional_baseline,d2_snapshot_stress,0.5791666666666666,4.0,0,False,563,0.0
+lightgbm_quantile::random_1,traditional_baseline,origin_visible,0.42916666666666664,4.0,0,False,563,0.0
+lightgbm_tweedie::random_1,mrp,d2_snapshot_stress,0.5541666666666667,6.0,0,False,563,0.0
+lightgbm_tweedie::random_1,mrp,origin_visible,0.4041666666666667,6.0,0,False,563,0.0
+lightgbm_tweedie::random_1,risk_adjusted_mrp,d2_snapshot_stress,0.7125,1.0,0,False,563,0.0
+lightgbm_tweedie::random_1,risk_adjusted_mrp,origin_visible,0.4541666666666667,3.0,0,False,563,0.0
+lightgbm_tweedie::random_1,traditional_baseline,d2_snapshot_stress,0.5791666666666666,4.0,0,False,563,0.0
+lightgbm_tweedie::random_1,traditional_baseline,origin_visible,0.42916666666666664,4.0,0,False,563,0.0

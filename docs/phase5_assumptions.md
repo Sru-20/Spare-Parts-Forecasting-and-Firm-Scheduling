@@ -1,19 +1,102 @@
 # Phase 5 simulator assumptions and evidence
 
-**Status:** frozen for the Phase 5 core; provisional synthetic assumptions, not
-calibrated operating rules.
-**Version:** `phase5-assumptions-v2`
+**Status:** PARTIAL — the approved no-eligible-donor exception is documented and implemented; post-change Phase 5 gate verification remains pending.
+**Version:** `phase5-assumptions-v3`
 **Claim scope:** method validated on simulated data; no factory savings claim.
 **Configuration source:** `configs/project.yaml` and `configs/business.yaml`.
 **Frozen config SHA-256:**
-- `configs/project.yaml`: `91CDEC6D98727CC57092B89212556D0792C135B93607AC9CD39766AF5B1FB9C4`
+- `configs/project.yaml`: `46A6183450ABAD85C84EA3DF41E412709E189B9314D42C8D1FB0C34A533314CC`
 - `configs/business.yaml`: `ED0E3DF890504ED02F2AEF27EE3BA6CA4A431EF6E40D07951DC4D86B231E6540`
 
-The Phase 5 assumptions version was bumped from v1 to v2 for the requested
-quantile, pull-ahead, sensitivity, and reporting updates. The emergency
-procurement settings in `configs/project.yaml` were merged from duplicate YAML
-keys so the complete existing assumption is visible after parsing; this did not
-change the simulator behavior or assumption values.
+Version v3 replaces the historical D2-based primary start with the v4.2
+origin-visible trailing-history rule. The D2 snapshot is retained only as the
+separately labelled `d2_snapshot_stress` case.
+
+## Current v4.2 closure evidence (2026-11-15; gate verification pending)
+
+- Implemented the primary opening stock as
+  `ceil(origin-visible trailing 13-week mean) * (ceil(SOB-weighted lead days / 7) + 1)`.
+  The primary path requires at least eight complete observed weeks; primary
+  open POs and backlog are zero. History is split-filtered and strictly prior
+  to each of the four saved held-validation origins. D2 inventory, receipts,
+  and backlog are used only in the separate `d2_snapshot_stress` scenario.
+- `python -m src.scheduling.phase5 --demo` completed successfully. The
+  authoritative outputs use the `phase5_primary_v5_*` and
+  `phase5_d2_snapshot_stress_v5_*` prefixes. Repeated primary outputs were
+  byte-identical; see `../results/phase5_repeat_run_evidence_v5.json`.
+- Population: 640 possible forecast part-origins; 570 complete paths, 42
+  without forecast rows, 22 with missing observed regional labels, and 6
+  with an incomplete forecast horizon. Seven otherwise complete paths were
+  excluded from scheduling because the parts lacked a D2 supplier snapshot
+  (3 High, 4 Medium; all seven were origin-visible Lumpy). No path was
+  excluded for insufficient opening-history length.
+- Median initial inventory cover (weeks), calculated against origin-visible
+  mean demand:
+
+  | Criticality | Origin-visible primary | D2 stress |
+  |---|---:|---:|
+  | High | 4.071 | 0.481 |
+  | Medium | 4.078 | 0.505 |
+  | Low | 4.045 | 0.514 |
+
+- Primary results: **467 firm**, **93 unresolved**, **3 not ordered** across
+  563 schedule checks. There were **0 hard-constraint failures on firm
+  schedules** and **0 MRP or simulator inventory-ledger failures**. Eight
+  unresolved schedules had a first-week lead-time infeasibility; 85 had
+  supplier-capacity/MOQ-rounding and unfilled-requirement failures. Their
+  remaining unfilled requirements totalled 1,636,196 simulated units. The D2
+  stress run produced 256 firm, 305 unresolved, and 2 not ordered.
+- Primary simulated KPIs: fill rate **87.48%**, stockout part-weeks **6.79%**,
+  109 emergency orders, emergency-cost proxy **18,100,932.63**, and carrying-
+  cost proxy **25,342,132.10**. These are replay metrics, not savings claims.
+- The six-row sensitivity report includes baseline, opening stock x0.5/x1.5,
+  due-later receipts at weeks 3/6, and per-unit-binomial rejection; configured
+  defaults were not changed. Unresolved schedules were 124 at x0.5, 69 at
+  x1.5, and 93 for each of the other variants.
+- The user approved a narrow no-donor data-limitation exception on 2026-11-16.
+  The eligibility rule remains exact `component` + exact `vehicle_type`;
+  inferred vehicle-family/category matches are not accepted as compatible
+  donors. All 160 catalogue pairs are unique, so all 47 unclassified
+  part-region series have zero eligible donors at each of the four held
+  validation origins: 2025-01-13, 2025-04-21, 2025-07-28, and 2025-11-03.
+  The affected part IDs are P0007, P0009, P0024, P0025, P0042, P0062, P0068,
+  P0090, P0091, P0092, P0106, and P0122. Each series-origin is recorded as
+  `UNFORECASTED_NO_DEFENSIBLE_ANALOGUE`; no forecast row or quantity is emitted
+  and unavailable forecasts are never replaced with zero demand. The 43
+  short-history series have no eligible exact-rule donor. P0091's four
+  regional series have no development observations and no validated
+  launch/exposure scaling, so they also remain unforecasted even if a metadata
+  peer were proposed.
+- The new versioned evidence is
+  `../results/phase5_analogue_exceptions_v1.csv` (188 series-origin records),
+  `../results/phase5_analogue_exceptions_v1.json`, and
+  `../results/phase5_analogue_exception_summary_v1.md`. The existing empty
+  `../results/analogue_fallback_forecasts.csv`, diagnostic, and v5 planner
+  report are preserved as historical evidence, not rewritten as forecasts.
+  The frozen High-criticality bias note remains **-9.13% on the
+  point estimate only**; its earlier bootstrap interval crossed -10%, so the
+  result is inconclusive, not a statistically established pass.
+- `py -3.10 -m pytest -q tests/test_phase5_scheduling.py` and the matching
+  Python 3.13 command each passed **49 tests**. Python compilation,
+  `git diff --check`, and Pylance diagnostics for `phase5.py` passed. The full
+  repository suite and dataset validator were not run in this session. The
+  validator was deliberately not rerun because a previous execution read
+  sealed-test target values for integrity checks (not prediction evaluation).
+- **Gate verdict: PARTIAL pending verification.** The approved data-limitation
+  exception replaces the requirement to invent or broaden fallback forecasts;
+  it does not waive the remaining Phase 5 gate. Run the required tests on
+  Python 3.10 and 3.13 after review. The full-suite result is unavailable.
+  Do not rerun the dataset validator because the established validator reads
+  sealed-test target values; use only previously recorded 32/32 evidence or
+  obtain approval for a target-isolated alternative. Existing hard-constraint,
+  inventory-reconciliation, repeat-run, and sensitivity evidence remains
+  recorded above.
+
+## Historical D2-snapshot results (assumptions-v2; superseded)
+
+The following inventory initialization and result tables document the earlier
+v2 run only. They are retained for provenance and are not evidence that the v4.2
+primary-initialization gate passes.
 
 ## Inputs, scope, and initialization
 

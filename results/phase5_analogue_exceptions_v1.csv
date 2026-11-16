@@ -1,0 +1,189 @@
+origin_date,part_id,region,classification_status,observed_development_weeks,component,vehicle_type,eligible_donor_count,status,forecast_emitted,reason
+2025-01-13,P0007,East,unclassified_short,3,Front brake disc RH,4W Sedan,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-04-21,P0007,East,unclassified_short,3,Front brake disc RH,4W Sedan,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-07-28,P0007,East,unclassified_short,3,Front brake disc RH,4W Sedan,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-11-03,P0007,East,unclassified_short,3,Front brake disc RH,4W Sedan,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-01-13,P0007,North,unclassified_short,3,Front brake disc RH,4W Sedan,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-04-21,P0007,North,unclassified_short,3,Front brake disc RH,4W Sedan,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-07-28,P0007,North,unclassified_short,3,Front brake disc RH,4W Sedan,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-11-03,P0007,North,unclassified_short,3,Front brake disc RH,4W Sedan,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-01-13,P0007,South,unclassified_short,3,Front brake disc RH,4W Sedan,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-04-21,P0007,South,unclassified_short,3,Front brake disc RH,4W Sedan,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-07-28,P0007,South,unclassified_short,3,Front brake disc RH,4W Sedan,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-11-03,P0007,South,unclassified_short,3,Front brake disc RH,4W Sedan,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-01-13,P0007,West,unclassified_short,3,Front brake disc RH,4W Sedan,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-04-21,P0007,West,unclassified_short,3,Front brake disc RH,4W Sedan,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-07-28,P0007,West,unclassified_short,3,Front brake disc RH,4W Sedan,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-11-03,P0007,West,unclassified_short,3,Front brake disc RH,4W Sedan,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-01-13,P0009,East,unclassified_short,14,Brake caliper LH,4W SUV,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-04-21,P0009,East,unclassified_short,14,Brake caliper LH,4W SUV,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-07-28,P0009,East,unclassified_short,14,Brake caliper LH,4W SUV,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-11-03,P0009,East,unclassified_short,14,Brake caliper LH,4W SUV,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-01-13,P0009,North,unclassified_short,14,Brake caliper LH,4W SUV,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-04-21,P0009,North,unclassified_short,14,Brake caliper LH,4W SUV,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-07-28,P0009,North,unclassified_short,14,Brake caliper LH,4W SUV,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-11-03,P0009,North,unclassified_short,14,Brake caliper LH,4W SUV,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-01-13,P0009,South,unclassified_short,14,Brake caliper LH,4W SUV,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-04-21,P0009,South,unclassified_short,14,Brake caliper LH,4W SUV,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-07-28,P0009,South,unclassified_short,14,Brake caliper LH,4W SUV,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-11-03,P0009,South,unclassified_short,14,Brake caliper LH,4W SUV,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-01-13,P0009,West,unclassified_short,14,Brake caliper LH,4W SUV,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-04-21,P0009,West,unclassified_short,14,Brake caliper LH,4W SUV,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-07-28,P0009,West,unclassified_short,14,Brake caliper LH,4W SUV,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-11-03,P0009,West,unclassified_short,14,Brake caliper LH,4W SUV,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-01-13,P0024,East,unclassified_short,13,Thermostat housing,4W Hatch,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-04-21,P0024,East,unclassified_short,13,Thermostat housing,4W Hatch,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-07-28,P0024,East,unclassified_short,13,Thermostat housing,4W Hatch,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-11-03,P0024,East,unclassified_short,13,Thermostat housing,4W Hatch,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-01-13,P0024,North,unclassified_short,13,Thermostat housing,4W Hatch,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-04-21,P0024,North,unclassified_short,13,Thermostat housing,4W Hatch,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-07-28,P0024,North,unclassified_short,13,Thermostat housing,4W Hatch,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-11-03,P0024,North,unclassified_short,13,Thermostat housing,4W Hatch,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-01-13,P0024,South,unclassified_short,13,Thermostat housing,4W Hatch,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-04-21,P0024,South,unclassified_short,13,Thermostat housing,4W Hatch,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-07-28,P0024,South,unclassified_short,13,Thermostat housing,4W Hatch,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-11-03,P0024,South,unclassified_short,13,Thermostat housing,4W Hatch,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-01-13,P0024,West,unclassified_short,13,Thermostat housing,4W Hatch,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-04-21,P0024,West,unclassified_short,13,Thermostat housing,4W Hatch,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-07-28,P0024,West,unclassified_short,13,Thermostat housing,4W Hatch,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-11-03,P0024,West,unclassified_short,13,Thermostat housing,4W Hatch,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-01-13,P0025,East,unclassified_short,18,Water pump,4W SUV,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-04-21,P0025,East,unclassified_short,18,Water pump,4W SUV,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-07-28,P0025,East,unclassified_short,18,Water pump,4W SUV,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-11-03,P0025,East,unclassified_short,18,Water pump,4W SUV,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-01-13,P0025,North,unclassified_short,18,Water pump,4W SUV,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-04-21,P0025,North,unclassified_short,18,Water pump,4W SUV,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-07-28,P0025,North,unclassified_short,18,Water pump,4W SUV,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-11-03,P0025,North,unclassified_short,18,Water pump,4W SUV,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-01-13,P0025,South,unclassified_short,18,Water pump,4W SUV,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-04-21,P0025,South,unclassified_short,18,Water pump,4W SUV,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-07-28,P0025,South,unclassified_short,18,Water pump,4W SUV,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-11-03,P0025,South,unclassified_short,18,Water pump,4W SUV,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-01-13,P0025,West,unclassified_short,18,Water pump,4W SUV,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-04-21,P0025,West,unclassified_short,18,Water pump,4W SUV,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-07-28,P0025,West,unclassified_short,18,Water pump,4W SUV,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-11-03,P0025,West,unclassified_short,18,Water pump,4W SUV,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-01-13,P0042,East,unclassified_short,4,Voltage regulator,4W Sedan,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-04-21,P0042,East,unclassified_short,4,Voltage regulator,4W Sedan,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-07-28,P0042,East,unclassified_short,4,Voltage regulator,4W Sedan,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-11-03,P0042,East,unclassified_short,4,Voltage regulator,4W Sedan,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-01-13,P0042,North,unclassified_short,4,Voltage regulator,4W Sedan,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-04-21,P0042,North,unclassified_short,4,Voltage regulator,4W Sedan,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-07-28,P0042,North,unclassified_short,4,Voltage regulator,4W Sedan,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-11-03,P0042,North,unclassified_short,4,Voltage regulator,4W Sedan,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-01-13,P0042,South,unclassified_short,4,Voltage regulator,4W Sedan,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-04-21,P0042,South,unclassified_short,4,Voltage regulator,4W Sedan,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-07-28,P0042,South,unclassified_short,4,Voltage regulator,4W Sedan,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-11-03,P0042,South,unclassified_short,4,Voltage regulator,4W Sedan,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-01-13,P0042,West,unclassified_short,4,Voltage regulator,4W Sedan,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-04-21,P0042,West,unclassified_short,4,Voltage regulator,4W Sedan,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-07-28,P0042,West,unclassified_short,4,Voltage regulator,4W Sedan,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-11-03,P0042,West,unclassified_short,4,Voltage regulator,4W Sedan,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-01-13,P0062,East,unclassified_short,18,Clutch plate assy,2W,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-04-21,P0062,East,unclassified_short,18,Clutch plate assy,2W,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-07-28,P0062,East,unclassified_short,18,Clutch plate assy,2W,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-11-03,P0062,East,unclassified_short,18,Clutch plate assy,2W,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-01-13,P0062,North,unclassified_short,18,Clutch plate assy,2W,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-04-21,P0062,North,unclassified_short,18,Clutch plate assy,2W,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-07-28,P0062,North,unclassified_short,18,Clutch plate assy,2W,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-11-03,P0062,North,unclassified_short,18,Clutch plate assy,2W,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-01-13,P0062,South,unclassified_short,18,Clutch plate assy,2W,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-04-21,P0062,South,unclassified_short,18,Clutch plate assy,2W,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-07-28,P0062,South,unclassified_short,18,Clutch plate assy,2W,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-11-03,P0062,South,unclassified_short,18,Clutch plate assy,2W,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-01-13,P0062,West,unclassified_short,18,Clutch plate assy,2W,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-04-21,P0062,West,unclassified_short,18,Clutch plate assy,2W,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-07-28,P0062,West,unclassified_short,18,Clutch plate assy,2W,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-11-03,P0062,West,unclassified_short,18,Clutch plate assy,2W,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-01-13,P0068,East,unclassified_short,1,Cabin air filter,4W SUV,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-04-21,P0068,East,unclassified_short,1,Cabin air filter,4W SUV,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-07-28,P0068,East,unclassified_short,1,Cabin air filter,4W SUV,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-11-03,P0068,East,unclassified_short,1,Cabin air filter,4W SUV,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-01-13,P0068,North,unclassified_short,1,Cabin air filter,4W SUV,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-04-21,P0068,North,unclassified_short,1,Cabin air filter,4W SUV,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-07-28,P0068,North,unclassified_short,1,Cabin air filter,4W SUV,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-11-03,P0068,North,unclassified_short,1,Cabin air filter,4W SUV,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-01-13,P0068,South,unclassified_short,1,Cabin air filter,4W SUV,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-04-21,P0068,South,unclassified_short,1,Cabin air filter,4W SUV,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-07-28,P0068,South,unclassified_short,1,Cabin air filter,4W SUV,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-11-03,P0068,South,unclassified_short,1,Cabin air filter,4W SUV,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-01-13,P0068,West,unclassified_short,1,Cabin air filter,4W SUV,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-04-21,P0068,West,unclassified_short,1,Cabin air filter,4W SUV,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-07-28,P0068,West,unclassified_short,1,Cabin air filter,4W SUV,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-11-03,P0068,West,unclassified_short,1,Cabin air filter,4W SUV,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-01-13,P0090,East,unclassified_short,16,Turbocharger unit,4W Sedan,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-04-21,P0090,East,unclassified_short,16,Turbocharger unit,4W Sedan,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-07-28,P0090,East,unclassified_short,16,Turbocharger unit,4W Sedan,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-11-03,P0090,East,unclassified_short,16,Turbocharger unit,4W Sedan,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-01-13,P0090,North,unclassified_short,16,Turbocharger unit,4W Sedan,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-04-21,P0090,North,unclassified_short,16,Turbocharger unit,4W Sedan,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-07-28,P0090,North,unclassified_short,16,Turbocharger unit,4W Sedan,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-11-03,P0090,North,unclassified_short,16,Turbocharger unit,4W Sedan,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-01-13,P0090,South,unclassified_short,16,Turbocharger unit,4W Sedan,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-04-21,P0090,South,unclassified_short,16,Turbocharger unit,4W Sedan,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-07-28,P0090,South,unclassified_short,16,Turbocharger unit,4W Sedan,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-11-03,P0090,South,unclassified_short,16,Turbocharger unit,4W Sedan,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-01-13,P0091,East,unclassified_no_development_observations,0,Front brake disc RH,4W Hatch,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_development_observations;no_validated_launch_exposure_scaling;no_eligible_same_component_vehicle_type_donor
+2025-04-21,P0091,East,unclassified_no_development_observations,0,Front brake disc RH,4W Hatch,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_development_observations;no_validated_launch_exposure_scaling;no_eligible_same_component_vehicle_type_donor
+2025-07-28,P0091,East,unclassified_no_development_observations,0,Front brake disc RH,4W Hatch,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_development_observations;no_validated_launch_exposure_scaling;no_eligible_same_component_vehicle_type_donor
+2025-11-03,P0091,East,unclassified_no_development_observations,0,Front brake disc RH,4W Hatch,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_development_observations;no_validated_launch_exposure_scaling;no_eligible_same_component_vehicle_type_donor
+2025-01-13,P0091,North,unclassified_no_development_observations,0,Front brake disc RH,4W Hatch,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_development_observations;no_validated_launch_exposure_scaling;no_eligible_same_component_vehicle_type_donor
+2025-04-21,P0091,North,unclassified_no_development_observations,0,Front brake disc RH,4W Hatch,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_development_observations;no_validated_launch_exposure_scaling;no_eligible_same_component_vehicle_type_donor
+2025-07-28,P0091,North,unclassified_no_development_observations,0,Front brake disc RH,4W Hatch,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_development_observations;no_validated_launch_exposure_scaling;no_eligible_same_component_vehicle_type_donor
+2025-11-03,P0091,North,unclassified_no_development_observations,0,Front brake disc RH,4W Hatch,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_development_observations;no_validated_launch_exposure_scaling;no_eligible_same_component_vehicle_type_donor
+2025-01-13,P0091,South,unclassified_no_development_observations,0,Front brake disc RH,4W Hatch,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_development_observations;no_validated_launch_exposure_scaling;no_eligible_same_component_vehicle_type_donor
+2025-04-21,P0091,South,unclassified_no_development_observations,0,Front brake disc RH,4W Hatch,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_development_observations;no_validated_launch_exposure_scaling;no_eligible_same_component_vehicle_type_donor
+2025-07-28,P0091,South,unclassified_no_development_observations,0,Front brake disc RH,4W Hatch,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_development_observations;no_validated_launch_exposure_scaling;no_eligible_same_component_vehicle_type_donor
+2025-11-03,P0091,South,unclassified_no_development_observations,0,Front brake disc RH,4W Hatch,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_development_observations;no_validated_launch_exposure_scaling;no_eligible_same_component_vehicle_type_donor
+2025-01-13,P0091,West,unclassified_no_development_observations,0,Front brake disc RH,4W Hatch,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_development_observations;no_validated_launch_exposure_scaling;no_eligible_same_component_vehicle_type_donor
+2025-04-21,P0091,West,unclassified_no_development_observations,0,Front brake disc RH,4W Hatch,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_development_observations;no_validated_launch_exposure_scaling;no_eligible_same_component_vehicle_type_donor
+2025-07-28,P0091,West,unclassified_no_development_observations,0,Front brake disc RH,4W Hatch,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_development_observations;no_validated_launch_exposure_scaling;no_eligible_same_component_vehicle_type_donor
+2025-11-03,P0091,West,unclassified_no_development_observations,0,Front brake disc RH,4W Hatch,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_development_observations;no_validated_launch_exposure_scaling;no_eligible_same_component_vehicle_type_donor
+2025-01-13,P0092,East,unclassified_short,5,Rear brake pad set,4W SUV,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-04-21,P0092,East,unclassified_short,5,Rear brake pad set,4W SUV,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-07-28,P0092,East,unclassified_short,5,Rear brake pad set,4W SUV,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-11-03,P0092,East,unclassified_short,5,Rear brake pad set,4W SUV,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-01-13,P0092,North,unclassified_short,5,Rear brake pad set,4W SUV,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-04-21,P0092,North,unclassified_short,5,Rear brake pad set,4W SUV,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-07-28,P0092,North,unclassified_short,5,Rear brake pad set,4W SUV,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-11-03,P0092,North,unclassified_short,5,Rear brake pad set,4W SUV,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-01-13,P0092,South,unclassified_short,5,Rear brake pad set,4W SUV,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-04-21,P0092,South,unclassified_short,5,Rear brake pad set,4W SUV,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-07-28,P0092,South,unclassified_short,5,Rear brake pad set,4W SUV,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-11-03,P0092,South,unclassified_short,5,Rear brake pad set,4W SUV,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-01-13,P0092,West,unclassified_short,5,Rear brake pad set,4W SUV,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-04-21,P0092,West,unclassified_short,5,Rear brake pad set,4W SUV,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-07-28,P0092,West,unclassified_short,5,Rear brake pad set,4W SUV,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-11-03,P0092,West,unclassified_short,5,Rear brake pad set,4W SUV,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-01-13,P0106,East,unclassified_short,1,Radiator assy,4W Sedan,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-04-21,P0106,East,unclassified_short,1,Radiator assy,4W Sedan,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-07-28,P0106,East,unclassified_short,1,Radiator assy,4W Sedan,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-11-03,P0106,East,unclassified_short,1,Radiator assy,4W Sedan,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-01-13,P0106,North,unclassified_short,1,Radiator assy,4W Sedan,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-04-21,P0106,North,unclassified_short,1,Radiator assy,4W Sedan,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-07-28,P0106,North,unclassified_short,1,Radiator assy,4W Sedan,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-11-03,P0106,North,unclassified_short,1,Radiator assy,4W Sedan,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-01-13,P0106,South,unclassified_short,1,Radiator assy,4W Sedan,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-04-21,P0106,South,unclassified_short,1,Radiator assy,4W Sedan,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-07-28,P0106,South,unclassified_short,1,Radiator assy,4W Sedan,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-11-03,P0106,South,unclassified_short,1,Radiator assy,4W Sedan,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-01-13,P0106,West,unclassified_short,1,Radiator assy,4W Sedan,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-04-21,P0106,West,unclassified_short,1,Radiator assy,4W Sedan,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-07-28,P0106,West,unclassified_short,1,Radiator assy,4W Sedan,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-11-03,P0106,West,unclassified_short,1,Radiator assy,4W Sedan,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-01-13,P0122,East,unclassified_short,7,Battery 12V,4W Sedan,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-04-21,P0122,East,unclassified_short,7,Battery 12V,4W Sedan,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-07-28,P0122,East,unclassified_short,7,Battery 12V,4W Sedan,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-11-03,P0122,East,unclassified_short,7,Battery 12V,4W Sedan,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-01-13,P0122,North,unclassified_short,7,Battery 12V,4W Sedan,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-04-21,P0122,North,unclassified_short,7,Battery 12V,4W Sedan,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-07-28,P0122,North,unclassified_short,7,Battery 12V,4W Sedan,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-11-03,P0122,North,unclassified_short,7,Battery 12V,4W Sedan,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-01-13,P0122,South,unclassified_short,7,Battery 12V,4W Sedan,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-04-21,P0122,South,unclassified_short,7,Battery 12V,4W Sedan,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-07-28,P0122,South,unclassified_short,7,Battery 12V,4W Sedan,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-11-03,P0122,South,unclassified_short,7,Battery 12V,4W Sedan,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-01-13,P0122,West,unclassified_short,7,Battery 12V,4W Sedan,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-04-21,P0122,West,unclassified_short,7,Battery 12V,4W Sedan,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-07-28,P0122,West,unclassified_short,7,Battery 12V,4W Sedan,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor
+2025-11-03,P0122,West,unclassified_short,7,Battery 12V,4W Sedan,0,UNFORECASTED_NO_DEFENSIBLE_ANALOGUE,False,no_eligible_same_component_vehicle_type_donor

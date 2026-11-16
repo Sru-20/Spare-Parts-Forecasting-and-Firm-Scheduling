@@ -266,10 +266,17 @@ def build_fold_training_data(
     history: pd.DataFrame,
     origin: pd.Timestamp,
     extra_features: bool = False,
+    fit_split_roles: Sequence[str] = ("train_val",),
 ) -> tuple[pd.DataFrame, pd.Series]:
     """Build the shared, origin-safe train design once per rolling fold."""
+    fit_roles = set(fit_split_roles)
+    if not fit_roles or not fit_roles.issubset(
+        {"warmup", "train_val", "final_test"}
+    ):
+        raise ValueError(f"Unsupported fitting split roles: {sorted(fit_roles)}")
+    history_roles = fit_roles | {"warmup"}
     history = history.loc[
-        history["split_role"].isin(["warmup", "train_val"])
+        history["split_role"].isin(history_roles)
         & history["week_start_date"].le(origin)
     ].copy()
     history = history.sort_values(
@@ -282,6 +289,7 @@ def build_fold_training_data(
             "week_start_date",
             "demand_qty",
             "split_role",
+            "is_missing_week",
             *STATIC_FEATURES,
             *CALENDAR_FEATURES,
         )
@@ -291,14 +299,25 @@ def build_fold_training_data(
     history["demand_qty"] = pd.to_numeric(
         history["demand_qty"], errors="raise"
     ).astype("Float64")
+    if "is_missing_week" in history.columns:
+        missing_flags = pd.to_numeric(
+            history["is_missing_week"], errors="raise"
+        ).astype("Int64")
+        if missing_flags.isna().any() or not missing_flags.isin([0, 1]).all():
+            raise ValueError("is_missing_week must contain only non-null 0/1 values")
+        if (missing_flags.eq(1) & history["demand_qty"].notna()).any():
+            raise ValueError("Missing-week rows must not contain demand targets")
+        history["is_missing_week"] = missing_flags
     features = build_time_features(history)
     if extra_features:
         features = _add_series_trend_features(features)
     target_mask = (
-        history["split_role"].eq("train_val")
+        history["split_role"].isin(fit_roles)
         & history["demand_qty"].notna()
         & history["week_start_date"].le(origin)
     )
+    if "is_missing_week" in history.columns:
+        target_mask &= history["is_missing_week"].eq(0)
     train_features = features.loc[target_mask.to_numpy()].copy()
     train_target = history.loc[target_mask, "demand_qty"].astype(float)
     if train_features.empty:
@@ -317,6 +336,7 @@ def fit_global_models(
     quantiles: Sequence[float] = (0.50, 0.90, 0.95, 0.99),
     training_design: tuple[pd.DataFrame, pd.Series] | None = None,
     extra_features: bool = False,
+    fit_split_roles: Sequence[str] = ("train_val",),
 ) -> tuple[pd.DataFrame, dict[float, object], int]:
     """Fit on observed train_val targets, then recursively forecast the calendar."""
     if objective_family not in {
@@ -328,8 +348,14 @@ def fit_global_models(
         "xgboost",
     }:
         raise ValueError(f"Unsupported global model family: {objective_family}")
+    fit_roles = set(fit_split_roles)
+    if not fit_roles or not fit_roles.issubset(
+        {"warmup", "train_val", "final_test"}
+    ):
+        raise ValueError(f"Unsupported fitting split roles: {sorted(fit_roles)}")
+    history_roles = fit_roles | {"warmup"}
     history = history.loc[
-        history["split_role"].isin(["warmup", "train_val"])
+        history["split_role"].isin(history_roles)
         & history["week_start_date"].le(origin)
     ].copy()
     history = history.sort_values(
@@ -342,6 +368,7 @@ def fit_global_models(
             "week_start_date",
             "demand_qty",
             "split_role",
+            "is_missing_week",
             *STATIC_FEATURES,
             *CALENDAR_FEATURES,
         )
@@ -353,7 +380,10 @@ def fit_global_models(
     ).astype("Float64")
     if training_design is None:
         train_features, train_target = build_fold_training_data(
-            history, origin, extra_features=extra_features
+            history,
+            origin,
+            extra_features=extra_features,
+            fit_split_roles=tuple(sorted(fit_roles)),
         )
     else:
         train_features, train_target = training_design

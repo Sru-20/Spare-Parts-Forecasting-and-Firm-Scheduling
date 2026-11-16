@@ -1,0 +1,3 @@
+evaluation,accuracy,macro_f1,weighted_f1,n_samples,labels_present,labels_total,auto_accepted,auto_accept_coverage_pct,auto_accept_precision,confidence_threshold
+grouped_5fold_oof,0.2773109243697479,0.21062271062271062,0.26481361775479423,119,8,8,,,,
+heldout_components,0.24390243902439024,0.06944444444444445,0.21680216802168023,41,5,8,0.0,0.0,,1.0

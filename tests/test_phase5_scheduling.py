@@ -19,7 +19,17 @@ from src.scheduling.engine import (
     snapshot_receipts,
     build_mrp_schedule,
 )
-from src.scheduling.phase5 import _propose_pull_ahead_orders
+from src.scheduling.phase5 import (
+    D2_STRESS_INITIALIZATION,
+    PRIMARY_INITIALIZATION,
+    _generate_origin_plans,
+    _load_yaml_unique,
+    _propose_pull_ahead_orders,
+    _write_unresolved_reports,
+    load_origin_visible_history,
+    origin_visible_opening_stock,
+    write_analogue_fallback_diagnostic,
+)
 from src.simulation.weekly import realize_supplier_orders, simulate_weekly
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -449,7 +459,43 @@ def test_independent_checker_rejects_deliberately_invalid_schedule():
     )
     result = check_schedule(schedule, {"P1": part}, horizon_weeks=14)
     assert not result["feasible"]
-    assert {"moq", "order_multiple", "lead_time"} <= set(result["failed_checks"])
+    assert {
+        "moq",
+        "moq_multiple_rounding",
+        "order_multiple",
+        "lead_time",
+    } <= set(result["failed_checks"])
+
+
+def test_week_one_unmet_demand_is_flagged_as_release_before_week_one():
+    part = _part(
+        available_qty=0, on_hand_qty=3, reserved_qty=2, blocked_qty=1
+    )
+    result = build_mrp_schedule(
+        part, _forecasts(first_week=5)
+    )
+
+    assert result["status"] == "unresolved"
+    assert "release_before_week_1" in result["failed_checks"]
+    checked = check_schedule(result["orders"], {"P1": part})
+    assert "release_before_week_1" in checked["failed_checks"]
+
+
+def test_moq_multiple_rounding_reason_is_reported_when_capacity_is_below_moq():
+    allocation = allocate_supplier_orders(
+        _part(
+            sup1_moq=10,
+            sup1_order_multiple=5,
+            sup1_monthly_capacity=5,
+        ),
+        quantity=10,
+        release_week=1,
+        capacity_period="2025-01",
+    )
+
+    assert allocation["orders"] == []
+    assert "supplier_capacity" in allocation["failed_checks"]
+    assert "moq_multiple_rounding" in allocation["failed_checks"]
 
 
 def test_independent_checker_enforces_supplier_month_capacity_across_orders():
@@ -612,3 +658,230 @@ def test_emergency_assumption_config_keeps_rule_and_cost_together():
     assert emergency["quantity"] == "exact_remaining_critical_backlog"
     assert emergency["arrival"] == "start_of_next_week"
     assert emergency["unit_cost_multiplier"] == 1.5
+
+
+def test_origin_visible_history_skips_sealed_and_future_target_values(tmp_path):
+    data = tmp_path / "data"
+    data.mkdir()
+    path = data / "01_demand_forecasting.csv"
+    columns = [
+        "week_start_date",
+        "part_id",
+        "region",
+        "split_role",
+        "demand_qty",
+        "is_missing_week",
+    ]
+    rows = [
+        [
+            week.strftime("%Y-%m-%d"),
+            "P1",
+            "R1",
+            "train_val",
+            "2",
+            "0",
+        ]
+        for week in pd.date_range("2025-01-06", periods=8, freq="W-MON")
+    ]
+    rows.extend(
+        [
+            ["2025-02-24", "P2", "R1", "sealed_final_test", "not-a-number", "0"],
+            ["2025-03-10", "P2", "R1", "future", "not-a-number", "0"],
+        ]
+    )
+    pd.DataFrame(rows, columns=columns).to_csv(path, index=False)
+
+    history = load_origin_visible_history(
+        tmp_path, [pd.Timestamp("2025-03-03")]
+    )
+
+    assert history[("2025-03-03", "P1")]["complete_observed_weeks"] == 8
+    assert history[("2025-03-03", "P1")]["trailing_mean_weekly_demand"] == 2
+    assert (
+        history[("2025-03-03", "P1")]["origin_visible_sbc_class"]
+        == "Unknown/ShortHistory"
+    )
+    assert ("2025-03-03", "P2") not in history
+
+
+def test_origin_visible_opening_stock_uses_exact_eight_week_formula():
+    result = origin_visible_opening_stock(
+        _part(sup1_lead_time_days=8),
+        {
+            "complete_observed_weeks": 8,
+            "trailing_mean_weekly_demand": 3.2,
+        },
+    )
+
+    assert result["rounded_weekly_mean_demand"] == 4
+    assert result["lead_time_weeks"] == 2
+    assert result["opening_available_qty"] == 12
+
+
+def test_origin_visible_opening_stock_rejects_fewer_than_eight_weeks():
+    with pytest.raises(ValueError, match="insufficient_origin_visible_history"):
+        origin_visible_opening_stock(
+            _part(),
+            {
+                "complete_observed_weeks": 7,
+                "trailing_mean_weekly_demand": 3.2,
+            },
+        )
+
+
+def test_primary_and_d2_initialization_are_separate_scenarios():
+    origin = pd.Timestamp("2025-03-03")
+    part = _part(
+        backorder_qty=3,
+        open_po_qty=5,
+        open_po_due_this_month_qty=5,
+    )
+    paths = _forecasts(first_week=0)
+    paths["part_id"] = "P1"
+    history = {
+        (origin.date().isoformat(), "P1"): {
+            "complete_observed_weeks": 8,
+            "trailing_mean_weekly_demand": 2.0,
+        }
+    }
+
+    primary, _, _ = _generate_origin_plans(
+        origin, paths, {"P1": part}, {}, {}, 1.0, 4,
+        PRIMARY_INITIALIZATION, history,
+    )
+    stress, _, _ = _generate_origin_plans(
+        origin, paths, {"P1": part}, {}, {}, 1.0, 4,
+        D2_STRESS_INITIALIZATION, history,
+    )
+
+    assert primary[0]["snapshot"]["available_qty"] == 4
+    assert primary[0]["snapshot"]["open_po_qty"] == 0
+    assert primary[0]["snapshot"]["backorder_qty"] == 0
+    assert stress[0]["snapshot"]["available_qty"] == part["available_qty"]
+    assert stress[0]["snapshot"]["open_po_qty"] == part["open_po_qty"]
+    assert stress[0]["snapshot"]["backorder_qty"] == part["backorder_qty"]
+
+
+def test_phase5_yaml_loader_rejects_duplicate_keys(tmp_path):
+    path = tmp_path / "duplicate.yaml"
+    path.write_text("assumptions:\n  seed: 42\n  seed: 7\n", encoding="utf-8")
+
+    with pytest.raises(yaml.constructor.ConstructorError, match="duplicate key"):
+        _load_yaml_unique(path)
+
+
+def test_unresolved_month_report_includes_first_week_lead_time_failure(tmp_path):
+    results = tmp_path / "results"
+    checks = pd.DataFrame(
+        [
+            {
+                "run_id": "r1",
+                "status": "unresolved",
+                "failed_checks": "release_before_week_1",
+                "criticality": "High",
+                "week_1_start_date": pd.Timestamp("2025-01-06"),
+            }
+        ]
+    )
+
+    _write_unresolved_reports(
+        checks, pd.DataFrame(), results, "test"
+    )
+
+    monthly = pd.read_csv(results / "test_unresolved_by_month.csv")
+    assert monthly.loc[0, "requirement_month"] == "2025-01"
+    assert monthly.loc[0, "failure_reason"] == "release_before_week_1"
+    assert monthly.loc[0, "unresolved_schedules"] == 1
+
+
+def test_analogue_exception_records_unforecasted_series_without_zero_fill(tmp_path):
+    for folder in ("data", "artifacts", "configs", "results"):
+        (tmp_path / folder).mkdir()
+    pd.DataFrame(
+        [
+            {"part_id": "P1", "component": "A", "vehicle_type": "4W Sedan"},
+            {"part_id": "P0091", "component": "B", "vehicle_type": "4W Hatch"},
+            {"part_id": "P2", "component": "C", "vehicle_type": "2W"},
+        ]
+    ).to_csv(tmp_path / "data" / "03_spare_parts_catalogue.csv", index=False)
+    pd.DataFrame(
+        [
+            {
+                "part_id": "P1",
+                "region": "East",
+                "classification_status": "unclassified_short",
+                "observed_weeks": 5,
+            },
+            {
+                "part_id": "P0091",
+                "region": "North",
+                "classification_status": "unclassified_no_development_observations",
+                "observed_weeks": 0,
+            },
+            {
+                "part_id": "P2",
+                "region": "East",
+                "classification_status": "classified",
+                "observed_weeks": 40,
+            },
+        ]
+    ).to_parquet(tmp_path / "artifacts" / "series_segments.parquet")
+    (tmp_path / "configs" / "project.yaml").write_text(
+        "phase4:\n"
+        "  tier2_random_forest:\n"
+        '    held_validation_origins: ["2025-01-13", "2025-04-21"]\n',
+        encoding="utf-8",
+    )
+    legacy_forecasts = tmp_path / "results" / "analogue_fallback_forecasts.csv"
+    legacy_diagnostic = tmp_path / "results" / "analogue_fallback_diagnostic.json"
+    legacy_forecasts.write_text("legacy forecast artifact\n", encoding="utf-8")
+    legacy_diagnostic.write_text("legacy diagnostic artifact\n", encoding="utf-8")
+
+    summary = write_analogue_fallback_diagnostic(tmp_path)
+    records = pd.read_csv(
+        tmp_path / "results" / "phase5_analogue_exceptions_v1.csv"
+    )
+
+    assert len(records) == 4
+    assert records["status"].eq("UNFORECASTED_NO_DEFENSIBLE_ANALOGUE").all()
+    assert not records["forecast_emitted"].any()
+    assert records["eligible_donor_count"].eq(0).all()
+    assert "forecast_qty" not in records.columns
+    assert summary["series_origin_records"] == 4
+    assert summary["forecast_qty_substituted_with_zero"] is False
+    p0091 = records.loc[records["part_id"].eq("P0091")]
+    assert p0091["reason"].str.contains(
+        "no_development_observations;no_validated_launch_exposure_scaling"
+    ).all()
+    assert legacy_forecasts.read_text(encoding="utf-8") == "legacy forecast artifact\n"
+    assert legacy_diagnostic.read_text(encoding="utf-8") == "legacy diagnostic artifact\n"
+
+
+def test_analogue_exception_refuses_to_hide_an_eligible_exact_donor(tmp_path):
+    for folder in ("data", "artifacts", "configs", "results"):
+        (tmp_path / folder).mkdir()
+    pd.DataFrame(
+        [
+            {"part_id": "P1", "component": "A", "vehicle_type": "4W Sedan"},
+            {"part_id": "P2", "component": "A", "vehicle_type": "4W Sedan"},
+        ]
+    ).to_csv(tmp_path / "data" / "03_spare_parts_catalogue.csv", index=False)
+    pd.DataFrame(
+        [
+            {
+                "part_id": "P1",
+                "region": "East",
+                "classification_status": "unclassified_short",
+                "observed_weeks": 5,
+            }
+        ]
+    ).to_parquet(tmp_path / "artifacts" / "series_segments.parquet")
+    (tmp_path / "configs" / "project.yaml").write_text(
+        "phase4:\n"
+        "  tier2_random_forest:\n"
+        '    held_validation_origins: ["2025-01-13"]\n',
+        encoding="utf-8",
+    )
+
+    with pytest.raises(RuntimeError, match="Exact component/vehicle-type donors exist"):
+        write_analogue_fallback_diagnostic(tmp_path)

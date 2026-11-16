@@ -1,0 +1,17 @@
+model,evaluation,label,precision,recall,f1,support
+tfidf_logistic_regression,component_group_holdout,Body,0.0,0.0,0.0,3
+tfidf_logistic_regression,component_group_holdout,Electrical,0.0,0.0,0.0,3
+tfidf_logistic_regression,component_group_holdout,Electronics,0.0,0.0,0.0,7
+tfidf_logistic_regression,component_group_holdout,Ferrous,0.6153846153846154,1.0,0.7619047619047619,16
+tfidf_logistic_regression,component_group_holdout,Mechanical,0.8,0.3333333333333333,0.47058823529411764,12
+tfidf_logistic_regression,component_group_holdout,Non-ferrous,0.0,0.0,0.0,0
+tfidf_logistic_regression,component_group_holdout,Polymer,0.0,0.0,0.0,0
+tfidf_logistic_regression,component_group_holdout,Rubber,0.0,0.0,0.0,0
+tfidf_linear_svm,component_group_holdout,Body,0.0,0.0,0.0,3
+tfidf_linear_svm,component_group_holdout,Electrical,0.3,1.0,0.46153846153846156,3
+tfidf_linear_svm,component_group_holdout,Electronics,0.0,0.0,0.0,7
+tfidf_linear_svm,component_group_holdout,Ferrous,0.6666666666666666,1.0,0.8,16
+tfidf_linear_svm,component_group_holdout,Mechanical,0.5714285714285714,0.3333333333333333,0.42105263157894735,12
+tfidf_linear_svm,component_group_holdout,Non-ferrous,0.0,0.0,0.0,0
+tfidf_linear_svm,component_group_holdout,Polymer,0.0,0.0,0.0,0
+tfidf_linear_svm,component_group_holdout,Rubber,0.0,0.0,0.0,0

@@ -1,0 +1,62 @@
+{
+  "windows": [
+    {
+      "origin": "2025-03-24",
+      "window_start": "2025-03-31",
+      "window_end": "2025-09-22"
+    },
+    {
+      "origin": "2025-09-22",
+      "window_start": "2025-09-29",
+      "window_end": "2026-03-23"
+    }
+  ],
+  "frozen_parameters": {
+    "lightgbm_tweedie": {
+      "feature_fraction": 1.0,
+      "learning_rate": 0.03,
+      "min_child_samples": 20,
+      "n_estimators": 300,
+      "num_leaves": 63
+    },
+    "lightgbm_quantile": {
+      "feature_fraction": 1.0,
+      "learning_rate": 0.03,
+      "min_child_samples": 20,
+      "n_estimators": 300,
+      "num_leaves": 63
+    },
+    "lightgbm_point": {
+      "feature_fraction": 1.0,
+      "learning_rate": 0.03,
+      "min_child_samples": 50,
+      "n_estimators": 100,
+      "num_leaves": 15
+    }
+  },
+  "models": [
+    "lightgbm_tweedie",
+    "lightgbm_quantile",
+    "simple_average_ensemble",
+    "tsb",
+    "naive",
+    "seasonal_naive_52",
+    "historical_average"
+  ],
+  "weekly_rows": 209804,
+  "score_rows": 108,
+  "runtimes_seconds": {
+    "naive": 40.18559800000003,
+    "seasonal_naive_52": 46.67947240000012,
+    "moving_average_13": 38.9715228999994,
+    "croston": 47.11954479999986,
+    "sba": 48.50010839999959,
+    "tsb": 30.316614700000173,
+    "historical_average": 0.8738846000005651,
+    "lightgbm_tweedie": 34.369098099999974,
+    "lightgbm_quantile": 72.5024512,
+    "lightgbm_point": 18.37327330000062,
+    "simple_average_ensemble": 377.01768379999976
+  },
+  "final_test_sealed": true
+}

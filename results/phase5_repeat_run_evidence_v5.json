@@ -1,0 +1,6 @@
+{
+  "repeat_run_summary_identical": true,
+  "repeat_run_output_identical": true,
+  "verification_method": "The repeated run writes to the same result paths through a no-overwrite writer that accepts only byte-identical content.",
+  "initialization_scenario": "origin_visible"
+}

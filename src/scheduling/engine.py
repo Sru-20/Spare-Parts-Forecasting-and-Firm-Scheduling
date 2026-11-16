@@ -343,6 +343,7 @@ def allocate_supplier_orders(
     target_total = sum(row["sob_pct"] for row in options)
     remaining = requested
     allocated: dict[str, int] = defaultdict(int)
+    multiple_blocked_quantity = False
     for row in options:
         if remaining <= 0:
             break
@@ -365,10 +366,14 @@ def allocate_supplier_orders(
             "order_multiple"
         ]
         if max_multiple < row["moq"]:
+            multiple_blocked_quantity = multiple_blocked_quantity or available > 0
             continue
         amount = min(proposed, max_multiple)
         if amount < row["moq"]:
+            multiple_blocked_quantity = multiple_blocked_quantity or available > 0
             continue
+        if amount < proposed and available > 0:
+            multiple_blocked_quantity = True
         allocated[str(row["id"])] += amount
         capacities[capacity_key] = used + amount
         covered = (
@@ -398,13 +403,17 @@ def allocate_supplier_orders(
                 if risk_adjusted
                 else float(remaining)
             )
-            amount = min(
-                rounded_order_qty(
-                    gross_remaining, row["moq"], row["order_multiple"]
-                ),
-                int(available // row["order_multiple"]) * row["order_multiple"],
+            rounded_remaining = rounded_order_qty(
+                gross_remaining, row["moq"], row["order_multiple"]
             )
+            available_multiple = (
+                int(available // row["order_multiple"]) * row["order_multiple"]
+            )
+            amount = min(rounded_remaining, available_multiple)
+            if amount < rounded_remaining and available > 0:
+                multiple_blocked_quantity = True
             if amount < row["moq"]:
+                multiple_blocked_quantity = multiple_blocked_quantity or available > 0
                 continue
             allocated[supplier_id] += amount
             capacities[capacity_key] = (
@@ -458,6 +467,8 @@ def allocate_supplier_orders(
         )
     if remaining > 0:
         failed.append("supplier_capacity")
+        if multiple_blocked_quantity:
+            failed.append("moq_multiple_rounding")
     if allocated_total < requested and "supplier_capacity" not in failed:
         failed.append("supplier_capacity")
     allocated_shares = {
@@ -628,6 +639,12 @@ def build_mrp_schedule(
         )
         capacity_state = allocation.get("capacity_used", capacity_state)
         failed_checks.update(allocation["failed_checks"])
+        if (
+            week == 1
+            and backlog + float(forecast_row["forecast_qty"]) > stock
+            and allocation["orders"]
+        ):
+            failed_checks.add("release_before_week_1")
         for order in allocation["orders"]:
             order = dict(order)
             order.update(

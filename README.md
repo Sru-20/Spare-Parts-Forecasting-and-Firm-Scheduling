@@ -15,15 +15,84 @@ Join key: `part_id`. Dataset 1 also carries part attributes so it can be used al
 Regenerate: `python data/generate_datasets.py`  
 Validate: `python data/validate_datasets.py data`
 
+## Quick-start demo (5 minutes)
+
+```powershell
+# 1. Backend — from the repository root
+$env:DJANGO_SECRET_KEY = "demo-secret-key-change-in-production"
+$env:DB_NAME = Join-Path $PWD "backend_phase9_demo.sqlite3"
+py -3.10 -B backend/manage.py runserver 127.0.0.1:8000
+
+# 2. Frontend — new terminal, from the repository root
+Set-Location .\frontend
+npm ci
+npm run dev
+```
+
+Open the Vite URL (usually http://localhost:5173). The demo database is pre-populated with users, catalogue, Phase 6 results, KPIs, and sample conversations. Default admin credentials are in the demo DB.
+
+---
+
 ## Application architecture
 
 - Frontend: React + TypeScript.
-- Backend: one Django application exposing APIs through Django REST Framework, with MySQL persistence.
+- Backend: one Django application exposing APIs through Django REST Framework. SQLite is the development default; MySQL and PostgreSQL are selectable through environment configuration.
 - ML/scheduling: imported Python packages under `src/`, called directly by Django in-process. There is no separate FastAPI service or second application backend.
 - Batch computation: Django management commands using the same application code; no task queue or separately deployed worker is part of the MVP.
-- API security: Django authentication and groups/permissions, with JWT authentication for REST requests. Planner/approver/viewer/admin permissions are enforced server-side.
+- API security: SimpleJWT authentication with refresh rotation and token revocation. Viewer, planner, approver, and admin permissions are enforced server-side.
 
 Forecast and schedule read APIs should serve persisted outputs. Schedule proposals use the validated scheduling package; the LLM may interpret requests but cannot calculate quantities or bypass confirmation and audit controls. This is the selected project architecture, not a framework requirement imposed by the updated problem statement.
+
+### Django API development
+
+The backend runs from the repository root and reuses the existing Python packages:
+
+```powershell
+py -3.10 -m pip install -r requirements.txt
+$env:DJANGO_SECRET_KEY = "<local-development-secret>"
+py -3.10 -B backend/manage.py migrate
+py -3.10 -B backend/manage.py check
+py -3.10 -B backend/manage.py runserver
+```
+
+Do not commit the development secret. SQLite is selected by default. To use a server database, configure `DB_ENGINE` (`mysql` or `postgres`), `DB_NAME`, `DB_USER`, and `DB_HOST`; provide `DB_PASSWORD` and `DB_PORT` through the environment as needed. Django endpoints are versioned under `/api/v1/`. The rule-based Ask AI fallback uses no external model key and cannot directly access the database or apply proposals.
+
+The Phase 8B test/evaluation commands are:
+
+```powershell
+$env:DJANGO_SECRET_KEY = "<local-development-secret>"
+py -3.10 -B backend/manage.py test backend.tests.test_phase8b_api
+py -3.10 -B backend/manage.py evaluate_assistant
+```
+
+Assistant evaluation fixtures are generated multilingual paraphrases, not human-validated requests. The current report limits claims to paraphrase robustness; proposal writes remain explicit, role-checked, constraint-checked, and audited. See `reports/assistant_evaluation_phase8b_v1.md` and the Phase 8B entry in `STATE.md`. The Phase 9 website is implemented, but its overall gate remains partial; inspect the sequential [01 executive summary](reports/01_phase9_executive_summary_v1.md), [02 evidence report](reports/02_phase9_closeout_v1.md), and [03 validation record](results/03_phase9_ui_validation_v1.json). Phase 7 remains unevaluated and unfinalized.
+
+### Phase 9 web application
+
+The React application lives in `frontend/`. Start Django and Vite in separate PowerShell terminals. Use a separate `DB_NAME` when an existing local database file must be preserved:
+
+```powershell
+# Backend terminal, from the repository root
+$env:DJANGO_SECRET_KEY = "<local-development-secret>"
+$env:DB_NAME = Join-Path $PWD "backend_phase9_demo.sqlite3"
+py -3.10 -B backend/manage.py migrate
+py -3.10 -B backend/manage.py import_catalogue
+py -3.10 -B backend/manage.py register_phase6_snapshot
+py -3.10 -B backend/manage.py createsuperuser
+py -3.10 -B backend/manage.py shell -c "from backend.accounts.models import User; User.objects.filter(is_superuser=True).update(role='admin')"
+py -3.10 -B backend/manage.py runserver 127.0.0.1:8000
+```
+
+`register_phase6_snapshot` registers the saved `lightgbm_quantile::random_1` + `risk_adjusted_mrp` Phase 6 validation champion and its provisional future schedule for the UI. It reads saved Phase 6 result files and the imported catalogue only, creates `results/phase9_ui_forecasts_phase6_v1.csv` without overwriting an existing file, and is idempotent. Forecast rows are a distinct `(part_id, week)` view of saved schedule `forecast_qty` values; the command does not recompute forecasts or read Phase 7 final-test targets. The KPI records remain Phase 6 validation/simulation evidence; the schedule remains provisional and Phase 5 remains PARTIAL. The future forecast does not replace the Track A point-forecast benchmark.
+
+```powershell
+# Frontend terminal, from the repository root
+Set-Location .\frontend
+npm ci
+npm run dev
+```
+
+Open the Vite URL printed in the terminal. The development proxy forwards `/api` to `http://127.0.0.1:8000`. Focused frontend checks are `npm run test` and `npm run build`. Model retraining/promotion, final-test evaluation, and unsupported operational integrations are not exposed as UI actions.
 
 ## What was wrong with the dummy files
 

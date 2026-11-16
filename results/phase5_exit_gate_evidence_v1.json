@@ -1,0 +1,41 @@
+{
+  "phase": 5,
+  "status": "COMPLETE WITH APPROVED DATA-LIMITATION EXCEPTION",
+  "created_at": "2026-11-16T18:15:00+05:30",
+  "description": "Phase 5 exit-gate evidence compiled from existing validated results.",
+  "criteria": {
+    "approved_analogue_exception_recorded": true,
+    "python_3_10_tests_passed": true,
+    "python_3_13_tests_passed": true,
+    "validator_passes": 32,
+    "validator_failures": 0,
+    "firm_order_hard_constraint_violations": 0,
+    "inventory_reconciliation_passed": true,
+    "repeat_run_identical": true,
+    "assumptions_frozen": true
+  },
+  "evidence_sources": {
+    "run_summary": "results/phase5_run_summary.json",
+    "repeat_run_evidence": "results/phase5_repeat_run_evidence_v5.json",
+    "primary_run_summary": "results/phase5_primary_v5_run_summary.json",
+    "analogue_exceptions": "results/phase5_analogue_exceptions_v1.json",
+    "assumptions": "docs/phase5_assumptions.md"
+  },
+  "summary_metrics": {
+    "complete_part_origin_paths": 563,
+    "schedule_feasible_runs": 442,
+    "schedule_unresolved_runs": 121,
+    "independent_checker_hard_violations": 0,
+    "mrp_inventory_ledger_failed_runs": 0,
+    "simulator_inventory_ledger_failed_runs": 0,
+    "service_fill_rate": 0.7154783706540138,
+    "final_test_opened": false,
+    "forecast_artifact_modified": false
+  },
+  "approved_exceptions": [
+    "Exact same-component same-vehicle-type donor matching rule",
+    "UNFORECASTED_NO_DEFENSIBLE_ANALOGUE for parts with no eligible donor",
+    "P0091 remains unforecasted without validated launch/exposure scaling",
+    "Firm orders must pass all hard constraints; infeasible orders remain unresolved"
+  ]
+}

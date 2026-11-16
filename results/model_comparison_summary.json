@@ -1,0 +1,54 @@
+{
+  "tuning_gate_pp": 0.5,
+  "tuning_origins": [
+    "2024-07-01",
+    "2024-10-07"
+  ],
+  "held_origins_not_used": [
+    "2025-01-13",
+    "2025-04-21",
+    "2025-07-28",
+    "2025-11-03"
+  ],
+  "xgboost_configs": [
+    {
+      "n_estimators": 300,
+      "learning_rate": 0.03,
+      "max_depth": 6,
+      "min_child_weight": 20.0,
+      "colsample_bytree": 1.0,
+      "subsample": 1.0
+    },
+    {
+      "n_estimators": 100,
+      "learning_rate": 0.05,
+      "max_depth": 4,
+      "min_child_weight": 50.0,
+      "colsample_bytree": 0.8,
+      "subsample": 1.0
+    },
+    {
+      "n_estimators": 100,
+      "learning_rate": 0.03,
+      "max_depth": 4,
+      "min_child_weight": 50.0,
+      "colsample_bytree": 1.0,
+      "subsample": 1.0
+    }
+  ],
+  "deferred_models": {
+    "sarima_arima": "616 mostly intermittent series, synthetic data and a 14-week horizon; per-series fits add cost without decision value",
+    "lstm": "no GPU, small synthetic sample, recursive tabular challengers cover the non-linear comparison at lower cost"
+  },
+  "decision": {
+    "champion_tuning_lead_wape_pct": 39.29367616573202,
+    "best_candidate": "moving_average_13::baseline_default",
+    "best_candidate_tuning_lead_wape_pct": 45.07181699272489,
+    "tuning_gain_pp": -5.778140826992868,
+    "tuning_gate_threshold_pp": 0.5,
+    "tuning_gate_passed": false,
+    "held_evaluation_opened": false,
+    "decision": "champion_retained_tuning_gate_not_met"
+  },
+  "held_gates": {}
+}

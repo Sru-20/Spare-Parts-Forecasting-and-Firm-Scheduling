@@ -1,0 +1,90 @@
+{
+  "status": "success",
+  "amendment": "SPEC v4.2 A3/A4",
+  "basis": "synthetic held-validation demand paths and one D2 snapshot",
+  "assumptions": {
+    "seed": 42,
+    "initial_stock_multiplier": 1.0,
+    "due_later_week": 4,
+    "high_share_warning_pct": 50.0
+  },
+  "risk_level_parts": {
+    "high": 53,
+    "low": 53,
+    "medium": 52
+  },
+  "comparison": [
+    {
+      "variant": "traditional_baseline",
+      "part_origins": 563,
+      "firm_part_origins": 442,
+      "unresolved_part_origins": 121,
+      "order_lines": 6718,
+      "order_qty": 766550,
+      "expected_rejected_qty": 23022,
+      "mean_safety_stock": 776.5681933964348,
+      "mean_reorder_point": 929.6721977065582,
+      "parts_with_reorder_trigger": 559,
+      "weekly_below_reorder_point": 6890,
+      "projected_unmet_units": 225978.0,
+      "high_risk_large_share_warnings": 1582
+    },
+    {
+      "variant": "risk_adjusted",
+      "part_origins": 563,
+      "firm_part_origins": 433,
+      "unresolved_part_origins": 130,
+      "order_lines": 6342,
+      "order_qty": 788666,
+      "expected_rejected_qty": 23825,
+      "mean_safety_stock": 801.8237105240863,
+      "mean_reorder_point": 962.9611958298135,
+      "parts_with_reorder_trigger": 560,
+      "weekly_below_reorder_point": 6584,
+      "projected_unmet_units": 243181.0,
+      "high_risk_large_share_warnings": 1258
+    }
+  ],
+  "quantity_change_pct_risk_on_vs_off": 2.885134694410019,
+  "unresolved_change": 9,
+  "projected_unmet_change_units": 17203.0,
+  "high_risk_large_share_warnings": 1258,
+  "reorder_by_criticality": {
+    "High": {
+      "part_origins": 189,
+      "median_reorder_point": 587.7442906794124,
+      "median_current_reorder_point": 54.0,
+      "median_delta": 384.44403920741496,
+      "median_delta_pct": 1046.8590603187743,
+      "above_current": 187,
+      "below_current": 2,
+      "equal_current": 0
+    },
+    "Low": {
+      "part_origins": 134,
+      "median_reorder_point": 195.79299427379624,
+      "median_current_reorder_point": 28.0,
+      "median_delta": 121.82077847516075,
+      "median_delta_pct": 419.40688011942063,
+      "above_current": 128,
+      "below_current": 6,
+      "equal_current": 0
+    },
+    "Medium": {
+      "part_origins": 240,
+      "median_reorder_point": 267.11431089733344,
+      "median_current_reorder_point": 34.0,
+      "median_delta": 201.20681195017792,
+      "median_delta_pct": 633.7161282080782,
+      "above_current": 233,
+      "below_current": 7,
+      "equal_current": 0
+    }
+  },
+  "notes": [
+    "Traditional baseline ignores supplier risk by design.",
+    "Risk-adjusted planning is deterministic expected-value planning; the simulator is not rerun here.",
+    "SOB remains a target, not a binding contract.",
+    "D2 has one snapshot, so no historical schedule accuracy is claimed."
+  ]
+}

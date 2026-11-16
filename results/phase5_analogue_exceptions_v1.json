@@ -1,0 +1,40 @@
+{
+  "status": "approved_data_limitation_exception",
+  "donor_definition": "exact same component and vehicle_type, excluding the target part",
+  "short_series": 47,
+  "part_ids": [
+    "P0007",
+    "P0009",
+    "P0024",
+    "P0025",
+    "P0042",
+    "P0062",
+    "P0068",
+    "P0090",
+    "P0091",
+    "P0092",
+    "P0106",
+    "P0122"
+  ],
+  "validation_origins": [
+    "2025-01-13",
+    "2025-04-21",
+    "2025-07-28",
+    "2025-11-03"
+  ],
+  "series_origin_records": 188,
+  "forecasted_series": 0,
+  "unforecasted_series": 47,
+  "eligible_donor_count_by_series_origin": [
+    0
+  ],
+  "status_by_series_origin": "UNFORECASTED_NO_DEFENSIBLE_ANALOGUE",
+  "reason_counts_by_series_origin": {
+    "no_eligible_same_component_vehicle_type_donor": 172,
+    "no_development_observations;no_validated_launch_exposure_scaling;no_eligible_same_component_vehicle_type_donor": 16
+  },
+  "forecast_values_emitted": false,
+  "forecast_qty_substituted_with_zero": false,
+  "p0091_reason": "no development observations and no validated launch/exposure scaling",
+  "evidence_csv": "results\\phase5_analogue_exceptions_v1.csv"
+}

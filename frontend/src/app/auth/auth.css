@@ -1,0 +1,240 @@
+.login-page {
+  display: grid;
+  min-height: 100vh;
+  grid-template-columns: minmax(0, 1fr) minmax(370px, 0.78fr);
+  background: var(--surface);
+}
+
+.login-story {
+  position: relative;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  padding: clamp(26px, 5vw, 58px);
+  background:
+    radial-gradient(ellipse at 87% 22%, rgb(91 126 222 / 25%), transparent 37%),
+    radial-gradient(ellipse at 19% 93%, rgb(32 136 131 / 18%), transparent 34%),
+    #111b2d;
+  color: #f1f5fb;
+}
+
+.login-story::before,
+.login-story::after {
+  position: absolute;
+  z-index: 0;
+  width: 440px;
+  height: 440px;
+  border: 1px solid rgb(177 197 243 / 8%);
+  border-radius: 50%;
+  content: "";
+  pointer-events: none;
+}
+
+.login-story::before {
+  right: -210px;
+  bottom: -180px;
+}
+
+.login-story::after {
+  right: -138px;
+  bottom: -106px;
+}
+
+.login-brand,
+.login-story-copy,
+.login-disclaimer {
+  position: relative;
+  z-index: 1;
+}
+
+.login-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 11px;
+  font-weight: 720;
+  letter-spacing: 0.1em;
+}
+
+.login-brand-divider {
+  margin: 0 4px;
+  color: #71819e;
+}
+
+.login-story-copy {
+  max-width: 580px;
+  margin: auto 0;
+  padding: 70px 0;
+}
+
+.login-overline {
+  color: #9eb4ed;
+  font-size: 9px;
+  font-weight: 740;
+  letter-spacing: 0.15em;
+}
+
+.login-story-copy h1 {
+  max-width: 570px;
+  margin: 20px 0 14px;
+  font-size: clamp(34px, 4vw, 54px);
+  font-weight: 680;
+  letter-spacing: -0.055em;
+  line-height: 1.08;
+}
+
+.login-story-copy > p {
+  max-width: 470px;
+  margin: 0;
+  color: #a7b3c6;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.login-feature-list {
+  display: grid;
+  gap: 13px;
+  margin-top: 37px;
+}
+
+.login-feature-list > div {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  color: #cbd4e3;
+  font-size: 11px;
+}
+
+.login-feature-list svg {
+  color: #9db5ff;
+}
+
+.login-disclaimer {
+  display: inline-flex;
+  width: max-content;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 11px;
+  border: 1px solid rgb(255 255 255 / 12%);
+  border-radius: 999px;
+  background: rgb(255 255 255 / 5%);
+  color: #c3ccda;
+  font-size: 9px;
+}
+
+.login-disclaimer-mark {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #61c6a9;
+}
+
+.login-panel {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(26px, 6vw, 78px);
+}
+
+.login-form {
+  display: grid;
+  width: min(100%, 370px);
+  gap: 19px;
+  margin: 0 auto;
+}
+
+.login-form-heading {
+  margin-bottom: 4px;
+}
+
+.login-form-heading h2 {
+  margin: 0;
+  color: var(--ink);
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+}
+
+.login-form-heading p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.login-error .inline-notice {
+  font-size: 10px;
+}
+
+.login-submit {
+  width: 100%;
+  min-height: 42px;
+  justify-content: space-between;
+  padding: 0 15px;
+  font-size: 12px;
+}
+
+.login-security-note {
+  margin: -4px 0 0;
+  color: var(--muted);
+  font-size: 9px;
+  text-align: center;
+}
+
+.login-footer {
+  margin: 48px auto 0;
+  color: var(--muted);
+  font-size: 9px;
+  text-align: center;
+}
+
+.auth-loading {
+  display: grid;
+  min-height: 100vh;
+  place-items: center;
+  padding: 32px;
+}
+
+.auth-spinner {
+  width: 25px;
+  height: 25px;
+  border: 2px solid var(--line);
+  border-top-color: var(--brand);
+  border-radius: 50%;
+  animation: rotate 700ms linear infinite;
+}
+
+@media (max-width: 760px) {
+  .login-page {
+    grid-template-columns: 1fr;
+  }
+
+  .login-story {
+    min-height: 330px;
+    padding: 25px;
+  }
+
+  .login-story-copy {
+    padding: 55px 0 38px;
+  }
+
+  .login-story-copy h1 {
+    max-width: 510px;
+    font-size: clamp(30px, 8vw, 43px);
+  }
+
+  .login-feature-list {
+    display: none;
+  }
+
+  .login-panel {
+    min-height: auto;
+    padding: 42px 24px 24px;
+  }
+
+  .login-footer {
+    margin-top: 35px;
+  }
+}

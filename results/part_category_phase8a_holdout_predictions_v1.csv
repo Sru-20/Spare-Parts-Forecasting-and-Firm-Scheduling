@@ -1,0 +1,42 @@
+part_id,component,catalogue_category,predicted_category,confidence,auto_accepted_by_cv_threshold,requires_clarification
+P0001,Oil filter cartridge,Mechanical,Polymer,0.2284872920104946,False,True
+P0004,Piston ring set,Ferrous,Mechanical,0.21680403593642208,False,True
+P0007,Front brake disc RH,Ferrous,Ferrous,0.24189115845165335,False,True
+P0008,Rear brake pad set,Mechanical,Ferrous,0.26224539334982316,False,True
+P0011,Brake master cylinder,Mechanical,Ferrous,0.3632521060905881,False,True
+P0014,Control arm LH,Ferrous,Ferrous,0.2446925549133941,False,True
+P0015,Stabilizer link,Ferrous,Mechanical,0.22315863928966798,False,True
+P0033,LED indicator module,Electronics,Electrical,0.18080512540199808,False,True
+P0035,Bonnet/hood panel,Body,Mechanical,0.2357358522561168,False,True
+P0038,Battery 12V,Electrical,Polymer,0.2899269560874248,False,True
+P0042,Voltage regulator,Electronics,Electrical,0.20492746920397933,False,True
+P0043,Oil filter cartridge,Mechanical,Polymer,0.22657996481436035,False,True
+P0046,Piston ring set,Ferrous,Mechanical,0.21929782233630934,False,True
+P0049,Front brake disc RH,Ferrous,Ferrous,0.24492302291568785,False,True
+P0050,Rear brake pad set,Mechanical,Ferrous,0.26153198840887637,False,True
+P0053,Brake master cylinder,Mechanical,Ferrous,0.3680554029561461,False,True
+P0056,Control arm LH,Ferrous,Ferrous,0.24129273615351685,False,True
+P0057,Stabilizer link,Ferrous,Ferrous,0.2246874473703321,False,True
+P0075,LED indicator module,Electronics,Electrical,0.18370173182395824,False,True
+P0077,Bonnet/hood panel,Body,Ferrous,0.23253677134352893,False,True
+P0080,Battery 12V,Electrical,Polymer,0.2746000577262423,False,True
+P0084,Voltage regulator,Electronics,Electrical,0.2057399829233353,False,True
+P0085,Oil filter cartridge,Mechanical,Polymer,0.22755264724642194,False,True
+P0088,Piston ring set,Ferrous,Mechanical,0.22086218931027865,False,True
+P0091,Front brake disc RH,Ferrous,Ferrous,0.23972144820368613,False,True
+P0092,Rear brake pad set,Mechanical,Ferrous,0.2671918552182478,False,True
+P0095,Brake master cylinder,Mechanical,Ferrous,0.36503818580594855,False,True
+P0098,Control arm LH,Ferrous,Ferrous,0.24301689211251437,False,True
+P0099,Stabilizer link,Ferrous,Mechanical,0.2309265988479943,False,True
+P0117,LED indicator module,Electronics,Electrical,0.17489028296650072,False,True
+P0119,Bonnet/hood panel,Body,Ferrous,0.23026729447935226,False,True
+P0122,Battery 12V,Electrical,Body,0.27130820186743143,False,True
+P0126,Voltage regulator,Electronics,Electrical,0.1999989595877294,False,True
+P0127,Oil filter cartridge,Mechanical,Polymer,0.22106037071707926,False,True
+P0130,Piston ring set,Ferrous,Mechanical,0.21664529580551808,False,True
+P0133,Front brake disc RH,Ferrous,Ferrous,0.24357653910761748,False,True
+P0134,Rear brake pad set,Mechanical,Ferrous,0.2621132238706635,False,True
+P0137,Brake master cylinder,Mechanical,Ferrous,0.3692242442191474,False,True
+P0140,Control arm LH,Ferrous,Ferrous,0.2526349240568577,False,True
+P0141,Stabilizer link,Ferrous,Ferrous,0.2241890159679368,False,True
+P0159,LED indicator module,Electronics,Electrical,0.1760278170397145,False,True

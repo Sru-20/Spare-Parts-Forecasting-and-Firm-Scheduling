@@ -1,0 +1,12 @@
+criticality,failure_reason,unresolved_schedules
+High,moq_multiple_rounding,41
+High,release_before_week_1,5
+High,supplier_capacity,41
+High,unfilled_requirement,41
+Low,moq_multiple_rounding,17
+Low,supplier_capacity,17
+Low,unfilled_requirement,17
+Medium,moq_multiple_rounding,27
+Medium,release_before_week_1,3
+Medium,supplier_capacity,27
+Medium,unfilled_requirement,27

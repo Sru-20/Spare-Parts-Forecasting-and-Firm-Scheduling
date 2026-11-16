@@ -1,0 +1,29 @@
+{
+  "target": "part_category",
+  "material_group_status": "not_available_in_catalogue",
+  "confidence_threshold": 0.6,
+  "models": [
+    "tfidf_logistic_regression",
+    "tfidf_linear_svm"
+  ],
+  "best_component_holdout_model": "tfidf_linear_svm",
+  "holdout_macro_f1": 0.2103238866396761,
+  "cv_macro_f1": {
+    "tfidf_logistic_regression": 1.0,
+    "tfidf_linear_svm": 1.0
+  },
+  "holdout_parts": 41,
+  "holdout_components": 11,
+  "component_overlap": 0,
+  "needs_review_parts": 0,
+  "catalogue_categories": {
+    "Body": 10,
+    "Electrical": 28,
+    "Electronics": 11,
+    "Ferrous": 32,
+    "Mechanical": 40,
+    "Non-ferrous": 16,
+    "Polymer": 11,
+    "Rubber": 12
+  }
+}

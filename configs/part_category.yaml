@@ -1,0 +1,29 @@
+protocol_id: phase8a-part-category-v1
+target_column: part_category
+feature_allowlist:
+  - part_name
+  - component
+  - material
+model:
+  name: tfidf_char_logistic_regression
+  analyzer: char_wb
+  ngram_range: [2, 5]
+  min_df: 1
+  sublinear_tf: true
+  class_weight: balanced
+  max_iter: 3000
+seed: 42
+group_column: component
+grouped_cv_folds: 5
+heldout_component_fraction: 0.25
+confidence:
+  minimum_auto_accept_precision: 0.80
+  candidate_thresholds: [0.00, 0.10, 0.20, 0.30, 0.40, 0.50, 0.60, 0.70, 0.80, 0.90, 0.95, 0.99]
+alternative_candidates: 3
+unknown_category_values:
+  - ""
+  - unknown
+  - unclassified
+  - n/a
+  - none
+artifact_version: phase8a_v1

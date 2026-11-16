@@ -1,0 +1,39 @@
+{
+  "audit_completeness": null,
+  "audit_completeness_note": "Not applicable to offline intent-only cases; proposal lifecycle completeness is covered by database/API tests.",
+  "blocked_rule_samples": 16,
+  "by_language": {
+    "en": {
+      "intent_accuracy": 1.0,
+      "samples": 16
+    },
+    "hi": {
+      "intent_accuracy": 1.0,
+      "samples": 16
+    },
+    "hinglish": {
+      "intent_accuracy": 1.0,
+      "samples": 16
+    },
+    "mr": {
+      "intent_accuracy": 1.0,
+      "samples": 16
+    }
+  },
+  "development_samples": 128,
+  "entity_samples": 16,
+  "external_model_calls": 0,
+  "external_model_cost": 0.0,
+  "human_fluency_review": "not performed; results measure paraphrase robustness only",
+  "incorrect_auto_apply_rate": 0.0,
+  "invented_quantity_rate": 0.0,
+  "median_local_intent_latency_ms": 0.020799998310394585,
+  "multilingual_consistency": 1.0,
+  "p95_local_intent_latency_ms": 0.031800009310245514,
+  "test_entity_accuracy": 1.0,
+  "test_intent_accuracy": 1.0,
+  "test_rule_validation_correctness": 1.0,
+  "rule_validation_scope": "Offline accuracy measures blocked-intent recognition only; API tests exercise authorization and deterministic hard-constraint enforcement.",
+  "test_samples": 64,
+  "total_samples": 192
+}

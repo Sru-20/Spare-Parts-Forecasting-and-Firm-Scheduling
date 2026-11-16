@@ -1,0 +1,11 @@
+{
+  "status": "blocked_no_eligible_same_component_vehicle_type_donors",
+  "catalogue_parts": 160,
+  "eligible_donor_parts": 0,
+  "donor_definition": "same component and same vehicle_type, excluding target part",
+  "forecast_rows_emitted": 0,
+  "confidence": "low",
+  "safety_stock_policy": "point_forecast_only",
+  "frozen_forecasts_modified": false,
+  "reason": "Every catalogue component/vehicle_type pair is unique; no donor exists under the governing Phase 5 rule. No fallback values were fabricated."
+}

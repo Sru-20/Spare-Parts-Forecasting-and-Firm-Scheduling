@@ -1,0 +1,3 @@
+initialization_scenario,schedule_checks,firm_runs,unresolved_runs,not_ordered_runs,hard_constraint_violations,service_fill_rate,stockout_part_week_pct
+origin_visible,563,467,93,3,8,0.874750270540248,6.7876173560010145
+d2_snapshot_stress,563,256,305,2,201,0.7154783706540138,20.375539203247904
