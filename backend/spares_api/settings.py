@@ -81,43 +81,53 @@ TEMPLATES = [
 WSGI_APPLICATION = "backend.spares_api.wsgi.application"
 ASGI_APPLICATION = "backend.spares_api.asgi.application"
 
-_database_engine = os.environ.get("DB_ENGINE", "sqlite").strip().casefold()
-if _database_engine == "sqlite":
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.sqlite3",
-            "NAME": os.environ.get("DB_NAME", str(BASE_DIR / "backend.sqlite3")),
-            "OPTIONS": {"timeout": 20},
-        }
-    }
-elif _database_engine in {"mysql", "postgres", "postgresql"}:
-    if not os.environ.get("DB_NAME") or not os.environ.get("DB_USER"):
-        raise RuntimeError("DB_NAME and DB_USER are required for server databases")
-    if not os.environ.get("DB_HOST"):
-        raise RuntimeError("DB_HOST is required for server databases")
-    if _database_engine == "mysql":
-        import pymysql
+_database_url = os.environ.get("DATABASE_URL", "").strip()
+if _database_url:
+    import dj_database_url
 
-        pymysql.install_as_MySQLdb()
-        _engine = "django.db.backends.mysql"
-    else:
-        _engine = "django.db.backends.postgresql"
     DATABASES = {
-        "default": {
-            "ENGINE": _engine,
-            "NAME": os.environ["DB_NAME"],
-            "USER": os.environ["DB_USER"],
-            "PASSWORD": os.environ.get("DB_PASSWORD", ""),
-            "HOST": os.environ["DB_HOST"],
-            "PORT": os.environ.get("DB_PORT", ""),
-            "CONN_MAX_AGE": 60,
-            "OPTIONS": (
-                {"charset": "utf8mb4"} if _database_engine == "mysql" else {}
-            ),
-        }
+        "default": dj_database_url.parse(_database_url, conn_max_age=60)
     }
 else:
-    raise RuntimeError("DB_ENGINE must be sqlite, mysql, postgres, or postgresql")
+    _database_engine = os.environ.get("DB_ENGINE", "sqlite").strip().casefold()
+    if _database_engine == "sqlite":
+        DATABASES = {
+            "default": {
+                "ENGINE": "django.db.backends.sqlite3",
+                "NAME": os.environ.get("DB_NAME", str(BASE_DIR / "backend.sqlite3")),
+                "OPTIONS": {"timeout": 20},
+            }
+        }
+    elif _database_engine in {"mysql", "postgres", "postgresql"}:
+        if not os.environ.get("DB_NAME") or not os.environ.get("DB_USER"):
+            raise RuntimeError("DB_NAME and DB_USER are required for server databases")
+        if not os.environ.get("DB_HOST"):
+            raise RuntimeError("DB_HOST is required for server databases")
+        if _database_engine == "mysql":
+            import pymysql
+
+            pymysql.install_as_MySQLdb()
+            _engine = "django.db.backends.mysql"
+        else:
+            _engine = "django.db.backends.postgresql"
+        DATABASES = {
+            "default": {
+                "ENGINE": _engine,
+                "NAME": os.environ["DB_NAME"],
+                "USER": os.environ["DB_USER"],
+                "PASSWORD": os.environ.get("DB_PASSWORD", ""),
+                "HOST": os.environ["DB_HOST"],
+                "PORT": os.environ.get("DB_PORT", ""),
+                "CONN_MAX_AGE": 60,
+                "OPTIONS": (
+                    {"charset": "utf8mb4"} if _database_engine == "mysql" else {}
+                ),
+            }
+        }
+    else:
+        raise RuntimeError(
+            "DB_ENGINE must be sqlite, mysql, postgres, or postgresql"
+        )
 
 AUTH_USER_MODEL = "accounts.User"
 AUTH_PASSWORD_VALIDATORS = [

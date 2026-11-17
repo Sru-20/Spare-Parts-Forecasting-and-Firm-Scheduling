@@ -12,6 +12,7 @@ djangorestframework==3.18.3
 djangorestframework-simplejwt==5.5.1
 django-cors-headers>=4.7,<5
 gunicorn>=23,<24
+dj-database-url>=2.3,<3
 PyMySQL>=1.1,<2
 psycopg[binary]>=3.2,<4
 PyYAML>=6,<7

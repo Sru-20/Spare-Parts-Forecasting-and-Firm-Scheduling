@@ -202,15 +202,15 @@ For MySQL or PostgreSQL, set `DB_ENGINE`, `DB_NAME`, `DB_USER`, `DB_PASSWORD`, `
 
 ### Free Render demo deployment
 
-The root `render.yaml` Blueprint deploys the Vite frontend and Django API under one Render account. The backend installs only its runtime dependencies from `requirements-render.txt` and uses SQLite inside the free backend service because free Render web services cannot attach persistent disks. Its database and generated proposal schedule files can be lost when the service spins down or redeploys; Render's free web service can also sleep while idle. This is for a temporary demonstration, not production or durable data.
+The root `render.yaml` Blueprint deploys the Vite frontend, Django API, and a PostgreSQL database under one Render account. The API reads the database connection from `DATABASE_URL`, and its runtime dependencies are installed from `requirements-render.txt`. Render Free PostgreSQL databases expire 30 days after creation, so the database is suitable for a temporary demonstration, not production or durable data. Free web services can also sleep while idle. Generated proposal schedule files remain on the API's ephemeral filesystem and can be lost when it restarts or redeploys.
 
 1. Push the repository to a Git provider and create a Render account.
 2. In Render, choose **New → Blueprint**, connect the repository, and select the root `render.yaml`.
 3. When prompted, provide `SPARECAST_ADMIN_USERNAME`, `SPARECAST_ADMIN_EMAIL`, and a strong `SPARECAST_ADMIN_PASSWORD`. These initialize the demo administrator; do not commit these values.
-4. Deploy the Blueprint. It builds the frontend and starts the backend, applies migrations, and imports the catalogue and saved demo snapshot.
+4. Deploy the Blueprint. It provisions the free PostgreSQL database, builds the frontend, and starts the backend. The backend applies migrations and imports the catalogue and saved demo snapshot into PostgreSQL.
 5. Open the `sparecast-web` URL and sign in with the administrator credentials you supplied.
 
-The Blueprint uses `sparecast-api.onrender.com` and `sparecast-web.onrender.com`. If Render assigns different service URLs, update `VITE_API_BASE_URL` on the static site to the API URL plus `/api/v1`, and update `DJANGO_CORS_ALLOWED_ORIGINS` on the API to the static-site origin, then redeploy both services. The local `backend.sqlite3` file is not uploaded; this demo creates a fresh database and seed data at startup.
+The Blueprint uses `sparecast-api.onrender.com` and `sparecast-web.onrender.com`. If Render assigns different service URLs, update `VITE_API_BASE_URL` on the static site to the API URL plus `/api/v1`, and update `DJANGO_CORS_ALLOWED_ORIGINS` on the API to the static-site origin, then redeploy both services. The local `backend.sqlite3` file is not uploaded; this demo creates a fresh PostgreSQL database and seed data at startup. Free PostgreSQL data is deleted when the database expires after 30 days.
 
 ## Tests and checks
 
