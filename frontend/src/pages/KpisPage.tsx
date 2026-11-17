@@ -104,7 +104,7 @@ export function KpisPage() {
                   helper={result ? evidenceBasis(result) : "No saved record for this KPI"}
                   source={result ? `${result.unit} · ${result.basis}` : "Not measurable"}
                   icon={Icon}
-                  tone={result && isSimulated(result.basis) ? "amber" : index % 3 === 0 ? "brand" : "teal"}
+                  tone={result && isSimulated(result.basis) ? "violet" : index % 3 === 0 ? "brand" : "teal"}
                 />
               );
             })}

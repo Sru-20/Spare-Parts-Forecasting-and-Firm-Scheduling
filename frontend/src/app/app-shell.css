@@ -1,10 +1,3 @@
-.brand-mark-letter {
-  color: #fff;
-  font-size: 15px;
-  font-weight: 800;
-  letter-spacing: -0.07em;
-}
-
 .nav-group + .nav-group {
   margin-top: 17px;
 }
@@ -18,7 +11,7 @@
   border-bottom: 1px solid var(--warning);
   background: var(--warning-soft);
   color: var(--warning);
-  font-size: 10px;
+  font-size: 14px;
 }
 
 .profile-popover-user {
@@ -72,7 +65,7 @@
   outline: 0;
   background: transparent;
   color: var(--ink);
-  font-size: 13px;
+  font-size: 16px;
 }
 
 .command-search-row input:focus-visible {
@@ -85,7 +78,7 @@
   border: 1px solid var(--line);
   border-radius: 5px;
   color: var(--muted);
-  font-size: 9px;
+  font-size: 13px;
 }
 
 .command-close {
@@ -108,7 +101,7 @@
   display: block;
   padding: 7px 10px;
   color: var(--muted);
-  font-size: 9px;
+  font-size: 14px;
   font-weight: 730;
   letter-spacing: 0.09em;
   text-transform: uppercase;
@@ -125,25 +118,27 @@
   border-radius: 9px;
   background: transparent;
   color: var(--ink-soft);
-  font-size: 11px;
+  font-size: 15px;
   text-align: left;
+  transition: background 150ms ease, color 150ms ease, transform 150ms ease;
 }
 
 .command-result:hover {
   background: var(--surface-muted);
   color: var(--ink);
+  transform: translateX(2px);
 }
 
 .command-result-trailing {
   margin-left: auto;
   color: var(--muted);
-  font-size: 9px;
+  font-size: 14px;
 }
 
 .command-part-id {
   flex: 0 0 55px;
   color: var(--brand);
-  font-size: 9px;
+  font-size: 14px;
   font-weight: 730;
 }
 
@@ -153,7 +148,7 @@
   margin: 0;
   padding: 15px 11px;
   color: var(--muted);
-  font-size: 10px;
+  font-size: 15px;
 }
 
 .command-error {
@@ -180,7 +175,7 @@
   background: var(--surface-raised);
   box-shadow: var(--shadow-md);
   color: var(--ink-soft);
-  font-size: 11px;
+  font-size: 15px;
   animation: toast-in 170ms ease both;
 }
 
@@ -211,6 +206,7 @@
   border-radius: 7px;
   background: transparent;
   color: var(--muted);
+  transition: background 140ms ease, color 140ms ease;
 }
 
 .toast-dismiss:hover {

@@ -1,5 +1,5 @@
 {
-  "name": "nova-supply-planning",
+  "name": "sparecast",
   "version": "0.1.0",
   "private": true,
   "description": "Supply-chain planning and spare-parts analytics UI",

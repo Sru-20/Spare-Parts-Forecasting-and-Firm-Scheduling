@@ -23,13 +23,22 @@ ALLOWED_HOSTS = [
     ).split(",")
     if host.strip()
 ]
+render_hostname = os.environ.get("RENDER_EXTERNAL_HOSTNAME")
+if render_hostname and render_hostname not in ALLOWED_HOSTS:
+    ALLOWED_HOSTS.append(render_hostname)
 CSRF_TRUSTED_ORIGINS = [
     origin.strip()
     for origin in os.environ.get("DJANGO_CSRF_TRUSTED_ORIGINS", "").split(",")
     if origin.strip()
 ]
+CORS_ALLOWED_ORIGINS = [
+    origin.strip().rstrip("/")
+    for origin in os.environ.get("DJANGO_CORS_ALLOWED_ORIGINS", "").split(",")
+    if origin.strip()
+]
 
 INSTALLED_APPS = [
+    "corsheaders",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -45,6 +54,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",

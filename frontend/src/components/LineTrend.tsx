@@ -14,11 +14,10 @@ interface LineTrendProps {
 }
 
 const colors = [
-  "var(--brand)",
+  "var(--electric-blue)",
   "var(--teal)",
-  "var(--warning)",
-  "var(--critical)",
-  "var(--violet)",
+  "var(--violet-accent)",
+  "var(--purple-accent)",
 ];
 
 interface TrendTooltipItem {
@@ -73,13 +72,13 @@ export function LineTrend({ data, series, valueLabel }: LineTrendProps) {
             <CartesianGrid stroke="var(--line)" strokeDasharray="3 5" vertical={false} />
             <XAxis
               dataKey="label"
-              tick={{ fill: "var(--muted)", fontSize: 10 }}
+              tick={{ fill: "var(--muted)", fontSize: 13 }}
               axisLine={{ stroke: "var(--line)" }}
               tickLine={false}
               minTickGap={18}
             />
             <YAxis
-              tick={{ fill: "var(--muted)", fontSize: 10 }}
+              tick={{ fill: "var(--muted)", fontSize: 13 }}
               axisLine={false}
               tickLine={false}
               width={44}

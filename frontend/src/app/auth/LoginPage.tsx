@@ -49,8 +49,8 @@ export function LoginPage() {
     <main className="login-page">
       <section className="login-story" aria-label="Application overview">
         <div className="login-brand">
-          <span className="brand-mark"><span className="brand-mark-letter">N</span></span>
-          <span>NOVA <span className="login-brand-divider">/</span> SUPPLY PLANNING</span>
+          <img className="brand-mark" src="/sparecast-mark.svg" alt="" aria-hidden="true" />
+          <span>SpareCast <span className="login-brand-divider">/</span> SPARE PARTS PLANNING</span>
         </div>
         <div className="login-story-copy">
           <span className="login-overline">SUPPLY CHAIN DECISION SUPPORT</span>
@@ -74,7 +74,7 @@ export function LoginPage() {
           <div className="login-form-heading">
             <span className="eyebrow">WELCOME BACK</span>
             <h2>Sign in to your workspace</h2>
-            <p>Use your assigned NOVA account to continue.</p>
+            <p>Use your assigned SpareCast account to continue.</p>
           </div>
           {error && (
             <div className="login-error" role="alert">

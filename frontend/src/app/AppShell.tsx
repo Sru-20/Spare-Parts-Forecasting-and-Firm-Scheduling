@@ -39,7 +39,7 @@ export function AppShell() {
   const { notify } = useToast();
   const page = pageTitles[location.pathname] ?? {
     title: "Workspace",
-    breadcrumb: "NOVA / Planning",
+    breadcrumb: "SpareCast / Planning",
   };
   const initials = user?.username.slice(0, 2) || "NA";
 
@@ -214,13 +214,11 @@ function Sidebar({
       className={`shell-sidebar ${collapsed ? "is-collapsed" : ""} ${mobileOpen ? "is-mobile-open" : ""}`}
       aria-label="Main navigation"
     >
-      <NavLink to="/" className="brand-lockup" aria-label="NOVA planning overview" onClick={onNavigate}>
-        <span className="brand-mark" aria-hidden="true">
-          <span className="brand-mark-letter">N</span>
-        </span>
+      <NavLink to="/" className="brand-lockup" aria-label="SpareCast planning overview" onClick={onNavigate}>
+        <img className="brand-mark" src="/sparecast-mark.svg" alt="" aria-hidden="true" />
         <span className="brand-copy">
-          <span className="brand-name">NOVA</span>
-          <span className="brand-caption">SUPPLY PLANNING</span>
+          <span className="brand-name">SpareCast</span>
+          <span className="brand-caption">SPARE PARTS PLANNING</span>
         </span>
       </NavLink>
       <div className="workspace-switcher" title="Synthetic spare-parts planning workspace">

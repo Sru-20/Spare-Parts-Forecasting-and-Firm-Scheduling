@@ -19,8 +19,8 @@ body {
   font-family:
     Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
     sans-serif;
-  font-size: 14px;
-  line-height: 1.5;
+  font-size: 17px;
+  line-height: 1.6;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   transition: background-color 180ms ease, color 180ms ease;
@@ -90,7 +90,8 @@ button {
   flex-direction: column;
   padding: 20px 14px 14px;
   background:
-    radial-gradient(ellipse at 2% 2%, rgb(61 101 193 / 21%), transparent 42%),
+    radial-gradient(ellipse at 2% 2%, rgb(37 99 235 / 22%), transparent 42%),
+    radial-gradient(ellipse at 92% 18%, rgb(20 184 166 / 10%), transparent 36%),
     var(--nav);
   color: var(--nav-ink);
   transition: width 180ms ease, transform 180ms ease;
@@ -110,24 +111,19 @@ button {
 }
 
 .brand-mark {
-  display: grid;
-  width: 34px;
-  height: 34px;
-  flex: 0 0 34px;
-  place-items: center;
-  border: 1px solid rgb(160 185 255 / 22%);
-  border-radius: 11px;
-  background: linear-gradient(145deg, #5f83f0, #3157b7);
-  box-shadow: 0 6px 18px rgb(46 79 168 / 35%);
-  color: white;
+  display: block;
+  width: 38px;
+  height: 38px;
+  flex: 0 0 38px;
+  object-fit: contain;
 }
 
 .brand-name {
   margin: 0;
-  color: #f8faff;
-  font-size: 15px;
+  color: var(--nav-ink);
+  font-size: 16px;
   font-weight: 720;
-  letter-spacing: 0.13em;
+  letter-spacing: 0.01em;
   line-height: 1.2;
 }
 
@@ -135,7 +131,7 @@ button {
   display: block;
   margin-top: 4px;
   color: var(--nav-muted);
-  font-size: 10px;
+  font-size: 14px;
   letter-spacing: 0.04em;
   white-space: nowrap;
 }
@@ -158,15 +154,15 @@ button {
   height: 8px;
   flex: 0 0 8px;
   border-radius: 50%;
-  background: #64d2b2;
-  box-shadow: 0 0 0 4px rgb(100 210 178 / 12%);
+  background: var(--teal);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--teal) 16%, transparent);
 }
 
 .workspace-label {
   min-width: 0;
   overflow: hidden;
-  color: #d8e0ee;
-  font-size: 11px;
+  color: var(--nav-ink);
+  font-size: 14px;
   font-weight: 600;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -174,8 +170,8 @@ button {
 
 .nav-section {
   margin: 10px 10px 7px;
-  color: #72809a;
-  font-size: 9px;
+  color: var(--nav-muted);
+  font-size: 14px;
   font-weight: 750;
   letter-spacing: 0.13em;
   text-transform: uppercase;
@@ -199,8 +195,8 @@ button {
   gap: 12px;
   padding: 0 12px;
   border-radius: 10px;
-  color: #aab6c9;
-  font-size: 12px;
+  color: var(--nav-muted);
+  font-size: 16px;
   font-weight: 570;
   transition:
     color 150ms ease,
@@ -214,8 +210,8 @@ button {
 }
 
 .nav-link[aria-current="page"] {
-  background: linear-gradient(90deg, rgb(73 111 226 / 26%), rgb(73 111 226 / 13%));
-  color: #f7f9ff;
+  background: linear-gradient(90deg, rgb(37 99 235 / 24%), rgb(20 184 166 / 8%));
+  color: var(--nav-ink);
 }
 
 .nav-link[aria-current="page"]::before {
@@ -223,19 +219,40 @@ button {
   inset: 9px auto 9px 0;
   width: 3px;
   border-radius: 0 4px 4px 0;
-  background: #86a4ff;
+  background: linear-gradient(180deg, var(--teal-accent), var(--electric-blue));
   content: "";
 }
 
 .nav-link[aria-disabled="true"] {
-  color: #69768c;
+  color: color-mix(in srgb, var(--nav-muted) 65%, var(--nav));
   cursor: not-allowed;
 }
 
 .nav-link-label {
+  position: relative;
+  display: inline-block;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.nav-link-label::after {
+  position: absolute;
+  right: 0;
+  bottom: -3px;
+  left: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--teal-accent), var(--electric-blue), var(--purple-accent));
+  content: "";
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 180ms ease;
+}
+
+.nav-link:hover .nav-link-label::after,
+.nav-link[aria-current="page"] .nav-link-label::after {
+  transform: scaleX(1);
 }
 
 .nav-icon {
@@ -258,7 +275,8 @@ button {
   border: 0;
   border-radius: 10px;
   background: transparent;
-  color: #aab6c9;
+  color: var(--nav-muted);
+  font-size: 16px;
   text-align: left;
 }
 
@@ -327,7 +345,7 @@ button {
 .breadcrumb {
   margin-bottom: 2px;
   color: var(--muted);
-  font-size: 10px;
+  font-size: 14px;
   letter-spacing: 0.02em;
 }
 
@@ -335,7 +353,7 @@ button {
   overflow: hidden;
   margin: 0;
   color: var(--ink);
-  font-size: 16px;
+  font-size: 17px;
   font-weight: 680;
   letter-spacing: -0.02em;
   text-overflow: ellipsis;
@@ -353,7 +371,7 @@ button {
   border-radius: 9px;
   background: var(--surface);
   color: var(--ink-soft);
-  font-size: 11px;
+  font-size: 15px;
 }
 
 .icon-button {
@@ -415,7 +433,7 @@ button {
   border-radius: 10px;
   background: var(--brand-soft);
   color: var(--brand-strong);
-  font-size: 11px;
+  font-size: 14px;
   font-weight: 750;
   text-transform: uppercase;
 }
@@ -427,14 +445,14 @@ button {
 
 .profile-name {
   color: var(--ink);
-  font-size: 11px;
+  font-size: 15px;
   font-weight: 650;
 }
 
 .profile-role {
   margin-top: 4px;
   color: var(--muted);
-  font-size: 9px;
+  font-size: 14px;
   text-transform: capitalize;
 }
 
@@ -461,7 +479,7 @@ button {
   border-radius: 8px;
   background: transparent;
   color: var(--ink-soft);
-  font-size: 12px;
+  font-size: 16px;
   text-align: left;
 }
 
@@ -594,7 +612,7 @@ button {
   }
 
   .topbar-title {
-    font-size: 14px;
+    font-size: 17px;
   }
 
   .run-select {

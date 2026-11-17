@@ -64,7 +64,7 @@ export function OverviewPage() {
   const kpiCards = [
     { key: "forecast_accuracy", icon: ChartNoAxesCombined, tone: "brand" as const },
     { key: "fill_rate", icon: PackageCheck, tone: "teal" as const },
-    { key: "stock_out", icon: AlertTriangle, tone: "amber" as const },
+    { key: "stock_out", icon: AlertTriangle, tone: "violet" as const },
     { key: "critical_availability", icon: Gauge, tone: "rose" as const },
   ];
   const trend = useMemo(() => {
@@ -96,7 +96,7 @@ export function OverviewPage() {
   if (runsError) {
     return (
       <>
-        <PageHeader eyebrow="NOVA WORKSPACE" title="Overview" description="A decision-ready view of saved forecast, schedule, inventory, and warning evidence." />
+        <PageHeader eyebrow="SPARECAST WORKSPACE" title="Overview" description="A decision-ready view of saved forecast, schedule, inventory, and warning evidence." />
         <StateCard kind="error" title="Run history unavailable" description={runsError} />
       </>
     );
@@ -104,7 +104,7 @@ export function OverviewPage() {
   if (!isReady || runsLoading) {
     return (
       <>
-        <PageHeader eyebrow="NOVA WORKSPACE" title="Overview" description="A decision-ready view of saved forecast, schedule, inventory, and warning evidence." />
+        <PageHeader eyebrow="SPARECAST WORKSPACE" title="Overview" description="A decision-ready view of saved forecast, schedule, inventory, and warning evidence." />
         <div className="loading-grid"><div className="skeleton skeleton-block" /></div>
       </>
     );
@@ -112,7 +112,7 @@ export function OverviewPage() {
   if (!currentRun) {
     return (
       <>
-        <PageHeader eyebrow="NOVA WORKSPACE" title="Overview" description="A decision-ready view of saved forecast, schedule, inventory, and warning evidence." />
+        <PageHeader eyebrow="SPARECAST WORKSPACE" title="Overview" description="A decision-ready view of saved forecast, schedule, inventory, and warning evidence." />
         <StateCard title="No registered planning run" description="An administrator must register a versioned result set. No dashboard metrics are mocked or inferred." action={<Link className="button button-secondary" to="/runs">Open run history</Link>} />
       </>
     );
@@ -120,21 +120,23 @@ export function OverviewPage() {
 
   return (
     <>
-      <PageHeader
-        eyebrow="Planning overview"
-        title="Good morning, planner"
-        description="A traceable snapshot of saved forecast, schedule, inventory, and warning evidence."
-        actions={<Link className="button button-secondary" to="/runs">Run details <ArrowUpRight size={14} /></Link>}
-      />
-      <InlineNotice tone="warning" icon={AlertTriangle}>
-        Method validated on simulated data. Phase 5 remains PARTIAL; this future schedule is provisional and is not an operational commitment.
-      </InlineNotice>
-      <div className="overview-runline">
-        <span><span className="runline-dot" /> Selected run <strong>{currentRun.run_id.slice(0, 8)}</strong></span>
-        <span>Model <strong>{currentRun.model_version}</strong></span>
-        <span>Policy <strong>{currentRun.scheduling_policy}</strong></span>
-        <StatusBadge status={currentRun.status} />
-      </div>
+      <section className="overview-hero" aria-label="Planning summary">
+        <PageHeader
+          eyebrow="Planning overview"
+          title="Good morning, planner"
+          description="A traceable snapshot of saved forecast, schedule, inventory, and warning evidence."
+          actions={<Link className="button button-secondary" to="/runs">Run details <ArrowUpRight size={14} /></Link>}
+        />
+        <InlineNotice tone="warning" icon={AlertTriangle}>
+          Method validated on simulated data. Phase 5 remains PARTIAL; this future schedule is provisional and is not an operational commitment.
+        </InlineNotice>
+        <div className="overview-runline">
+          <span><span className="runline-dot" /> Selected run <strong>{currentRun.run_id.slice(0, 8)}</strong></span>
+          <span>Model <strong>{currentRun.model_version}</strong></span>
+          <span>Policy <strong>{currentRun.scheduling_policy}</strong></span>
+          <StatusBadge status={currentRun.status} />
+        </div>
+      </section>
 
       <section className="metric-grid overview-metrics" aria-label="Run KPI summary">
         {kpisLoading
@@ -160,104 +162,108 @@ export function OverviewPage() {
       </section>
 
       <div className="overview-grid">
-        <Panel
-          title="Saved demand signal"
-          description="Forecast quantities as stored for the selected part. No actuals are available on this future horizon."
-          action={
-            <label className="compact-select-label">
-              <span className="sr-only">Forecast part</span>
-              <select
-                value={selectedPartId}
-                onChange={(event) => setSelectedPartId(event.target.value)}
-                disabled={!forecastPage?.results.length}
-              >
-                {[...new Set((forecastPage?.results ?? []).map((row) => row.part_id))].map((partId) => (
-                  <option value={partId} key={partId}>{partId}</option>
-                ))}
-              </select>
-            </label>
-          }
-          className="overview-forecast"
-        >
-          {forecastLoading || selectedForecastLoading
-            ? <div className="skeleton skeleton-chart" />
-            : forecastError || selectedForecastError
-              ? <StateCard kind="error" title="Forecast series unavailable" description={forecastError ?? selectedForecastError ?? "The forecast result could not be loaded."} />
-              : !forecastPage?.results.length || !trend.data.length
-                ? <StateCard title="No forecast rows saved" description="This run does not include forecast rows for display." icon={ChartNoAxesCombined} />
-                : <LineTrend data={trend.data} series={trend.series} valueLabel="units" />}
-          {forecastPage && (
-            <div className="panel-footnote">
-              {forecastPage.total.toLocaleString("en-IN")} forecast rows · {selectedPartId || "Part not selected"} · saved result v{forecastPage.result_version}
-            </div>
-          )}
-        </Panel>
+        <div className="overview-column">
+          <Panel
+            title="Saved demand signal"
+            description="Forecast quantities as stored for the selected part. No actuals are available on this future horizon."
+            action={
+              <label className="compact-select-label">
+                <span className="sr-only">Forecast part</span>
+                <select
+                  value={selectedPartId}
+                  onChange={(event) => setSelectedPartId(event.target.value)}
+                  disabled={!forecastPage?.results.length}
+                >
+                  {[...new Set((forecastPage?.results ?? []).map((row) => row.part_id))].map((partId) => (
+                    <option value={partId} key={partId}>{partId}</option>
+                  ))}
+                </select>
+              </label>
+            }
+            className="overview-forecast"
+          >
+            {forecastLoading || selectedForecastLoading
+              ? <div className="skeleton skeleton-chart" />
+              : forecastError || selectedForecastError
+                ? <StateCard kind="error" title="Forecast series unavailable" description={forecastError ?? selectedForecastError ?? "The forecast result could not be loaded."} />
+                : !forecastPage?.results.length || !trend.data.length
+                  ? <StateCard title="No forecast rows saved" description="This run does not include forecast rows for display." icon={ChartNoAxesCombined} />
+                  : <LineTrend data={trend.data} series={trend.series} valueLabel="units" />}
+            {forecastPage && (
+              <div className="panel-footnote">
+                {forecastPage.total.toLocaleString("en-IN")} forecast rows · {selectedPartId || "Part not selected"} · saved result v{forecastPage.result_version}
+              </div>
+            )}
+          </Panel>
 
-        <Panel title="Schedule status" description="Counts from saved order rows; firm and unresolved are kept distinct.">
-          {!firmTotal && !unresolvedTotal
-            ? <div className="mini-stat-list"><div className="mini-stat"><span>Firm rows</span><strong>Not measurable</strong></div><div className="mini-stat"><span>Unresolved rows</span><strong>Not measurable</strong></div></div>
-            : (() => {
-                const firm = firmTotal?.total ?? 0;
-                const unresolved = unresolvedTotal?.total ?? 0;
-                const total = firm + unresolved;
-                return (
-                  <>
-                    <div className="schedule-status-visual" aria-label={`${firm} firm rows and ${unresolved} unresolved rows`}>
-                      <span className="schedule-status-firm" style={{ width: `${total ? firm / total * 100 : 0}%` }} />
-                      <span className="schedule-status-unresolved" style={{ width: `${total ? unresolved / total * 100 : 0}%` }} />
-                    </div>
-                    <div className="mini-stat-list">
-                      <div className="mini-stat"><span><i className="legend-dot status-firm-dot" />Firm orders</span><strong>{formatNumber(firm)}</strong></div>
-                      <div className="mini-stat"><span><i className="legend-dot status-unresolved-dot" />Unresolved orders</span><strong>{formatNumber(unresolved)}</strong></div>
-                    </div>
-                    <Link className="panel-inline-link" to="/schedule">Inspect order paths <ArrowUpRight size={13} /></Link>
-                  </>
-                );
-              })()}
-          <div className="panel-footnote">Counts reflect saved status rows only; they are not a service-level or feasibility KPI.</div>
-        </Panel>
+          <Panel title="Recent governance activity" description="Append-only audit records for this workspace." action={<Link className="panel-text-link" to="/audit">Open audit trail</Link>} className="overview-audit">
+            {auditLoading
+              ? <div className="skeleton skeleton-block" />
+              : auditError
+                ? <div className="section-error" role="alert">{auditError}</div>
+                : !auditPage?.results.length
+                  ? <div className="mini-empty"><Activity size={17} /><span>No audit records are registered.</span></div>
+                  : <div className="activity-list">
+                      {auditPage.results.slice(0, 4).map((record) => (
+                        <article className="activity-row" key={record.audit_id}>
+                          <span className="activity-icon"><Activity size={14} /></span>
+                          <div className="activity-copy">
+                            <strong>{record.action.replaceAll("_", " ")}</strong>
+                            <span>{record.actor.username} · {formatDate(record.created_at)}</span>
+                          </div>
+                          <code>{record.record_hash.slice(0, 9)}</code>
+                        </article>
+                      ))}
+                    </div>}
+          </Panel>
+        </div>
 
-        <Panel title="Warnings requiring attention" description="Latest saved warning records across registered runs." action={<Link className="panel-text-link" to="/inventory">View inventory</Link>}>
-          {warningsLoading
-            ? <div className="skeleton skeleton-block" />
-            : warningsError
-              ? <div className="section-error" role="alert">{warningsError}</div>
-              : !warningPage?.results.length
-                ? <div className="mini-empty"><AlertTriangle size={17} /><span>No warning records are registered.</span></div>
-                : <div className="warning-list">
-                    {warningPage.results.slice(0, 4).map((warning) => (
-                      <article className="warning-row" key={warning.id}>
-                        <StatusBadge status={warning.severity} />
-                        <div className="warning-copy">
-                          <strong>{warning.code.replaceAll("_", " ")}</strong>
-                          <span>{warning.part_id ? `Part ${warning.part_id}` : "Run-level warning"}{warning.week ? ` · ${warning.week}` : ""}</span>
-                        </div>
-                        <span className="warning-date">{formatDate(warning.created_at)}</span>
-                      </article>
-                    ))}
-                  </div>}
-        </Panel>
+        <div className="overview-column">
+          <Panel title="Schedule status" description="Counts from saved order rows; firm and unresolved are kept distinct." className="overview-schedule">
+            {!firmTotal && !unresolvedTotal
+              ? <div className="mini-stat-list"><div className="mini-stat"><span>Firm rows</span><strong>Not measurable</strong></div><div className="mini-stat"><span>Unresolved rows</span><strong>Not measurable</strong></div></div>
+              : (() => {
+                  const firm = firmTotal?.total ?? 0;
+                  const unresolved = unresolvedTotal?.total ?? 0;
+                  const total = firm + unresolved;
+                  return (
+                    <>
+                      <div className="schedule-status-visual" aria-label={`${firm} firm rows and ${unresolved} unresolved rows`}>
+                        <span className="schedule-status-firm" style={{ width: `${total ? firm / total * 100 : 0}%` }} />
+                        <span className="schedule-status-unresolved" style={{ width: `${total ? unresolved / total * 100 : 0}%` }} />
+                      </div>
+                      <div className="mini-stat-list">
+                        <div className="mini-stat"><span><i className="legend-dot status-firm-dot" />Firm orders</span><strong>{formatNumber(firm)}</strong></div>
+                        <div className="mini-stat"><span><i className="legend-dot status-unresolved-dot" />Unresolved orders</span><strong>{formatNumber(unresolved)}</strong></div>
+                      </div>
+                      <Link className="panel-inline-link" to="/schedule">Inspect order paths <ArrowUpRight size={13} /></Link>
+                    </>
+                  );
+                })()}
+            <div className="panel-footnote">Counts reflect saved status rows only; they are not a service-level or feasibility KPI.</div>
+          </Panel>
 
-        <Panel title="Recent governance activity" description="Append-only audit records for this workspace." action={<Link className="panel-text-link" to="/audit">Open audit trail</Link>}>
-          {auditLoading
-            ? <div className="skeleton skeleton-block" />
-            : auditError
-              ? <div className="section-error" role="alert">{auditError}</div>
-              : !auditPage?.results.length
-                ? <div className="mini-empty"><Activity size={17} /><span>No audit records are registered.</span></div>
-                : <div className="activity-list">
-                    {auditPage.results.slice(0, 4).map((record) => (
-                      <article className="activity-row" key={record.audit_id}>
-                        <span className="activity-icon"><Activity size={14} /></span>
-                        <div className="activity-copy">
-                          <strong>{record.action.replaceAll("_", " ")}</strong>
-                          <span>{record.actor.username} · {formatDate(record.created_at)}</span>
-                        </div>
-                        <code>{record.record_hash.slice(0, 9)}</code>
-                      </article>
-                    ))}
-                  </div>}
-        </Panel>
+          <Panel title="Warnings requiring attention" description="Latest saved warning records across registered runs." action={<Link className="panel-text-link" to="/inventory">View inventory</Link>} className="overview-warnings">
+            {warningsLoading
+              ? <div className="skeleton skeleton-block" />
+              : warningsError
+                ? <div className="section-error" role="alert">{warningsError}</div>
+                : !warningPage?.results.length
+                  ? <div className="mini-empty"><AlertTriangle size={17} /><span>No warning records are registered.</span></div>
+                  : <div className="warning-list">
+                      {warningPage.results.slice(0, 4).map((warning) => (
+                        <article className="warning-row" key={warning.id}>
+                          <StatusBadge status={warning.severity} />
+                          <div className="warning-copy">
+                            <strong>{warning.code.replaceAll("_", " ")}</strong>
+                            <span>{warning.part_id ? `Part ${warning.part_id}` : "Run-level warning"}{warning.week ? ` · ${warning.week}` : ""}</span>
+                          </div>
+                          <span className="warning-date">{formatDate(warning.created_at)}</span>
+                        </article>
+                      ))}
+                    </div>}
+          </Panel>
+        </div>
       </div>
     </>
   );

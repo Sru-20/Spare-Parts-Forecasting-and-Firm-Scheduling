@@ -95,7 +95,7 @@ interface MetricCardProps {
   source?: string;
   icon: LucideIcon;
   trend?: MetricTrend;
-  tone?: "brand" | "teal" | "amber" | "rose";
+  tone?: "brand" | "teal" | "violet" | "rose";
 }
 
 export function MetricCard({

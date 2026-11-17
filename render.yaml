@@ -1,0 +1,35 @@
+services:
+  - type: web
+    name: sparecast-api
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements-render.txt
+    startCommand: bash scripts/render-start.sh
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.10.9"
+      - key: DJANGO_SECRET_KEY
+        generateValue: true
+      - key: DJANGO_DEBUG
+        value: "false"
+      - key: DJANGO_CORS_ALLOWED_ORIGINS
+        value: https://sparecast-web.onrender.com
+      - key: SPARECAST_ADMIN_USERNAME
+        sync: false
+      - key: SPARECAST_ADMIN_EMAIL
+        sync: false
+      - key: SPARECAST_ADMIN_PASSWORD
+        sync: false
+
+  - type: web
+    name: sparecast-web
+    runtime: static
+    buildCommand: cd frontend && npm ci && npm run build
+    staticPublishPath: frontend/dist
+    envVars:
+      - key: VITE_API_BASE_URL
+        value: https://sparecast-api.onrender.com/api/v1
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
